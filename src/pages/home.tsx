@@ -1,14 +1,19 @@
-import {Header} from "../components";
-import ProblemIcon from '../assets/icons/problem.png';
-import QuestIcon from '../assets/icons/quest.png';
+import {Button, Header} from "../components";
+import {ButtonSize, ButtonType} from "../types/component.ts";
 // import CommunityIcon from '../assets/icons/community.png';
 
 const PageHome = () => {
     return (
         <>
             <Header>
-                <Header.NavItem name={'문제'} href={'/'} icon={ProblemIcon} />
-                <Header.NavItem name={'퀘스트'} href={'/'} icon={QuestIcon} />
+                <div style={{ gap: '5px' }}>
+                    <Button onClick={() => {}} size={ButtonSize.Small} type={ButtonType.White}>
+                    로그인
+                    </Button>
+                    <Button onClick={() => {}} size={ButtonSize.Small} type={ButtonType.Primary}>
+                        가입하기
+                    </Button>
+                </div>
             </Header>
             Hello, World!
         </>
