@@ -4,11 +4,11 @@ import { IoSearchSharp } from "react-icons/io5";
 const SearchBar = () => {
     return (
         <>
+            <IoSearchSharp className={style.icon}/>
             <input
                 className={style.container}
                 placeholder={'문제 검색하기'}
             />
-            <IoSearchSharp className={style.icon}/>
         </>
     )
 };
