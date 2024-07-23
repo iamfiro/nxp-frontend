@@ -24,4 +24,14 @@
         padding: 8px 13px;
         border-radius: var(--radius-s);
     }
+
+    &[data-btn-size="medium"] {
+        padding: 10px 15px;
+        border-radius: var(--radius-m);
+    }
+
+    &[data-btn-size="large"] {
+        padding: 12px 17px;
+        border-radius: var(--radius-l);
+    }
 }
