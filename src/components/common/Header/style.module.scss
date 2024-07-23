@@ -28,7 +28,7 @@
 }
 
 .right {
-    gap: 15px;
+    gap: 25px;
 }
 
 .logoContainer {
@@ -42,5 +42,36 @@
     .logo {
         width: 25px;
         height: 25px;
+    }
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+
+    text-decoration: none;
+
+    gap: 8px;
+
+    color: var(--color-gray-200);
+
+    &:hover {
+        color: var(--color-gray-500);
+
+        img {
+            opacity: 1;
+        }
+    }
+
+    img {
+        width: 18px;
+        height: 18px;
+
+        opacity: 0.6;
+    }
+
+    span {
+        font-size: 15px;
+        font-weight: 500;
     }
 }

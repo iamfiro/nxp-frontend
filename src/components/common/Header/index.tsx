@@ -25,4 +25,21 @@ const Header = ({ children }: HeaderProps) => {
     );
 }
 
+interface NavItemProps {
+    icon: string
+    href: string
+    name: string
+}
+
+const NavItem = ({ icon, href, name }: NavItemProps ) => {
+    return (
+        <a href={href} className={style.navItem}>
+            <img src={icon} alt={name}/>
+            <span>{name}</span>
+        </a>
+    )
+}
+
+Header.NavItem = NavItem;
+
 export default Header;
