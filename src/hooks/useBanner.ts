@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 // import axios from 'axios';
 
 interface Banner {
-  id: number;
-  imageUrl: string;
-  link: string;
-  title: string;
-  category: string;
+      imageUrl: string;
+      link: string;
+      title: string;
+      category: string;
+      backgroundColor: string;
 }
 
 /**
