@@ -21,6 +21,7 @@
     "@vitejs/plugin-react-swc": "^3.5.0",
     "cypress": "^13.13.1",
     "eslint": "^8.57.0",
+    "eslint-plugin-cypress": "^3.3.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
     "typescript": "^5.2.2",
