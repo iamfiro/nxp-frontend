@@ -1,5 +1,6 @@
 import {Button, Header} from "../components";
 import {ButtonSize, ButtonType} from "../types/component.ts";
+import Banner from "../components/Banner";
 // import CommunityIcon from '../assets/icons/community.png';
 
 const PageHome = () => {
@@ -15,6 +16,7 @@ const PageHome = () => {
                     </Button>
                 </div>
             </Header>
+            <Banner />
             Hello, World!
         </>
     )
