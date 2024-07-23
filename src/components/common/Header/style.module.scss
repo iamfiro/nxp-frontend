@@ -4,6 +4,10 @@
 }
 
 .content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
     max-width: var(--max-width);
     height: 100%;
 
@@ -21,6 +25,10 @@
 
 .left {
     gap: 20px;
+}
+
+.right {
+    gap: 15px;
 }
 
 .logoContainer {
