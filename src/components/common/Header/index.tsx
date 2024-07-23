@@ -42,13 +42,6 @@ const NavItem = ({ icon, href, name }: NavItemProps ) => {
     )
 }
 
-const Divider = () => {
-    return (
-        <div className={style.divider} />
-    )
-}
-
-Header.Divider = Divider;
 Header.NavItem = NavItem;
 
 export default Header;
