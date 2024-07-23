@@ -1,6 +1,7 @@
 import style from './style.module.scss';
 import Logo from '../../../assets/logo.svg';
-import SearchBar from "../SearchBar";
+import ProblemIcon from "../../../assets/icons/problem.png";
+import QuestIcon from "../../../assets/icons/quest.png";
 
 interface HeaderProps {
     children: React.ReactNode;
@@ -15,7 +16,8 @@ const Header = ({ children }: HeaderProps) => {
                         <img src={Logo} alt="NXP Logo" className={style.logo}/>
                         <span>NXP</span>
                     </div>
-                    <SearchBar/>
+                    <Header.NavItem name={'문제'} href={'/'} icon={ProblemIcon} />
+                    <Header.NavItem name={'퀘스트'} href={'/'} icon={QuestIcon} />
                 </div>
                 <div className={style.right}>
                     {children}
@@ -40,6 +42,13 @@ const NavItem = ({ icon, href, name }: NavItemProps ) => {
     )
 }
 
+const Divider = () => {
+    return (
+        <div className={style.divider} />
+    )
+}
+
+Header.Divider = Divider;
 Header.NavItem = NavItem;
 
 export default Header;
