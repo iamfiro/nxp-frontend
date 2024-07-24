@@ -1,4 +1,4 @@
-import {Banner, Button, Header} from "../components";
+import {Banner, Button, Header, SearchBar} from "../components";
 import {ButtonSize, ButtonType} from "../types/component.ts";
 import style from '../styles/pages/home.module.scss';
 
@@ -17,10 +17,10 @@ const PageHome = () => {
             </Header>
             <Banner />
             <div className={style.problemContainer}>
-                <section>
-
+                <section className={style.problemLeft}>
+                    <SearchBar />
                 </section>
-                <section>
+                <section className={style.problemRight}>
 
                 </section>
             </div>

@@ -1,0 +1,24 @@
+.problemContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+
+    max-width: var(--max-width);
+
+    margin: 0 auto;
+    padding: 60px 20px 0 20px;
+}
+
+.problemLeft {
+    display: flex;
+    gap: 10px;
+
+    width: 100%;
+}
+
+.problemRight {
+    width: 600px;
+
+    background-color: red;
+}
