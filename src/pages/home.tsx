@@ -1,7 +1,6 @@
-import {Button, Header} from "../components";
+import {Banner, Button, Header} from "../components";
 import {ButtonSize, ButtonType} from "../types/component.ts";
-import Banner from "../components/Banner";
-// import CommunityIcon from '../assets/icons/community.png';
+import style from '../styles/pages/home.module.scss';
 
 const PageHome = () => {
     return (
@@ -17,6 +16,14 @@ const PageHome = () => {
                 </div>
             </Header>
             <Banner />
+            <div className={style.problemContainer}>
+                <section>
+
+                </section>
+                <section>
+
+                </section>
+            </div>
             Hello, World!
         </>
     )
