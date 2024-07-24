@@ -1,7 +1,8 @@
 import style from './style.module.scss';
 import Logo from '../../../assets/logo.svg';
 import ProblemIcon from "../../../assets/icons/problem.png";
-import QuestIcon from "../../../assets/icons/quest.png";
+import CommunityIcon from "../../../assets/icons/community.png";
+import TrophyIcon from "../../../assets/icons/trophy.png";
 
 interface HeaderProps {
     children: React.ReactNode;
@@ -17,7 +18,8 @@ const Header = ({ children }: HeaderProps) => {
                         <span>NXP</span>
                     </div>
                     <Header.NavItem name={'문제'} href={'/'} icon={ProblemIcon} />
-                    <Header.NavItem name={'퀘스트'} href={'/'} icon={QuestIcon} />
+                    <Header.NavItem name={'랭킹'} href={'/'} icon={TrophyIcon} />
+                    <Header.NavItem name={'커뮤니티'} href={'/'} icon={CommunityIcon} />
                 </div>
                 <div className={style.right}>
                     {children}
