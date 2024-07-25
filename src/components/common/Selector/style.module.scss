@@ -1,0 +1,25 @@
+.select {
+    background-color: var(--color-gray-030);
+
+    border: 0;
+    border-radius: var(--radius-ss  );
+
+    padding: 10px 35px 10px 15px;
+
+    font-size: 16px;
+
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+
+    background-image: url('./icon/arrow.png');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 8px;
+
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+}
