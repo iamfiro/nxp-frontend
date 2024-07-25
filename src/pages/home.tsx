@@ -1,21 +1,12 @@
-import {Banner, Button, Column, DailyQuest, Header, ProblemTable, Row, SearchBar, Selector} from "../components";
-import {ButtonSize, ButtonType} from "../types/component.ts";
+import {Banner, Column, DailyQuest, ProblemTable, Row, SearchBar, Selector} from "../components";
 import style from '../styles/pages/home.module.scss';
 import {OptionsLanguage, OptionsLevel, OptionsSort} from "../constant/select.ts";
+import TemplateHeader from "../template/header.tsx";
 
 const PageHome = () => {
     return (
         <>
-            <Header>
-                <div style={{ gap: '5px' }}>
-                    <Button onClick={() => {}} size={ButtonSize.Small} type={ButtonType.White}>
-                    로그인
-                    </Button>
-                    <Button onClick={() => {}} size={ButtonSize.Small} type={ButtonType.Primary}>
-                        가입하기
-                    </Button>
-                </div>
-            </Header>
+			<TemplateHeader />
             <Banner />
             <div className={style.problemContainer}>
                 <Column className={style.problemLeft}>
