@@ -1,0 +1,57 @@
+// src/CompanyTable.scss
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th:first-child, td:first-child {
+        border-radius: var(--radius-ss) 0 0 var(--radius-ss);
+    }
+
+    th:last-child {
+         border-radius: 0 var(--radius-ss) var(--radius-ss) 0;
+    }
+
+    th {
+        background-color: #f4f4f4;
+        color: var(--color-gray-400);
+
+        font-weight: 500;
+
+        padding: 10px 15px;
+
+        text-align: center;
+    }
+
+    td {
+        text-align: center;
+
+        height: 60px;
+
+        &:nth-child(2) {
+            text-align: left;
+        }
+    }
+}
+
+.dataContainer {
+    border-radius: 10px;
+
+    border-bottom: 1px solid var(--color-border);
+
+    &:hover {
+        background-color: var(--color-gray-020);
+
+        cursor: pointer;
+    }
+}
+
+.level {
+    font-weight: 700;
+
+    width: 90px;
+}
+
+.solved, .submit, .ratio {
+    width: 110px;
+}

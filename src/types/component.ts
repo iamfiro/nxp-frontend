@@ -9,3 +9,15 @@ export enum ButtonType {
     Black = 'black',
     White = 'white',
 }
+
+export interface OptionType {
+    value: string;
+    label: string;
+}
+
+export interface ProblemType {
+    level: number;
+    title: string;
+    solved: number;
+    ratio: number;
+}
