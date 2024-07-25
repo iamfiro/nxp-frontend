@@ -23,7 +23,7 @@ describe('<SearchBar /> 컴포넌트 테스트', () => {
     it('아이콘 위치 및 색상 확인', () => {
         cy.get(`.${style.searchIcon}`)
             .should('have.css', 'color', 'rgb(158, 158, 158)') // var(--color-gray-400)의 예상 RGB 값
-            .and('have.css', 'margin', '-40px 0px 40px 18px');
+            .and('have.css', 'margin', '-40px 0px 25px 18px');
     });
 
     it('placeholder 텍스트 색상 확인', () => {
