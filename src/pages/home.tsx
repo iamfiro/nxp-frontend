@@ -1,4 +1,4 @@
-import {Banner, Button, Column, Header, ProblemTable, Row, SearchBar, Selector} from "../components";
+import {Banner, Button, Column, DailyQuest, Header, ProblemTable, Row, SearchBar, Selector} from "../components";
 import {ButtonSize, ButtonType} from "../types/component.ts";
 import style from '../styles/pages/home.module.scss';
 import {OptionsLanguage, OptionsLevel, OptionsSort} from "../constant/select.ts";
@@ -47,9 +47,9 @@ const PageHome = () => {
                         },
                     ]} />
                 </Column>
-                <section className={style.problemRight}>
-
-                </section>
+                <Column className={style.problemRight}>
+					<DailyQuest />
+                </Column>
             </div>
             Hello, World!
         </>
