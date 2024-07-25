@@ -14,3 +14,10 @@ export interface OptionType {
     value: string;
     label: string;
 }
+
+export interface ProblemType {
+    level: number;
+    title: string;
+    solved: number;
+    ratio: number;
+}
