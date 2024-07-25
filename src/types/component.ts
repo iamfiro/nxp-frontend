@@ -9,3 +9,8 @@ export enum ButtonType {
     Black = 'black',
     White = 'white',
 }
+
+export interface OptionType {
+    value: string;
+    label: string;
+}
