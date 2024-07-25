@@ -48,7 +48,19 @@ const PageHome = () => {
                     ]} />
                 </Column>
                 <Column className={style.problemRight}>
-					<DailyQuest />
+					<DailyQuest>
+						<DailyQuest.Problem
+							level={1}
+							title="가장 많이 받은 선물"
+							ratio={53}
+						/>
+						<DailyQuest.Problem
+							level={1}
+							title="가장 많이 받은 선물"
+							ratio={53}
+							solved
+						/>
+					</DailyQuest>
                 </Column>
             </div>
             Hello, World!

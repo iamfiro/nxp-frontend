@@ -4,7 +4,7 @@ import DailyIcon from '../../assets/icons/daily.png';
 import 'react-circular-progressbar/dist/styles.css';
 import {CircularProgressbar} from "react-circular-progressbar";
 import {levelToTextColor} from "../../lib/color.ts";
-import { FaCheckCircle } from "react-icons/fa";
+import {FaCheckCircle} from "react-icons/fa";
 
 const progressStyles = {
 	root: {
@@ -18,7 +18,7 @@ const progressStyles = {
 	}
 }
 
-const DailyQuest = ()=> {
+const DailyQuest = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<Column className={style.container}>
 			<Row style={{ justifyContent: 'space-between' }}>
@@ -36,17 +36,7 @@ const DailyQuest = ()=> {
 				</Row>
 			</Row>
 			<Column className={style.problemContainer} style={{ gap: '8px' }}>
-				<DailyQuest.Problem
-					level={1}
-					title="가장 많이 받은 선물"
-					ratio={53}
-				/>
-				<DailyQuest.Problem
-					level={1}
-					title="가장 많이 받은 선물"
-					ratio={53}
-					solved={true}
-				/>
+				{children}
 			</Column>
 		</Column>
 	)
