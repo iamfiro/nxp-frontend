@@ -1,6 +1,14 @@
-import {Banner, Button, Header, SearchBar} from "../components";
-import {ButtonSize, ButtonType} from "../types/component.ts";
+import {Banner, Button, Column, Header, Row, SearchBar, Selector} from "../components";
+import {ButtonSize, ButtonType, OptionType} from "../types/component.ts";
 import style from '../styles/pages/home.module.scss';
+
+const category: OptionType[] = [
+    {
+        label: '전체',
+        value: 'all'
+    }
+]
+
 
 const PageHome = () => {
     return (
@@ -17,9 +25,12 @@ const PageHome = () => {
             </Header>
             <Banner />
             <div className={style.problemContainer}>
-                <section className={style.problemLeft}>
+                <Column className={style.problemLeft}>
                     <SearchBar />
-                </section>
+                    <Row>
+
+                    </Row>
+                </Column>
                 <section className={style.problemRight}>
 
                 </section>
