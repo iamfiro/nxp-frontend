@@ -19,7 +19,7 @@ const PageHome = () => {
             <Banner />
             <div className={style.problemContainer}>
                 <Column className={style.problemLeft}>
-                    <SearchBar />
+                    <SearchBar placeholder="문제의 제목이나 내용을 입력하세요" />
                     <Row style={{ gap: '10px' }}>
                         <Selector options={OptionsLevel} onChange={() => {}} styles={{ minWidth: '130px'}} />
                         <Selector options={OptionsLanguage} onChange={() => {}} styles={{ minWidth: '180px'}} />
