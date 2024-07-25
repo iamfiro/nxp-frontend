@@ -9,6 +9,7 @@ const Row = ({ children, className, style }: RowProps) => {
         {
             display: 'flex',
             flexDirection: 'row',
+			alignItems: 'center',
             ...style
         }
     }>{children}</div>;
