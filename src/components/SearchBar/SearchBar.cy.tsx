@@ -4,7 +4,7 @@ import {mount} from "cypress/react18";
 
 describe('<SearchBar /> 컴포넌트 테스트', () => {
     beforeEach(() => {
-        mount(<SearchBar />);
+        mount(<SearchBar placeholder={"문제의 제목이나 내용을 입력하세요"} />);
     });
 
     it('SearchBar 컴포넌트가 렌더링되는지 확인', () => {
