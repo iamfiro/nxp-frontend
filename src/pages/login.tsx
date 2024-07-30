@@ -45,6 +45,14 @@ const PageLogin = () => {
 			<AuthForm.Submit onClick={() => handleLogin()}>
 				로그인
 			</AuthForm.Submit>
+			<Row style={{width: '100%', justifyContent: 'space-between', marginTop: '15px'}}>
+				<a href={'/register'} style={{ fontSize: '14px', color: 'var(--color-gray-500)'}}>
+					회원가입
+				</a>
+				<a href={'/passwordreset'} style={{ fontSize: '14px', color: 'var(--color-gray-500)'}}>
+					비밀번호를 잊으셨나요?
+				</a>
+			</Row>
 		</AuthForm>
 	)
 }
