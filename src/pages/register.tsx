@@ -11,7 +11,8 @@ const PageRegister = () => {
 		password: '',
 		passwordConfirm: '',
 		phone: {
-			number: ''
+			number: '',
+			isPending: false,
 		}
 	});
 
