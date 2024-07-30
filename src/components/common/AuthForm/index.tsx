@@ -4,6 +4,7 @@ import Row from "../Row";
 import {sanitizeNumericInput} from "../../../lib/validate.ts";
 import {Dispatch, SetStateAction} from "react";
 import {PhoneRegex} from "../../../lib/regex.ts";
+import {IRegister} from "../../../types/auth.ts";
 
 const Title = ({ children }: { children: React.ReactNode }) => {
 	return (
@@ -36,8 +37,8 @@ const Input = ({ placeholder, initialValue, onChange, password }: AuthInputProps
 }
 
 interface AuthPhoneProps extends AuthInputProps {
-	state: string;
-	setState: Dispatch<SetStateAction<string>>;
+	state: IRegister;
+	setState: Dispatch<SetStateAction<IRegister>>;
 }
 
 const Phone = ({ placeholder, initialValue, setState, state }: AuthPhoneProps) => {
@@ -51,7 +52,7 @@ const Phone = ({ placeholder, initialValue, setState, state }: AuthPhoneProps) =
 			const numbersOnly = sanitizeNumericInput(e.target.value);
 
 			if (numbersOnly.length <= 11) {
-				setState(e.target.value);
+				setState({ ...state, phone: { number: numbersOnly } });
 			}
 		} catch (error) {
 			console.error("Error processing input change:", error);
@@ -67,13 +68,13 @@ const Phone = ({ placeholder, initialValue, setState, state }: AuthPhoneProps) =
 					type={'text'}
 					className={style.input}
 					defaultValue={initialValue}
-					value={state}
+					value={state.phone.number}
 					onChange={(e) => {
 						e.target.value = sanitizeNumericInput(e.target.value);
 						handleChange(e);
 					}}
 				/>
-				<button className={style.phoneRequest} disabled={!PhoneRegex.test(state)}>인증번호 전송</button>
+				<button className={style.phoneRequest} disabled={!PhoneRegex.test(state.phone.number)}>인증번호 전송</button>
 			</Row>
 		</>
 	);
