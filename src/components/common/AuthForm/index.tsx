@@ -1,5 +1,9 @@
 import style from './style.module.scss';
 import Column from "../Column";
+import Row from "../Row";
+import {sanitizeNumericInput} from "../../../lib/validate.ts";
+import {Dispatch, SetStateAction} from "react";
+import {PhoneRegex} from "../../../lib/regex.ts";
 
 const Title = ({ children }: { children: React.ReactNode }) => {
 	return (
@@ -31,12 +35,56 @@ const Input = ({ placeholder, initialValue, onChange, password }: AuthInputProps
 	)
 }
 
+interface AuthPhoneProps extends AuthInputProps {
+	state: string;
+	setState: Dispatch<SetStateAction<string>>;
+}
+
+const Phone = ({ placeholder, initialValue, setState, state }: AuthPhoneProps) => {
+	/**
+	 * Handles change events for an input element, ensuring only numeric values are allowed.
+	 *
+	 * @param e - The change event triggered by the input element.
+	 */
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		try {
+			const numbersOnly = sanitizeNumericInput(e.target.value);
+
+			if (numbersOnly.length <= 11) {
+				setState(e.target.value);
+			}
+		} catch (error) {
+			console.error("Error processing input change:", error);
+		}
+	};
+
+	return (
+		<>
+			<Row style={{ gap: '10px' }}>
+				<input
+					required
+					placeholder={placeholder}
+					type={'text'}
+					className={style.input}
+					defaultValue={initialValue}
+					value={state}
+					onChange={(e) => {
+						e.target.value = sanitizeNumericInput(e.target.value);
+						handleChange(e);
+					}}
+				/>
+				<button className={style.phoneRequest} disabled={!PhoneRegex.test(state)}>인증번호 전송</button>
+			</Row>
+		</>
+	);
+}
+
 interface AuthSubmitProps {
 	onClick?: () => void;
 	children: React.ReactNode;
 }
 
-const Submit = ({ onClick, children }: AuthSubmitProps) => {
+const Submit = ({onClick, children}: AuthSubmitProps) => {
 	return (
 		<>
 			<button
@@ -78,5 +126,6 @@ const AuthForm = ({headerComponent, footerComponent, children }: AuthFormProps) 
 AuthForm.Submit = Submit;
 AuthForm.Input = Input;
 AuthForm.Title = Title;
+AuthForm.Phone = Phone;
 
 export default AuthForm;
