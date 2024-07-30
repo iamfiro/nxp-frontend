@@ -5,6 +5,7 @@ import './styles/global.scss';
 
 import PageHome from "./pages/home.tsx";
 import PageLogin from "./pages/login.tsx";
+import PageRegister from "./pages/register.tsx";
 
 const router = createBrowserRouter([
     {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
 	{
 		path: '/login',
 		element: <PageLogin />
+	},
+	{
+		path: '/register',
+		element: <PageRegister />
 	}
 ])
 
