@@ -3,6 +3,7 @@ export interface IRegister {
 	password: string;
 	passwordConfirm: string;
 	phone: {
-		number: string;
+		number?: string;
+		isPending?: boolean;
 	}
 }
