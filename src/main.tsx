@@ -4,7 +4,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import './styles/global.scss';
 
 import PageHome from "./pages/home.tsx";
-ㅈimport PageLogin from "./pages/login.tsx";
+import PageLogin from "./pages/login.tsx";
 
 const router = createBrowserRouter([
     {
