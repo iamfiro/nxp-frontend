@@ -105,7 +105,7 @@
 		background-color: var(--color-primary-dark);
 	}
 
-	&:active {
+	&:active:not(:disabled) {
 		opacity: 0.7;
 	}
 
