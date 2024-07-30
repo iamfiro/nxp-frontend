@@ -58,7 +58,7 @@ const PageRegister = () => {
 				가입하기
 			</AuthForm.Submit>
 			<Row style={{width: '100%', justifyContent: 'space-between', marginTop: '15px'}}>
-				<a href={'/register'} style={{ fontSize: '14px', color: 'var(--color-gray-500)'}}>
+				<a href={'/login'} style={{ fontSize: '14px', color: 'var(--color-gray-500)'}}>
 					로그인
 				</a>
 				<a href={'/passwordreset'} style={{ fontSize: '14px', color: 'var(--color-gray-500)'}}>
