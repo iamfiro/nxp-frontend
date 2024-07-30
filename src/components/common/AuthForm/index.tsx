@@ -5,6 +5,7 @@ import {sanitizeNumericInput} from "../../../lib/validate.ts";
 import {Dispatch, SetStateAction} from "react";
 import {PhoneRegex} from "../../../lib/regex.ts";
 import {IRegister} from "../../../types/auth.ts";
+import {TailSpin} from "react-loader-spinner";
 
 const Title = ({ children }: { children: React.ReactNode }) => {
 	return (
@@ -74,7 +75,22 @@ const Phone = ({ placeholder, initialValue, setState, state }: AuthPhoneProps) =
 						handleChange(e);
 					}}
 				/>
-				<button className={style.phoneRequest} disabled={!PhoneRegex.test(state.phone.number)}>인증번호 전송</button>
+				<button className={style.phoneRequest} disabled={!PhoneRegex.test(state.phone.number || '')} onClick={() => {
+					setState({ ...state, phone: { ...state.phone, isPending: true } });
+				}}>
+					{
+						state.phone.isPending ? (
+							<TailSpin
+								color={'#fff'}
+								strokeWidth={5}
+								height={20}
+								width={20}
+							/>
+						) : (
+							<span>인증번호 전송</span>
+						)
+					}
+				</button>
 			</Row>
 		</>
 	);
