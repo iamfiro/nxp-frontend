@@ -27,6 +27,8 @@ const PageRegister = () => {
 
 		// password와 passwordConfirm이 일치하는지 확인
 
+		// Cloudflare Turnstile 캡챠 추가로, token도 서버에 보내야 함
+
 		// 로그인 성공 시, 메인 페이지로 이동
 		// 서버 통신은 Axios 라이브러리를 사용
 	}
