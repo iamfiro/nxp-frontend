@@ -6,6 +6,7 @@ import './styles/global.scss';
 import PageHome from "./pages/home.tsx";
 import PageLogin from "./pages/login.tsx";
 import PageRegister from "./pages/register.tsx";
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter([
     {
