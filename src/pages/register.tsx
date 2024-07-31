@@ -3,6 +3,7 @@ import {AuthForm, Row} from "../components";
 import {useState} from "react";
 import {IRegister} from "../types/auth.ts";
 import Turnstile from "react-turnstile";
+import {toast} from "react-toastify";
 
 // TODO: 로고 클릭 구현
 
@@ -13,6 +14,7 @@ const PageRegister = () => {
 		passwordConfirm: '',
 		turnstile: {
 			state: 'idle',
+			token: undefined
 		}
 	});
 
@@ -66,11 +68,16 @@ const PageRegister = () => {
 				onLoad={(_widgetId, bound) => {
 					bound.execute();
 				}}
-				onError={(error) => console.error(error)}
-				onExpire={() => console.error('Turnstile expired')}
+				onError={(error) => {
+					setData({...data, turnstile: { state: 'error' }}); // State 변경
+					toast.error(`Captcha error: ${error}`) // Toast 전송
+				}}
+				onExpire={() => {
+					setData({...data, turnstile: { state: 'expired' }}); // State 변경
+					toast.error('Captcha error: expired') // Toast 전송
+				}}
 				onVerify={(token) => {
-					console.log('Turnstile token:', token);
-					setData({...data, turnstile: {state: 'solved'}});
+					setData({...data, turnstile: { state: 'solved', token }}); // State 변경
 				}}
 			/>
 			<AuthForm.Submit onClick={() => handleRegister()}>
