@@ -22,7 +22,6 @@ const PageRegister = () => {
 		// TODO: 로그인 구현
 		// data.id = 사용자가 입력한 아이디 또는 전화번호
 		// data.password = 사용자가 입력한 비밀번호
-		// data.phone.number = 사용자가 입력한 전화번호
 		// data.passwordConfirm = 사용자가 입력한 비밀번호 확인
 
 		// password와 passwordConfirm이 일치하는지 확인
