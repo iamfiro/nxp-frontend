@@ -2,6 +2,7 @@ import ServiceLogo from '../../public/logo.svg';
 import {AuthForm, Row} from "../components";
 import {useState} from "react";
 import {IRegister} from "../types/auth.ts";
+import Turnstile from "react-turnstile";
 
 // TODO: 로고 클릭 구현
 
@@ -48,32 +49,33 @@ const PageRegister = () => {
 			<AuthForm.Title>NXP 가입하기</AuthForm.Title>
 			<AuthForm.Input
 				placeholder={'아이디'}
-				onChange={(e) => setData({ ...data, id: e.target.value })}
-			/>
-			<AuthForm.Phone
-				placeholder={'전화번호'}
-				onChange={(e) => setData({ ...data, phone: { number: e.target.value } })}
-				setState={setData}
-				state={data}
+				onChange={(e) => setData({...data, id: e.target.value})}
 			/>
 			<AuthForm.Input
 				placeholder={'비밀번호'}
 				password
-				onChange={(e) => setData({ ...data, password: e.target.value })}
+				onChange={(e) => setData({...data, password: e.target.value})}
 			/>
 			<AuthForm.Input
 				placeholder={'비밀번호 확인'}
 				password
-				onChange={(e) => setData({ ...data, passwordConfirm: e.target.value })}
+				onChange={(e) => setData({...data, passwordConfirm: e.target.value})}
+			/>
+			<Turnstile
+				sitekey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
+				size={'invisible'}
+				onLoad={(_widgetId, bound) => {
+					bound.execute();
+				}}
 			/>
 			<AuthForm.Submit onClick={() => handleRegister()}>
 				가입하기
 			</AuthForm.Submit>
 			<Row style={{width: '100%', justifyContent: 'space-between', marginTop: '15px'}}>
-				<a href={'/login'} style={{ fontSize: '14px', color: 'var(--color-gray-500)'}}>
+				<a href={'/login'} style={{fontSize: '14px', color: 'var(--color-gray-500)'}}>
 					로그인
 				</a>
-				<a href={'/passwordreset'} style={{ fontSize: '14px', color: 'var(--color-gray-500)'}}>
+				<a href={'/passwordreset'} style={{fontSize: '14px', color: 'var(--color-gray-500)'}}>
 					비밀번호를 잊으셨나요?
 				</a>
 			</Row>
