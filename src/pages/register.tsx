@@ -11,10 +11,6 @@ const PageRegister = () => {
 		id: '',
 		password: '',
 		passwordConfirm: '',
-		phone: {
-			number: '',
-			isPending: false,
-		}
 	});
 
 	function handleRegister() {
