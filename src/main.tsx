@@ -4,12 +4,22 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import './styles/global.scss';
 
 import PageHome from "./pages/home.tsx";
+import PageLogin from "./pages/login.tsx";
+import PageRegister from "./pages/register.tsx";
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <PageHome />
-    }
+    },
+	{
+		path: '/login',
+		element: <PageLogin />
+	},
+	{
+		path: '/register',
+		element: <PageRegister />
+	}
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

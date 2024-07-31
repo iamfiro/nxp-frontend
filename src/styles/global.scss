@@ -12,6 +12,7 @@
     --color-white: #fff;
 
     --color-primary: #1ebaff;
+	--color-primary-dark: #1bb0f1;
 
     --color-gray-020: #fafafa;
     --color-gray-030: #F2F2F2;
@@ -39,4 +40,9 @@ body, html {
 * {
     box-sizing: border-box;
     font-family: "Wanted Sans Variable", "Wanted Sans", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
 }
