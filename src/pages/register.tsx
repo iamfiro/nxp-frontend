@@ -11,6 +11,9 @@ const PageRegister = () => {
 		id: '',
 		password: '',
 		passwordConfirm: '',
+		turnstile: {
+			state: 'idle',
+		}
 	});
 
 	function handleRegister() {
@@ -62,6 +65,12 @@ const PageRegister = () => {
 				size={'invisible'}
 				onLoad={(_widgetId, bound) => {
 					bound.execute();
+				}}
+				onError={(error) => console.error(error)}
+				onExpire={() => console.error('Turnstile expired')}
+				onVerify={(token) => {
+					console.log('Turnstile token:', token);
+					setData({...data, turnstile: {state: 'solved'}});
 				}}
 			/>
 			<AuthForm.Submit onClick={() => handleRegister()}>
