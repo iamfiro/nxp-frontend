@@ -8,6 +8,7 @@ import PageLogin from "./pages/login.tsx";
 import PageRegister from "./pages/register.tsx";
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from "react-toastify";
+import PageRank from "./pages/rank.tsx";
 
 const router = createBrowserRouter([
     {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
 	{
 		path: '/register',
 		element: <PageRegister />
+	},
+	{
+		path: '/rank',
+		element: <PageRank />
 	}
 ])
 
