@@ -1,0 +1,97 @@
+.container {
+	display: flex;
+	flex-direction: column;
+
+	max-width: var(--max-width);
+
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+.title {
+	font-size: 24px;
+	font-weight: 500;
+
+	margin: 40px 0 25px 0
+}
+
+// 왼쪽 레이아웃
+.left {
+	width: 100%;
+}
+
+// 내 랭킹 테이블
+.table {
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-s);
+
+	th {
+		color: var(--color-gray-400);
+
+		font-weight: 500;
+		font-size: 14px;
+
+		padding: 10px 15px;
+		text-align: left;
+	}
+
+	td {
+		padding: 0 15px 10px 15px;
+		text-align: left;
+	}
+}
+
+.ranking {
+		width: 100px;
+}
+
+.rating, .solved, .create {
+	width: 130px;
+}
+
+// 전체 랭킹 테이블
+.allRankTable {
+    width: 100%;
+    border-collapse: collapse;
+
+	margin-top: 20px;
+
+    th:first-child, td:first-child {
+        border-radius: var(--radius-ss) 0 0 var(--radius-ss);
+    }
+
+    th:last-child {
+         border-radius: 0 var(--radius-ss) var(--radius-ss) 0;
+    }
+
+    th {
+        background-color: #f4f4f4;
+        color: var(--color-gray-400);
+
+        font-weight: 500;
+        font-size: 14px;
+
+        padding: 10px 15px;
+
+        text-align: left;
+    }
+
+    td {
+		padding: 15px;
+
+        text-align: left;
+    }
+
+	tr:not(:first-child) {
+		border-top: 1px solid var(--color-border);
+	}
+}
+
+.right {
+	display: flex;
+
+	width: 100%;
+	max-width: 400px;
+
+	background-color: red;
+}

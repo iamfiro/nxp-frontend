@@ -10,3 +10,4 @@ export { default as Selector } from './common/Selector';
 export { default as Header } from './common/Header';
 export { default as Button } from './common/Button';
 export { default as AuthForm } from './common/AuthForm';
+export { default as Avatar } from './common/Avatar';
