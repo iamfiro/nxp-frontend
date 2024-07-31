@@ -2,8 +2,8 @@ export interface IRegister {
 	id: string;
 	password: string;
 	passwordConfirm: string;
-	phone: {
-		number?: string;
-		isPending?: boolean;
+	turnstile: {
+		state: 'error' | 'expired' | 'solved' | 'idle';
+		token?: string | undefined;
 	}
 }
