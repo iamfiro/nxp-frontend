@@ -1,5 +1,5 @@
 import style from '../styles/pages/problem.module.scss';
-import {useState} from "react";
+import React, {useState} from "react";
 import ServiceLogo from '../assets/logo.svg';
 import {Column, MonacoEditor, Row, setMetaTag} from "../components";
 import { SiDocsdotrs } from "react-icons/si";
@@ -7,11 +7,41 @@ import { FaCirclePlay } from "react-icons/fa6";
 import { MdCloudUpload } from "react-icons/md";
 import LangGo from '../../public/icon/lang/go.svg';
 
+interface TabProps {
+	children: React.ReactNode;
+	tabState: string;
+	setTabState: (name: string) => void;
+	name: string;
+}
+
+const Tab = ({ children, tabState, setTabState, name }: TabProps) => {
+	return (
+		<div className={style.tab} data-selected={tabState === name} onClick={() => setTabState(name)}>
+			{children}
+		</div>
+	)
+}
+
+interface TabContentProps {
+	children: React.ReactNode;
+	tabState: string;
+	name: string;
+}
+
+const TabContent = ({ children, tabState, name }: TabContentProps) => {
+	return (
+		<section style={{ display: tabState === name ? 'flex' : 'none' }} className={style.tabContent}>
+			{children}
+		</section>
+	)
+}
+
 const PageProblem = () => {
 	const [code, setCode] = useState<string>(
 		'function add(a, b) {'
 	);
 	const [language, setLanguage] = useState<string>('java');
+	const [tab, setTab] = useState<string>('problem');
 
 	setMetaTag({
 		title: "두 수 정하기 - NXP",
@@ -31,19 +61,23 @@ const PageProblem = () => {
 			<section className={style.main}>
 				<div className={style.info}>
 					<Row className={style.infoHeader}>
-						<div className={style.infoTab} data-selected={true}>
+						<Tab tabState={tab} setTabState={setTab} name={'problem'}>
 							<SiDocsdotrs />
 							문제
-						</div>
-						<div className={style.infoTab} data-selected={false}>
+						</Tab>
+						<Tab tabState={tab} setTabState={setTab} name={'submission'}>
 							<FaCirclePlay />
 							채점 내역
-						</div>
+						</Tab>
 					</Row>
-					<div className={style.infoContent}>
+					<TabContent tabState={tab} name={'problem'}>
 						<h1>문제 제목</h1>
 						<p>문제 내용</p>
-					</div>
+					</TabContent>
+					<TabContent tabState={tab} name={'submission'}>
+						<h1>채점 내역</h1>
+						<p>문제 내용</p>
+					</TabContent>
 				</div>
 				<Column style={{ width: '50%' }}>
 					<div className={style.codeHeader}>

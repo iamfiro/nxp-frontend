@@ -89,7 +89,7 @@
 	}
 }
 
-.infoTab {
+.tab {
 	background-color: transparent;
 	color: var(--color-gray-400);
 
@@ -112,9 +112,12 @@
 	border-radius: var(--radius-ss) var(--radius-ss) 0 0;
 }
 
-.infoContent {
+.tabContent {
 	background-color: white;
 	padding: 15px;
+
+	display: flex;
+	flex-direction: column;
 
 	height: calc(100% - 50px);
 
