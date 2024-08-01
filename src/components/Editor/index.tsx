@@ -56,7 +56,7 @@ const MonacoEditor = ({ code, setCode, language }: MonacoEditorProps) => {
             width={"100%"}
             height={"calc(100% - 50px)"}
             options={{
-                fontSize: 16,
+                fontSize: 15,
                 tabSize: 4,
                 insertSpaces: false,
             }}
