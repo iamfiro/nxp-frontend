@@ -9,6 +9,7 @@ import PageRegister from "./pages/register.tsx";
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from "react-toastify";
 import PageRank from "./pages/rank.tsx";
+import PageProblem from "./pages/problem.tsx";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
 	{
 		path: '/problem',
 		element: <Navigate replace to={'/'} />
+	},
+	{
+		path: '/problem/:id',
+		element: <PageProblem />
 	}
 ])
 
