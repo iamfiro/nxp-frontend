@@ -109,7 +109,7 @@ const PageProblem = () => {
 				<Column style={{ width: '50%' }}>
 					<div className={style.codeHeader}>
 						<Row style={{ gap: '10px' }} className={style.codeTab}>
-							<img src={LanguageToSvg(language)} height={20} width={20} alt={language}/>
+							<img src={LanguageToSvg(language || '')} height={20} width={20} alt={language}/>
 							<span>solution.{language}</span>
 						</Row>
 					</div>
