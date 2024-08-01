@@ -17,6 +17,6 @@ export function LanguageToSvg(lang: string) {
 		case 'rust':
 			return Rust;
 		default:
-			return null;
+			return '';
 	}
 }
