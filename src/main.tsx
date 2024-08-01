@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import './styles/global.scss';
 
 import PageHome from "./pages/home.tsx";
@@ -26,6 +26,10 @@ const router = createBrowserRouter([
 	{
 		path: '/rank',
 		element: <PageRank />
+	},
+	{
+		path: '/problem',
+		element: <Navigate replace to={'/'} />
 	}
 ])
 
