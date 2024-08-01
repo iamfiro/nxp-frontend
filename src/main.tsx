@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import './styles/global.scss';
 
 import PageHome from "./pages/home.tsx";
@@ -9,6 +9,7 @@ import PageRegister from "./pages/register.tsx";
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from "react-toastify";
 import PageRank from "./pages/rank.tsx";
+import PageProblem from "./pages/problem.tsx";
 
 const router = createBrowserRouter([
     {
@@ -26,6 +27,14 @@ const router = createBrowserRouter([
 	{
 		path: '/rank',
 		element: <PageRank />
+	},
+	{
+		path: '/problem',
+		element: <Navigate replace to={'/'} />
+	},
+	{
+		path: '/problem/:id',
+		element: <PageProblem />
 	}
 ])
 

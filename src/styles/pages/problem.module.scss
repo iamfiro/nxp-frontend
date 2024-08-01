@@ -1,0 +1,178 @@
+.container {
+	width: 100%;
+	height: 100vh;
+
+	display: flex;
+	flex-direction: column;
+
+	background-color: var(--color-gray-030);
+}
+
+.title {
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.correctPercentage {
+	font-size: 12px;
+
+	background-color: var(--color-gray-080);
+	color: var(--color-gray-500);
+	padding: 5px 8px;
+
+	border-radius: var(--radius-ss);
+}
+
+.header {
+	background-color: transparent;
+
+	height: 55px;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+
+	padding: 0 20px;
+
+	.logo {
+		width: 25px;
+	}
+}
+
+.main {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	gap: 20px;
+
+	padding: 0 20px 20px 20px;
+
+	height: calc(100% - 55px);
+}
+
+.info {
+	width: 50%;
+}
+
+.infoHeader {
+	width: 100%;
+	margin-top: 10px;
+}
+
+.submit {
+	background-color: var(--color-primary);
+	color: var(--color-white);
+
+	border-radius: var(--radius-ss);
+	border: 0;
+
+	height: 40px;
+
+	padding: 0 15px;
+
+	font-size: 14px;
+	font-weight: 500;
+
+	display: flex;
+	align-items: center;
+	gap: 8px;
+
+	cursor: pointer;
+
+	&:hover {
+		background-color: var(--color-primary-dark);
+	}
+
+	&:active {
+		background-color: var(--color-primary-light);
+	}
+}
+
+.tab {
+	background-color: transparent;
+	color: var(--color-gray-400);
+
+	padding: 10px 20px;
+
+	display: flex;
+	align-items: center;
+	gap: 8px;
+
+	font-weight: 500;
+	font-size: 15px;
+
+	cursor: pointer;
+
+	&[data-selected="true"] {
+		background-color: var(--color-white);
+		color: var(--color-primary);
+	}
+
+	border-radius: var(--radius-ss) var(--radius-ss) 0 0;
+}
+
+.tabContent {
+	background-color: white;
+	padding: 0 20px;
+
+	display: flex;
+	flex-direction: column;
+
+	height: calc(100% - 50px);
+}
+
+.codeHeader {
+	height: 50px;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	//background-color: red;
+
+	span {
+		font-size: 14px;
+		font-weight: 500;
+	}
+}
+
+.codeTab {
+	background-color: var(--color-white);
+
+	height: 40px;
+
+	margin-bottom: -10px;
+
+	padding: 0 10px;
+
+	border-radius: var(--radius-ss) var(--radius-ss) 0 0;
+}
+
+.selectLanguage {
+	background-color: var(--color-white);
+
+	border-radius: var(--radius-ss);
+	border: 1.5px solid var(--color-gray-200);
+
+	height: 40px;
+
+	padding: 0 15px;
+
+	font-size: 14px;
+	font-weight: 500;
+
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.editor {
+	width: 50vw;
+
+	font-size: 20px;
+
+	span {
+		font-family: "JetBrains Mono", monospace !important;
+	}
+}
