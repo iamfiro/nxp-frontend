@@ -5,3 +5,5 @@ const PageProblem = () => {
 		</main>
 	)
 }
+
+export default PageProblem;
