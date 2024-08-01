@@ -10,6 +10,7 @@
     "cypress": "npx cypress open"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.6.0",
     "axios": "^1.7.2",
     "react": "^18.3.1",
     "react-circular-progressbar": "^2.1.0",
@@ -18,12 +19,12 @@
     "react-loader-spinner": "^6.1.6",
     "react-router-dom": "^6.25.1",
     "react-select": "^5.8.0",
-    "react-simple-code-editor": "^0.14.1",
     "react-toastify": "^10.0.5",
     "react-turnstile": "^1.1.3",
     "sass": "^1.77.8"
   },
   "devDependencies": {
+    "@types/prismjs": "^1.26.4",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
