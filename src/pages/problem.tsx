@@ -1,7 +1,7 @@
 import style from '../styles/pages/problem.module.scss';
 import {useState} from "react";
 import ServiceLogo from '../assets/logo.svg';
-import {Column, MonacoEditor, Row} from "../components";
+import {Column, MonacoEditor, Row, setMetaTag} from "../components";
 import { SiDocsdotrs } from "react-icons/si";
 import { FaCirclePlay } from "react-icons/fa6";
 import { MdCloudUpload } from "react-icons/md";
@@ -12,6 +12,11 @@ const PageProblem = () => {
 		'function add(a, b) {'
 	);
 	const [language, setLanguage] = useState<string>('java');
+
+	setMetaTag({
+		title: "두 수 정하기 - NXP",
+		description: "두 수를 입력받아 더하는 문제",
+	})
 
 	return (
 		<main className={style.container}>
