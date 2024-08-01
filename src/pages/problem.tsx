@@ -30,7 +30,7 @@ interface TabContentProps {
 
 const TabContent = ({ children, tabState, name }: TabContentProps) => {
 	return (
-		<section style={{ display: tabState === name ? 'flex' : 'none' }} className={style.tabContent}>
+		<section style={{ display: tabState === name ? 'flex' : 'none', borderRadius: name !== 'problem' ? 'var(--radius-ss)' : '0 var(--radius-ss) var(--radius-ss) var(--radius-ss)' }} className={style.tabContent}>
 			{children}
 		</section>
 	)
@@ -56,7 +56,16 @@ const PageProblem = () => {
 					<h1 className={style.title}>두 수 정하기</h1>
 					<span className={style.correctPercentage}>정답률 32%</span>
 				</Row>
-				<button className={style.submit}><MdCloudUpload size={20}/> 코드 제출하기</button>
+				<Row style={{ gap: '20px' }}>
+					<select className={style.selectLanguage} value={language}
+							onChange={(e) => setLanguage(e.target.value)}>
+						<option value={'c'}>C</option>
+						<option value={'cpp'}>C++</option>
+						<option value={'java'}>Java</option>
+						<option value={'go'}>GoLang</option>
+					</select>
+					<button className={style.submit}><MdCloudUpload size={20}/> 코드 제출하기</button>
+				</Row>
 			</header>
 			<section className={style.main}>
 				<div className={style.info}>
@@ -85,13 +94,6 @@ const PageProblem = () => {
 							<img src={LangGo} height={12} alt={language}/>
 							<span>solution.{language}</span>
 						</Row>
-						<select className={style.selectLanguage} value={language}
-								onChange={(e) => setLanguage(e.target.value)}>
-							<option value={'c'}>C</option>
-							<option value={'cpp'}>C++</option>
-							<option value={'java'}>Java</option>
-							<option value={'go'}>GoLang</option>
-						</select>
 					</div>
 					<MonacoEditor code={code} setCode={setCode} language={language}/>
 				</Column>

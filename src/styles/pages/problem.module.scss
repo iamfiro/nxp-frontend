@@ -120,8 +120,6 @@
 	flex-direction: column;
 
 	height: calc(100% - 50px);
-
-	border-radius: 0 var(--radius-ss) var(--radius-ss) var(--radius-ss);
 }
 
 .codeHeader {
@@ -155,9 +153,9 @@
 	background-color: var(--color-white);
 
 	border-radius: var(--radius-ss);
-	border: 0;
+	border: 1.5px solid var(--color-gray-200);
 
-	height: 35px;
+	height: 40px;
 
 	padding: 0 15px;
 
