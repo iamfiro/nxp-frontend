@@ -5,7 +5,6 @@ import {Column, MonacoEditor, Row, setMetaTag} from "../components";
 import { SiDocsdotrs } from "react-icons/si";
 import { FaCirclePlay } from "react-icons/fa6";
 import { MdCloudUpload } from "react-icons/md";
-import LangGo from '../../public/icon/lang/go.svg';
 import {toast} from "react-toastify";
 import {LanguageToSvg} from "../lib/format.ts";
 
