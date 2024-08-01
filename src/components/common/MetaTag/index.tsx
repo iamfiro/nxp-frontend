@@ -2,12 +2,9 @@ import { useEffect } from "react";
 
 // 메타 태그 파라미터의 타입 정의
 interface MetaTags {
-  title?: string;
-  // 제목
-  description?: string;
-  // 설명
-  imageUrl?: string;
-  // 이미지 URL
+  title?: string; // 제목
+  description?: string; // 설명
+  imageUrl?: string; // 이미지 URL
 }
 
 const setMetaTags = ({
@@ -36,6 +33,9 @@ const setMetaTags = ({
         document.head.appendChild(newMetaTag);
       }
     };
+
+    // 페이지 타이틀 설정
+    document.title = title;
 
     // 제목 설정
     setMetaTagContent("og:title", title);
