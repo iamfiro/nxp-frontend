@@ -144,5 +144,15 @@
 
 	font-size: 20px;
 
-	border-radius: var(--radius-ss);
+	div {
+		border-radius: var(--radius-ss);
+
+		&:first-child {
+			border-radius: 0 var(--radius-ss) var(--radius-ss) var(--radius-ss);
+		}
+	}
+
+	span {
+		font-family: "JetBrains Mono", monospace !important;
+	}
 }
