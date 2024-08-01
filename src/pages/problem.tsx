@@ -15,8 +15,12 @@ const PageProblem = () => {
 	return (
 		<main className={style.container}>
 			<header className={style.header}>
-				<img src={ServiceLogo} alt={'Logo'} className={style.logo}/>
-				<button className={style.submit}><MdCloudUpload size={20} /> 코드 제출하기</button>
+				<Row style={{ gap: '10px' }}>
+					<img src={ServiceLogo} alt={'Logo'} className={style.logo}/>
+					<h1 className={style.title}>두 수 정하기</h1>
+					<span className={style.correctPercentage}>정답률 32%</span>
+				</Row>
+				<button className={style.submit}><MdCloudUpload size={20}/> 코드 제출하기</button>
 			</header>
 			<section className={style.main}>
 				<div className={style.info}>

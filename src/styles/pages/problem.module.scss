@@ -8,6 +8,21 @@
 	background-color: var(--color-gray-030);
 }
 
+.title {
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.correctPercentage {
+	font-size: 12px;
+
+	background-color: var(--color-gray-080);
+	color: var(--color-gray-500);
+	padding: 5px 8px;
+
+	border-radius: var(--radius-ss);
+}
+
 .header {
 	background-color: transparent;
 
