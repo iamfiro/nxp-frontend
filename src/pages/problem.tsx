@@ -5,6 +5,7 @@ import {Column, MonacoEditor, Row} from "../components";
 import { SiDocsdotrs } from "react-icons/si";
 import { FaCirclePlay } from "react-icons/fa6";
 import { MdCloudUpload } from "react-icons/md";
+import LangGo from '../../public/icon/lang/go.svg';
 
 const PageProblem = () => {
 	const [code, setCode] = useState<string>(
@@ -41,14 +42,16 @@ const PageProblem = () => {
 				</div>
 				<Column style={{ width: '50%' }}>
 					<div className={style.codeHeader}>
-						<span>
-							solution.{language}
-						</span>
-						<select className={style.selectLanguage} value={language} onChange={(e) => setLanguage(e.target.value)}>
+						<Row style={{ gap: '10px' }} className={style.codeTab}>
+							<img src={LangGo} height={12} alt={language}/>
+							<span>solution.{language}</span>
+						</Row>
+						<select className={style.selectLanguage} value={language}
+								onChange={(e) => setLanguage(e.target.value)}>
 							<option value={'c'}>C</option>
 							<option value={'cpp'}>C++</option>
 							<option value={'java'}>Java</option>
-							<option value={'go'}><img src={'/icon/lang/GoLang.svg'} />GoLang</option>
+							<option value={'go'}>GoLang</option>
 						</select>
 					</div>
 					<MonacoEditor code={code} setCode={setCode} language={language}/>
