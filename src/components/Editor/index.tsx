@@ -1,7 +1,7 @@
 import style from "../../styles/pages/problem.module.scss";
 import {Editor, useMonaco} from "@monaco-editor/react";
 import {useEffect} from "react";
-import GithubLightTheme from 'monaco-themes/themes/Xcode_default.json';
+import XcodeDefaultTheme from 'monaco-themes/themes/Xcode_default.json';
 
 interface MonacoEditorProps {
 	code: string;
@@ -17,17 +17,17 @@ const MonacoEditor = ({code, setCode, language}: MonacoEditorProps) => {
 		// @ts-ignore
 		type monacoIStandaloneThemeData = monaco.editor.IStandaloneThemeData;
 
-		const GithubLightCustom = {
-			...GithubLightTheme,
+		const XcodeDefaultCustom = {
+			...XcodeDefaultTheme,
 			colors: {
-				...GithubLightTheme.colors,
+				...XcodeDefaultTheme.colors,
 				"editorLineNumber.foreground": '#B5B5B5',
 			}
 		}
 
-		monaco.editor.defineTheme('github-light', GithubLightCustom as monacoIStandaloneThemeData);
+		monaco.editor.defineTheme('xcode-default', XcodeDefaultCustom as monacoIStandaloneThemeData);
 
-		monaco.editor.setTheme('github-light');
+		monaco.editor.setTheme('xcode-default');
 	}, [monaco]);
 
 	useEffect(() => {
@@ -47,7 +47,6 @@ const MonacoEditor = ({code, setCode, language}: MonacoEditorProps) => {
 			height={'calc(100% - 50px)'}
 			options={{
 				fontSize: 16,
-				fontFamily: 'Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif',
 				tabSize: 4,
 				insertSpaces: false,
 			}}
