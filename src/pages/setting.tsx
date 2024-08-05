@@ -1,7 +1,7 @@
 import TemplateHeader from "../template/header.tsx";
 import style from '../styles/pages/setting.module.scss';
 import {Row} from "../components";
-import {ChangeEvent} from "react";
+import {ChangeEvent, useState} from "react";
 
 interface CustomFileButtonProps {
 	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
