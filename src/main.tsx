@@ -12,6 +12,7 @@ import PageRank from "./pages/rank.tsx";
 import PageProblem from "./pages/problem.tsx";
 import PagePasswordRecoveryRequest from "./pages/passwordRecoveryRequest.tsx";
 import PageNoMatch from "./pages/noMatch.tsx";
+import PagePasswordRecovery from "./pages/passwordRecovery.tsx";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
 	{
 		path: '/password_reset',
 		element: <PagePasswordRecoveryRequest />
+	},
+	{
+		path: '/password_reset/:token',
+		element: <PagePasswordRecovery />
 	},
 	// Rank
 	{
