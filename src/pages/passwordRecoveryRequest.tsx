@@ -8,6 +8,8 @@ const PagePasswordRecoveryRequest = () => {
 
 	const handleRequest = () => {
 		toast.success('안내 메일을 발송했습니다');
+
+		// TODO: 비밀번호 변경 요청 요청
 	}
 
 	return (

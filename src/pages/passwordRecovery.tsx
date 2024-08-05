@@ -7,10 +7,14 @@ const PagePasswordRecovery = () => {
 	const [password, setPassword] = useState<string>('');
 	const [confirmPassword, setConfirmPassword] = useState<string>('');
 
+	// TODO: 토큰 유효성 검사
+
 	const handleRequest = () => {
 		if(password !== confirmPassword) return toast.error('비밀번호가 일치하지 않습니다');
 		if(password.length < 8) return toast.error('비밀번호는 8자 이상이어야 합니다');
 		toast.success('비밀번호가 변경되었습니다');
+
+		// TODO: 비밀번호 변경 요청
 	}
 
 	return (
