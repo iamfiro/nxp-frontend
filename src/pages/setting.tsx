@@ -12,7 +12,7 @@ const CustomFileButton = ({ onChange }: CustomFileButtonProps) => {
 	  return (
 			<label className={style.customFileButton}>
 			  사진 업로드
-			  <input type="file" onChange={onChange} className={style.fileInput} />
+			  <input type="file" onChange={onChange} className={style.fileInput} accept={'image/*'} />
 			</label>
 	  );
 };
