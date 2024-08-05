@@ -17,8 +17,12 @@ const CustomFileButton = ({ onChange }: CustomFileButtonProps) => {
 	  );
 };
 
+// TODO: 시간나면 디자인 다시 하도록
+
 const Setting = () => {
 	// TODO: 로그인 여부 체크
+
+	const [description, setDescription] = useState<string>('');
 
 	const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
 		// TODO: 파일 업로드 API 호출
@@ -49,6 +53,10 @@ const Setting = () => {
 						    </button>
 						</Row>
 					</div>
+				</section>
+				<section>
+					<h2 className={style.sectionTitle}>내 설명</h2>
+					<textarea className={style.textarea} onChange={(e) => setDescription(e.target.value)} placeholder="내 설명을 입력하세요." />
 				</section>
 			</main>
 		</>
