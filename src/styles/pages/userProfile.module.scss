@@ -1,0 +1,21 @@
+.container {
+	width: 100%;
+	max-width: var(--max-width);
+
+	margin: 0 auto;
+	padding: 30px 15px;
+
+	display: flex;
+}
+
+.profile {
+	width: 100%;
+	max-width: 300px;
+}
+
+.profileImage {
+	width: 100px;
+	height: 100px;
+
+	border-radius: 50%;
+}
