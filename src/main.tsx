@@ -10,13 +10,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from "react-toastify";
 import PageRank from "./pages/rank.tsx";
 import PageProblem from "./pages/problem.tsx";
-import PageNoMatch from "./pages/NoMatch.tsx";
+import PagePasswordRecoveryRequest from "./pages/passwordRecoveryRequest.tsx";
+import PageNoMatch from "./pages/noMatch.tsx";
+import PagePasswordRecovery from "./pages/passwordRecovery.tsx";
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <PageHome />
     },
+	// Auth
 	{
 		path: '/login',
 		element: <PageLogin />
@@ -26,9 +29,19 @@ const router = createBrowserRouter([
 		element: <PageRegister />
 	},
 	{
+		path: '/password_reset',
+		element: <PagePasswordRecoveryRequest />
+	},
+	{
+		path: '/password_reset/:token',
+		element: <PagePasswordRecovery />
+	},
+	// Rank
+	{
 		path: '/rank',
 		element: <PageRank />
 	},
+	// Problem
 	{
 		path: '/problem',
 		element: <Navigate replace to={'/'} />
@@ -37,6 +50,7 @@ const router = createBrowserRouter([
 		path: '/problem/:id',
 		element: <PageProblem />
 	},
+	// 404
 	{
 		path: '*',
 		element: <PageNoMatch />
