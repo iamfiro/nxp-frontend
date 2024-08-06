@@ -1,6 +1,6 @@
 import style from '../styles/pages/userProfile.module.scss';
 import TemplateHeader from "../template/header.tsx";
-import {Column, Row} from "../components";
+import {Column} from "../components";
 
 const PageUserProfile = () => {
 	return (
