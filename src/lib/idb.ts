@@ -9,7 +9,7 @@ async function createStore(): Promise<IDBPDatabase<unknown>> {
 		upgrade(db) {
 			if (!db.objectStoreNames.contains(STORE_NAME)) {
 				db.createObjectStore(STORE_NAME, {
-				  	keyPath: 'key',
+					keyPath: 'key',
 				});
 			}
 		},
