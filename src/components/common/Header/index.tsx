@@ -17,7 +17,6 @@ const Header = ({ children }: HeaderProps) => {
                         <img src={Logo} alt="NXP Logo" className={style.logo}/>
                         <span>NXP</span>
                     </div>
-                    <Header.NavItem name={'문제'} href={'/'} icon={ProblemIcon} />
                     <Header.NavItem name={'랭킹'} href={'/'} icon={TrophyIcon} />
                     <Header.NavItem name={'커뮤니티'} href={'/'} icon={CommunityIcon} />
                 </div>
