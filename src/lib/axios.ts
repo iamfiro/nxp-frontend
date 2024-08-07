@@ -8,4 +8,5 @@ export const request: AxiosInstance = axios.create({
 		Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
 		"Content-Type": "application/json",
 	},
+	timeout: 5000,
 })
