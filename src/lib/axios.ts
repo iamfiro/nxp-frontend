@@ -6,5 +6,6 @@ export const request: AxiosInstance = axios.create({
 	baseURL: SERVER_ADDRESS,
 	headers: {
 		Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+		"Content-Type": "application/json",
 	},
 })
