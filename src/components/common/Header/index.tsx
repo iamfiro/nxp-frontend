@@ -1,6 +1,5 @@
 import style from './style.module.scss';
 import Logo from '../../../assets/logo.svg';
-import ProblemIcon from "../../../assets/icons/problem.png";
 import CommunityIcon from "../../../assets/icons/community.png";
 import TrophyIcon from "../../../assets/icons/trophy.png";
 
