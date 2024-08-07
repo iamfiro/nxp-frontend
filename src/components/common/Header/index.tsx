@@ -15,7 +15,7 @@ const Header = ({ children }: HeaderProps) => {
         <header className={style.header}>
             <div className={style.content}>
                 <div className={style.left}>
-                    <a className={style.logoContainer}>
+                    <a className={style.logoContainer} href={'/'}>
                         <img src={Logo} alt="NXP Logo" className={style.logo}/>
                         <span>NXP</span>
                     </a>
