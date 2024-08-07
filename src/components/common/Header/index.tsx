@@ -4,7 +4,7 @@ import CommunityIcon from "../../../assets/icons/community.png";
 import CommunityColorIcon from "../../../assets/icons/community-color.png";
 import TrophyIcon from "../../../assets/icons/trophy.png";
 import TrophyColorIcon from "../../../assets/icons/trophy-color.png";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 interface HeaderProps {
     children: React.ReactNode;
@@ -15,10 +15,10 @@ const Header = ({ children }: HeaderProps) => {
         <header className={style.header}>
             <div className={style.content}>
                 <div className={style.left}>
-                    <div className={style.logoContainer}>
+                    <a className={style.logoContainer}>
                         <img src={Logo} alt="NXP Logo" className={style.logo}/>
                         <span>NXP</span>
-                    </div>
+                    </a>
                     <Header.NavItem name={'랭킹'} href={'/rank'} icon={TrophyIcon} iconSelect={TrophyColorIcon} />
                     <Header.NavItem name={'커뮤니티'} href={'/community'} icon={CommunityIcon} iconSelect={CommunityColorIcon} />
                 </div>
