@@ -4,7 +4,7 @@ import CommunityIcon from "../../../assets/icons/community.png";
 import CommunityColorIcon from "../../../assets/icons/community-color.png";
 import TrophyIcon from "../../../assets/icons/trophy.png";
 import TrophyColorIcon from "../../../assets/icons/trophy-color.png";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
 interface HeaderProps {
     children: React.ReactNode;
