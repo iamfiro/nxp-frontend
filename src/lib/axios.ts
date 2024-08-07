@@ -1,5 +1,6 @@
 import axios, {AxiosInstance} from "axios";
 import Cookie from "js-cookie";
+import useAccessToken from "../hooks/useAccessToken.ts";
 
 const SERVER_ADDRESS = import.meta.env.VITE_API_URL as string;
 
@@ -12,10 +13,10 @@ export const request: AxiosInstance = axios.create({
 });
 
 request.interceptors.request.use(async function (config) {
-	const acessToken = Cookie.get('acToken');
+	const { token } = useAccessToken();
 
-	if(acessToken) {
-		config.headers.Authorization = `Bearer ${acessToken}`;
+	if(token) {
+		config.headers.Authorization = `Bearer ${token}`;
 	}
 
 	return config;
@@ -26,6 +27,7 @@ request.interceptors.request.use(async function (config) {
 request.interceptors.response.use(async function (response) {
 	return response;
 }, async function (error) {
+	const { storeToken } = useAccessToken();
 	const { config, response: { status }} = error;
 
 	if(status === 401 && error.data.message === 'InvaildTokenException') {
@@ -40,8 +42,11 @@ request.interceptors.response.use(async function (response) {
 		if(tokenRefreshResponse.status === 200) {
 			const { accessToken, refreshToken } = tokenRefreshResponse.data;
 			// 새로 발급받은 토큰들을 쿠키에 저장
-			Cookie.set('acToken', accessToken);
-			Cookie.set('rfToken', refreshToken);
+			await storeToken(accessToken);
+			Cookie.set('rfToken', refreshToken, {
+				secure: true,
+				httpOnly: true,
+			});
 			// 토큰 갱신 후 기존 요청 재시도
 			return request(config);
 		}
