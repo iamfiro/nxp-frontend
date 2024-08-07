@@ -12,6 +12,7 @@
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",
     "axios": "^1.7.2",
+    "js-cookie": "^3.0.5",
     "monaco-themes": "^0.4.4",
     "react": "^18.3.1",
     "react-circular-progressbar": "^2.1.0",
@@ -25,6 +26,7 @@
     "sass": "^1.77.8"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/prismjs": "^1.26.4",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
