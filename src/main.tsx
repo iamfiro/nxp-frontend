@@ -15,6 +15,7 @@ import PagePasswordRecoveryRequest from "./pages/passwordRecoveryRequest.tsx";
 import PageNoMatch from "./pages/noMatch.tsx";
 import PagePasswordRecovery from "./pages/passwordRecovery.tsx";
 import Setting from "./pages/setting.tsx";
+import PageUserProfile from "./pages/userProfile.tsx";
 
 const router = createBrowserRouter([
     {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
 		element: <PageProblem />
 	},
 	// User
+	{
+		path: '/user/:id',
+		element: <PageUserProfile />
+	},
 	{
 		path: '/setting',
 		element: <Setting />
