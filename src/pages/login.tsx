@@ -1,19 +1,36 @@
 import ServiceLogo from '../../public/logo.svg';
 import {AuthForm, Row} from "../components";
 import {useState} from "react";
-
-// TODO: 로고 클릭 구현
+import {requestNoAuth} from "../lib/axios.ts";
+import {useNavigate} from "react-router-dom";
+import useIsLoggined from "../hooks/useIsLoggined.ts";
+import useAccessToken from "../hooks/useAccessToken.ts";
+import Cookie from "js-cookie";
+import {toast} from "react-toastify";
 
 const PageLogin = () => {
 	const [id, setId] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 
+	const navigate = useNavigate();
+	const { storeUserLogin } = useIsLoggined();
+	const { storeToken } = useAccessToken();
+
 	function handleLogin() {
-		// TODO: 로그인 구현
-		// id = 사용자가 입력한 아이디 또는 전화번호
-		// password = 사용자가 입력한 비밀번호
-		// 로그인 성공 시, 메인 페이지로 이동
-		// 서버 통신은 Axios 라이브러리를 사용
+		requestNoAuth.post('/auth/login', {
+			id: id,
+			password: password
+		}).then((res) => {
+			// 로그인 상태 저장
+			storeUserLogin(true);
+			// 토큰 저장
+			storeToken(res.data.token);
+			Cookie.set('token', res.data.token, { secure: true, sameSite: 'strict', httpsOnly: true });
+			// 메인 페이지로 이동
+			navigate('/');
+		}).catch((err) => {
+			toast.error(err.response.data);
+		});
 	}
 
 	return (
