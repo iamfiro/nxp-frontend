@@ -51,7 +51,7 @@ const TemplateHeader = () => {
 							/>
 							{dropdownVisible && (
 								<div className={style.dropdown}>
-									<a className={style.dropdownItem}>
+									<a>
 										<FaUserCircle />
 										<span>프로필</span>
 									</a>
