@@ -14,7 +14,6 @@
     margin: 0 auto;
     padding: 0 20px;
 
-    display: flex;
     align-items: center;
 
     div {
@@ -32,7 +31,9 @@
 }
 
 .logoContainer {
-    gap: 10px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
 
     margin-right: 10px;
 
@@ -57,7 +58,7 @@
 
     color: var(--color-gray-200);
 
-    &:hover {
+    &:hover:not([data-visited="true"]) {
         color: var(--color-gray-500);
 
         img {
@@ -71,6 +72,14 @@
 
         opacity: 0.6;
     }
+
+	&[data-visited="true"] {
+		color: black;
+
+		img {
+			opacity: 1;
+		}
+	}
 
     span {
         font-size: 15px;

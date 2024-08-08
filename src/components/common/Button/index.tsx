@@ -6,13 +6,14 @@ interface ButtonProps {
     onClick: () => void;
     size: ButtonSize;
     type: ButtonType
+	classname?: string;
 }
 
-const Button = ({ children, onClick, size, type }: ButtonProps) => {
+const Button = ({ children, onClick, size, type, classname}: ButtonProps) => {
     return (
         <button
             onClick={onClick}
-            className={style.button}
+            className={`${style.button} ${classname}`}
             data-btn-size={size}
             data-btn-type={type}
         >{children}</button>

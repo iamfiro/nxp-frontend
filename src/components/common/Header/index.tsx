@@ -1,8 +1,10 @@
 import style from './style.module.scss';
 import Logo from '../../../assets/logo.svg';
-import ProblemIcon from "../../../assets/icons/problem.png";
 import CommunityIcon from "../../../assets/icons/community.png";
+import CommunityColorIcon from "../../../assets/icons/community-color.png";
 import TrophyIcon from "../../../assets/icons/trophy.png";
+import TrophyColorIcon from "../../../assets/icons/trophy-color.png";
+import {useLocation} from "react-router-dom";
 
 interface HeaderProps {
     children: React.ReactNode;
@@ -13,13 +15,12 @@ const Header = ({ children }: HeaderProps) => {
         <header className={style.header}>
             <div className={style.content}>
                 <div className={style.left}>
-                    <div className={style.logoContainer}>
+                    <a className={style.logoContainer} href={'/'}>
                         <img src={Logo} alt="NXP Logo" className={style.logo}/>
                         <span>NXP</span>
-                    </div>
-                    <Header.NavItem name={'문제'} href={'/'} icon={ProblemIcon} />
-                    <Header.NavItem name={'랭킹'} href={'/'} icon={TrophyIcon} />
-                    <Header.NavItem name={'커뮤니티'} href={'/'} icon={CommunityIcon} />
+                    </a>
+                    <Header.NavItem name={'랭킹'} href={'/rank'} icon={TrophyIcon} iconSelect={TrophyColorIcon} />
+                    <Header.NavItem name={'커뮤니티'} href={'/community'} icon={CommunityIcon} iconSelect={CommunityColorIcon} />
                 </div>
                 <div className={style.right}>
                     {children}
@@ -30,15 +31,20 @@ const Header = ({ children }: HeaderProps) => {
 }
 
 interface NavItemProps {
-    icon: string
-    href: string
-    name: string
+    icon: string;
+	iconSelect: string;
+    href: string;
+    name: string;
 }
 
-const NavItem = ({ icon, href, name }: NavItemProps ) => {
+const NavItem = ({ icon, href, name, iconSelect }: NavItemProps ) => {
+	const isVisited = useLocation().pathname === href;
     return (
-        <a href={href} className={style.navItem}>
-            <img src={icon} alt={name}/>
+        <a href={href} className={style.navItem} data-visited={isVisited}>
+            <img
+				src={isVisited ? iconSelect : icon}
+				alt={name}
+			/>
             <span>{name}</span>
         </a>
     )
