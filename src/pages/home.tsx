@@ -54,17 +54,17 @@ const PageHome = () => {
         }
     }, []);
 
-    // useEffect(() => {
-    //     setProblems([]); // Clear problems when filters change
-    //     setPage(1);
-    //     fetchProblems(1, level, language, sort, debouncedSearchQuery);
-    // }, [level, language, sort, debouncedSearchQuery, fetchProblems]);
+    useEffect(() => {
+        setProblems([]); // Clear problems when filters change
+        setPage(1);
+        fetchProblems(1, level, language, sort, debouncedSearchQuery);
+    }, [level, language, sort, debouncedSearchQuery, fetchProblems]);
 
-    // useEffect(() => {
-    //     if (page > 1) {
-    //         fetchProblems(page, level, language, sort, debouncedSearchQuery);
-    //     }
-    // }, [page, level, language, sort, debouncedSearchQuery, fetchProblems]);
+    useEffect(() => {
+        if (page > 1) {
+            fetchProblems(page, level, language, sort, debouncedSearchQuery);
+        }
+    }, [page, level, language, sort, debouncedSearchQuery, fetchProblems]);
 
     return (
         <>
