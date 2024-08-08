@@ -8,7 +8,7 @@ import {
 	SearchBar,
 	Selector,
 	InfiniteScroll,
-	Skeleton
+	Skeleton, Streak
 } from "../components";
 import style from '../styles/pages/home.module.scss';
 import { OptionsLanguage, OptionsLevel, OptionsSort } from "../constant/select";
@@ -93,7 +93,7 @@ const PageHome = () => {
 						}
                     </InfiniteScroll>
                 </Column>
-                <Column className={style.problemRight}>
+                <Column style={{ gap: '20px' }} className={style.problemRight}>
                     <DailyQuest>
                         <DailyQuest.Problem
                             level={1}
@@ -107,6 +107,7 @@ const PageHome = () => {
                             solved
                         />
                     </DailyQuest>
+					<Streak />
                 </Column>
             </div>
             Hello, World!
