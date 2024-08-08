@@ -84,9 +84,10 @@ const PageHome = () => {
 						{
 							totalProblems === 0 && (
 								<>
-									<Skeleton height={'60px'}  />
-									<Skeleton height={'60px'} />
-									<Skeleton height={'60px'} />
+									<Skeleton height={'60px'} skeletonStyle={{ marginTop: '-2px'}} borderRadius={'7px'} />
+									<Skeleton height={'60px'} skeletonStyle={{ marginTop: '-7px'}} borderRadius={'7px'} />
+									<Skeleton height={'60px'} skeletonStyle={{ marginTop: '-7px'}} borderRadius={'7px'} />
+									<Skeleton height={'60px'} skeletonStyle={{ marginTop: '-7px'}} borderRadius={'7px'} />
 								</>
 							)
 						}
