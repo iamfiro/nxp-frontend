@@ -93,7 +93,8 @@ const PageHome = () => {
 						}
                     </InfiniteScroll>
                 </Column>
-                <Column style={{ gap: '20px' }} className={style.problemRight}>
+                <Column style={{ gap: '15px' }} className={style.problemRight}>
+					<Streak />
                     <DailyQuest>
                         <DailyQuest.Problem
                             level={1}
@@ -107,7 +108,6 @@ const PageHome = () => {
                             solved
                         />
                     </DailyQuest>
-					<Streak />
                 </Column>
             </div>
             Hello, World!
