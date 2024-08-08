@@ -12,6 +12,14 @@ export const request: AxiosInstance = axios.create({
 	timeout: 5000,
 });
 
+export const requestNoAuth: AxiosInstance = axios.create({
+	baseURL: SERVER_ADDRESS,
+	headers: {
+		"Content-Type": "application/json",
+	},
+	timeout: 5000,
+});
+
 request.interceptors.request.use(async function (config) {
 	const { token } = useAccessToken();
 

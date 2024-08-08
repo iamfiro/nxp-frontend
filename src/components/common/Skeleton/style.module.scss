@@ -1,0 +1,39 @@
+$skeleton-bg: #e0e0e0;
+$skeleton-shimmer-bg: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 100%
+);
+
+@keyframes skeleton-gradient {
+    0% {
+        background-color: rgba(165, 165, 165, 0.1);
+    }
+
+    50% {
+        background-color: rgba(165, 165, 165, 0.3);
+    }
+
+    100% {
+        background-color: rgba(165, 165, 165, 0.1);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.skeleton {
+    background-color: $skeleton-bg;
+    border-radius: 4px;
+    margin: 4px 0;
+    animation: skeleton-gradient 1.8s infinite ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
