@@ -2,7 +2,8 @@ export { default as Banner } from './Banner';
 export { default as SearchBar } from './SearchBar';
 export { default as ProblemTable } from './ProblemTable';
 export { default as DailyQuest } from './DailyQuest';
-export { default as MonacoEditor } from './Editor'
+export { default as MonacoEditor } from './Editor';
+export { default as Streak } from './Streak';
 
 // Common Components
 export { default as Row } from './common/Row';
