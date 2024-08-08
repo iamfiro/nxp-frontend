@@ -51,11 +51,11 @@ const TemplateHeader = () => {
 							/>
 							{dropdownVisible && (
 								<div className={style.dropdown}>
-									<a>
+									<a href={`/profile/${undefined}`}>
 										<FaUserCircle />
 										<span>프로필</span>
 									</a>
-									<a>
+									<a href={'/logout'}>
 										<FiLogOut />
 										<span>로그아웃</span>
 									</a>
