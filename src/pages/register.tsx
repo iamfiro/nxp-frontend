@@ -1,9 +1,11 @@
 import ServiceLogo from '../../public/logo.svg';
 import {AuthForm, Row} from "../components";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {IRegister} from "../types/auth.ts";
 import Turnstile from "react-turnstile";
 import {toast} from "react-toastify";
+import {requestNoAuth} from "../lib/axios.ts";
+import {useNavigate} from "react-router-dom";
 
 // TODO: 로고 클릭 구현
 
@@ -17,19 +19,43 @@ const PageRegister = () => {
 			token: undefined
 		}
 	});
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		switch (data.turnstile.state) {
+			case 'error':
+				toast.error('캡차 인증 중 오류가 발생했습니다.');
+				break;
+			case 'expired':
+				toast.error('캡차 인증 시간이 초과되었습니다.\n 브라우저를 새로고침 후 다시 시도해주세요');
+				break;
+		}
+	}, [data.turnstile.state]);
 
 	function handleRegister() {
-		// TODO: 로그인 구현
 		// data.id = 사용자가 입력한 아이디 또는 전화번호
 		// data.password = 사용자가 입력한 비밀번호
 		// data.passwordConfirm = 사용자가 입력한 비밀번호 확인
 
-		// password와 passwordConfirm이 일치하는지 확인
-
 		// Cloudflare Turnstile 캡챠 추가로, token도 서버에 보내야 함
 
 		// 로그인 성공 시, 메인 페이지로 이동
-		// 서버 통신은 Axios 라이브러리를 사용
+		if(data.password !== data.passwordConfirm) {
+			toast.error('비밀번호가 일치하지 않습니다.');
+			return;
+		}
+
+		requestNoAuth.post('/auth/register', {
+			id: data.id,
+			password: data.password,
+			token: data.turnstile.token
+		}).then(() => {
+			alert(`${data.id}님, 회원가입이 완료되었습니다.\n로그인 페이지로 이동됩니다`);
+			// navigate
+			navigate('/login');
+		}).catch((err) => {
+			toast.error(err.response.data);
+		});
 	}
 
 	return (
