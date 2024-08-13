@@ -36,10 +36,6 @@ const PageRegister = () => {
 		// data.id = 사용자가 입력한 아이디 또는 전화번호
 		// data.password = 사용자가 입력한 비밀번호
 		// data.passwordConfirm = 사용자가 입력한 비밀번호 확인
-
-		// Cloudflare Turnstile 캡챠 추가로, token도 서버에 보내야 함
-
-		// 로그인 성공 시, 메인 페이지로 이동
 		if(data.password !== data.passwordConfirm) {
 			toast.error('비밀번호가 일치하지 않습니다.');
 			return;
@@ -48,10 +44,11 @@ const PageRegister = () => {
 		requestNoAuth.post('/auth/register', {
 			id: data.id,
 			password: data.password,
+			// Cloudflare Turnstile 캡챠 추가로, token도 서버에 보내야 함
 			token: data.turnstile.token
 		}).then(() => {
 			alert(`${data.id}님, 회원가입이 완료되었습니다.\n로그인 페이지로 이동됩니다`);
-			// navigate
+			// 로그인 성공 시, 메인 페이지로 이동
 			navigate('/login');
 		}).catch((err) => {
 			toast.error(err.response.data);
