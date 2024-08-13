@@ -7,10 +7,11 @@ import style from './header.module.scss';
 import {useEffect, useState} from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
+import useIsLoggined from "../hooks/useIsLoggined.ts";
 
 const TemplateHeader = () => {
     const navigate = useNavigate();
-    const isLogin = true;
+	const { isUserLogin } = useIsLoggined();
     const [dropdownVisible, setDropdownVisible] = useState(false);
 
     const handleAvatarClick = () => {
@@ -34,7 +35,7 @@ const TemplateHeader = () => {
     return (
         <Header>
             <Row style={{ gap: '5px' }}>
-                {isLogin ? (
+                {isUserLogin ? (
 					<>
 						<Button onClick={() => {
 							navigate('/rank');
