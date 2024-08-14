@@ -1,5 +1,5 @@
 import style from '../styles/pages/problem.module.scss';
-import React, {useState} from "react";
+import {useState} from "react";
 import {Column, Row, setMetaTag} from "../components";
 import { FaCode } from "react-icons/fa6";
 import TemplateHeader from "../template/header.tsx";
