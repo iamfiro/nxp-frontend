@@ -10,7 +10,14 @@ interface LoadingSpinnerProps {
 
 const LoadingSpinner = ({ visible, width = 20, height = 20, strokeWidth = 4, strokeColor = '#fff' }: LoadingSpinnerProps) => {
 	return (
-		<Oval color={strokeColor} width={width} height={height} visible={visible} secondaryColor={'transparent'} strokeWidth={strokeWidth}/>
+		<Oval
+			color={strokeColor}
+			width={width}
+			height={height}
+			visible={visible}
+			secondaryColor={'transparent'}
+			strokeWidth={strokeWidth}
+		/>
 	)
 }
 
