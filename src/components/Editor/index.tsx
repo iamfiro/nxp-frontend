@@ -53,7 +53,7 @@ const MonacoEditor = ({ code, setCode, language }: MonacoEditorProps) => {
             theme={"github-light"}
             onChange={(value) => setCode(value || "")}
             className={style.editor}
-			height={'calc(100% - 100px)'}
+			height={'calc(100% - 160px)'}
             options={{
                 fontSize: 14,
                 tabSize: 4,
