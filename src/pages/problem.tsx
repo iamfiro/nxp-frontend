@@ -125,6 +125,10 @@ const PageProblem = () => {
 					<>
 						<Modal.Backdrop isVisible={isSubmitModalOpen} handleClose={() => setIsSubmitModalOpen(false)}>
 							<Modal className={style.submitModal}>
+								<Row>
+									<h2>코드 제출하기</h2>
+									<button onClick={() => setIsSubmitModalOpen(false)}>닫기</button>
+								</Row>
 								<MonacoEditor code={editorCode} setCode={setEditorCode} language={editorLanguage}/>
 								<select className={style.selectLanguage} value={editorLanguage}
 										onChange={(e) => setEditorLanguage(e.target.value)}>
