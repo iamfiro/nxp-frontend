@@ -1,9 +1,10 @@
 import style from '../styles/pages/problem.module.scss';
 import React, {useState} from "react";
-import ServiceLogo from '../assets/logo.svg';
-import {Column, MonacoEditor, Row, setMetaTag} from "../components";
+import {Column, Row, setMetaTag} from "../components";
 import { FaCode } from "react-icons/fa6";
 import TemplateHeader from "../template/header.tsx";
+import { MdOutlineTimelapse } from "react-icons/md";
+import { FaMemory } from "react-icons/fa6";
 
 const PageProblem = () => {
 	const [code, setCode] = useState<string>(
@@ -23,11 +24,27 @@ const PageProblem = () => {
 				<section className={style.left}>
 					<h1 className={style.title}>가장 많이 받은 선물</h1>
 				</section>
-				<section className={style.right}>
+				<Column className={style.right}>
 					<button className={style.submit}>
-						<FaCode/> 코드 제출하기
+						<FaCode size={18}/> 코드 제출하기
 					</button>
-				</section>
+					<Row style={{gap: '10px', marginTop: '15px'}}>
+						<section className={style.problemLimit}>
+							<Row className={style.limitTitle}>
+								<MdOutlineTimelapse/>
+								<span>시간 제한</span>
+							</Row>
+							<span className={style.limitValue}>1초</span>
+						</section>
+						<section className={style.problemLimit}>
+							<Row className={style.limitTitle}>
+								<FaMemory/>
+								<span>메모리 제한</span>
+							</Row>
+							<span className={style.limitValue}>128 MB</span>
+						</section>
+					</Row>
+				</Column>
 			</Row>
 		</main>
 	)
