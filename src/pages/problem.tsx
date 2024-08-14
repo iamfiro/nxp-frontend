@@ -7,6 +7,8 @@ import { MdOutlineTimelapse } from "react-icons/md";
 import { FaMemory } from "react-icons/fa6";
 import useDebounce from "../hooks/useDebounce.ts";
 import {getMemo, UpSertMemo} from "../lib/idb.ts";
+import useIsLoggined from "../hooks/useIsLoggined.ts";
+import {toast} from "react-toastify";
 
 interface ProblemProps {
     title: string;
@@ -26,6 +28,7 @@ const PageProblem = () => {
     const pathname = window.location.pathname.replace('/problem/', ''); // Get the current pathname as memo id
     const [memoContent, setMemoContent] = useState<string>('');
     const debouncedMemoContent = useDebounce(memoContent, 1000);
+	const { isUserLogin } = useIsLoggined();
 
     useEffect(() => {
         // Fetch the memo content when the component mounts
@@ -58,6 +61,12 @@ const PageProblem = () => {
         description: "두 수를 입력받아 더하는 문제",
     });
 
+	function handleSubmit() {
+		if(!isUserLogin) toast.error('로그인이 필요한 서비스입니다.', {
+			position: 'bottom-right'
+		});
+	}
+
     return (
         <main className={style.container}>
             <TemplateHeader />
@@ -66,7 +75,7 @@ const PageProblem = () => {
                     <h1 className={style.title}>가장 많이 받은 선물</h1>
                 </section>
                 <Column className={style.right}>
-                    <button className={style.submit}>
+                    <button className={style.submit} onClick={() => handleSubmit()}>
                         <FaCode size={18}/> 코드 제출하기
                     </button>
                     <Row style={{gap: '10px', marginTop: '15px'}}>
