@@ -138,4 +138,15 @@
 	width: 100%;
 	max-width: 750px;
 	height: 100%;
+	max-height: 90%;
+}
+
+.editor {
+	font-size: 40px;
+
+	border: 1px solid var(--color-border);
+
+	span {
+		font-family: "JetBrains Mono", monospace !important;
+	}
 }
