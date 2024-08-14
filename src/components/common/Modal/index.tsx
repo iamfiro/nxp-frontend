@@ -1,3 +1,18 @@
+import style from './style.module.scss';
+
+interface IModalBackdrop {
+	isVisible: boolean;
+	children: React.ReactNode;
+}
+
+const Backdrop = ({isVisible, children}: IModalBackdrop) => {
+	return isVisible ? (
+		<div className="modal-backdrop">
+			{children}
+		</div>
+	) : null;
+}
+
 const Modal = () => {
 	return <h1>모달 컴포넌트</h1>
 }
