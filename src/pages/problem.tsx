@@ -1,15 +1,15 @@
 import style from '../styles/pages/problem.module.scss';
-import { useState, useEffect } from "react";
-import {Column, Modal, MonacoEditor, Row, setMetaTag} from "../components";
-import { FaCode } from "react-icons/fa6";
+import {useEffect, useState} from "react";
+import {Column, Modal, MonacoEditor, Row, Selector, setMetaTag} from "../components";
+import {FaCode, FaMemory} from "react-icons/fa6";
 import TemplateHeader from "../template/header.tsx";
-import { MdOutlineTimelapse } from "react-icons/md";
-import { FaMemory } from "react-icons/fa6";
+import {MdOutlineTimelapse} from "react-icons/md";
 import useDebounce from "../hooks/useDebounce.ts";
-import {getMemo, UpSertMemo} from "../lib/idb.ts";
+import {deleteCode, getCode, getMemo, UpSertCode, UpSertMemo} from "../lib/idb.ts";
 import useIsLoggined from "../hooks/useIsLoggined.ts";
 import {toast} from "react-toastify";
 import {createPortal} from "react-dom";
+import {IoCloseSharp} from "react-icons/io5";
 
 interface ProblemProps {
     title: string;
@@ -36,7 +36,7 @@ const PageProblem = () => {
 	const [editorCode, setEditorCode] = useState<string>(
 		'function add(a, b) {'
 	);
-	const [editorLanguage, setEditorLanguage] = useState<string>('java');
+	const [editorLanguage, setEditorLanguage] = useState<string>(localStorage.getItem('recentLanguage') || 'c');
 
     useEffect(() => {
         // Fetch the memo content when the component mounts
@@ -49,6 +49,11 @@ const PageProblem = () => {
 
         fetchMemo();
     }, [pathname]);
+
+	// 최근 Language를 LocalStorage에 저장
+	useEffect(() => {
+		localStorage.setItem('recentLanguage', editorLanguage);
+	}, [editorLanguage]);
 
     useEffect(() => {
         // UpSert memo when debouncedMemoContent changes
@@ -64,17 +69,48 @@ const PageProblem = () => {
         }
     }, [debouncedMemoContent, pathname]);
 
+	// 임시로 코드를 indexDB에 저장
+	useEffect(() => {
+		if (editorCode) {
+			const upsertCode = async () => {
+				await UpSertCode({
+					key: pathname,
+					value: editorCode,
+				});
+			};
+			upsertCode();
+		}
+	}, [editorCode, pathname]);
+
+	// 모달 열릴 때 IndexedDB에 있는 임시 코드 불러오기
+	useEffect(() => {
+		const fetchCode = async () => {
+			const savedCode = await getCode(pathname);
+			if (savedCode) {
+				setEditorCode(savedCode.value);
+			}
+		};
+		fetchCode();
+	}, [isSubmitModalOpen, pathname]);
+
     setMetaTag({
         title: "두 수 정하기 - NXP",
         description: "두 수를 입력받아 더하는 문제",
     });
 
-	function handleSubmit() {
+	function handleMainSubmitButton() {
 		if(!isUserLogin) toast.error('로그인이 필요한 서비스입니다.', {
 			position: 'bottom-right'
 		});
 
 		setIsSubmitModalOpen(true);
+	}
+
+	async function handleModalSubmit() {
+		// 임시 코드 삭제
+		await deleteCode(pathname);
+
+		setIsSubmitModalOpen(false);
 	}
 
     return (
@@ -85,7 +121,7 @@ const PageProblem = () => {
                     <h1 className={style.title}>가장 많이 받은 선물</h1>
                 </section>
                 <Column className={style.right}>
-                    <button className={style.submit} onClick={() => handleSubmit()}>
+                    <button className={style.submit} onClick={() => handleMainSubmitButton()}>
                         <FaCode size={18}/> 코드 제출하기
                     </button>
                     <Row style={{gap: '10px', marginTop: '15px'}}>
@@ -125,19 +161,38 @@ const PageProblem = () => {
 					<>
 						<Modal.Backdrop isVisible={isSubmitModalOpen} handleClose={() => setIsSubmitModalOpen(false)}>
 							<Modal className={style.submitModal}>
-								<Row>
+								<Row className={style.submitModalHeader}>
 									<h2>코드 제출하기</h2>
-									<button onClick={() => setIsSubmitModalOpen(false)}>닫기</button>
+									<button className={style.modalClose} onClick={() => setIsSubmitModalOpen(false)}>
+										<IoCloseSharp size={20} />
+									</button>
 								</Row>
 								<MonacoEditor code={editorCode} setCode={setEditorCode} language={editorLanguage}/>
-								<select className={style.selectLanguage} value={editorLanguage}
-										onChange={(e) => setEditorLanguage(e.target.value)}>
-									<option value={'c'}>C</option>
-									<option value={'cpp'}>C++</option>
-									<option value={'java'}>Java</option>
-									<option value={'go'}>GoLang</option>
-									<option value={'rust'}>Rust</option>
-								</select>
+								<Selector initialValue={editorLanguage} styles={{ margin: 'auto 0 10px 0', height: '45px'}} className={style.select} options={[
+									{
+										label: 'C',
+										value: 'c'
+									},
+									{
+										label: 'C++',
+										value: 'cpp'
+									},
+									{
+										label: 'Java',
+										value: 'java'
+									},
+									{
+										label: 'GoLang',
+										value: 'go'
+									},
+									{
+										label: 'Rust',
+										value: 'rust'
+									}
+								]} onChange={(e) => setEditorLanguage(e)} />
+								<button className={style.submit} style={{width: '100%'}} onClick={() => handleModalSubmit()}>
+									<FaCode size={18} /> 제출하기
+								</button>
 							</Modal>
 						</Modal.Backdrop>
 					</>,
