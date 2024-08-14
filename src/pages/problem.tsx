@@ -6,6 +6,20 @@ import TemplateHeader from "../template/header.tsx";
 import { MdOutlineTimelapse } from "react-icons/md";
 import { FaMemory } from "react-icons/fa6";
 
+interface ProblemProps {
+	title: string;
+	value: string;
+}
+
+const ProblemSummary = ({title,value}: ProblemProps) => {
+	return (
+		<li>
+			<span>{title}</span>
+			<span>{value}</span>
+		</li>
+	)
+}
+
 const PageProblem = () => {
 	const [code, setCode] = useState<string>(
 		'function add(a, b) {'
@@ -44,6 +58,11 @@ const PageProblem = () => {
 							<span className={style.limitValue}>128 MB</span>
 						</section>
 					</Row>
+					<ul className={style.problemSummaryContainer}>
+						<ProblemSummary title={'제출 수'} value={'1,000명'} />
+						<ProblemSummary title={'정답 수'} value={'1,000명'} />
+						<ProblemSummary title={'실패 수'} value={'22,293명'} />
+					</ul>
 				</Column>
 			</Row>
 		</main>

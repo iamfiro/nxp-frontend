@@ -79,3 +79,30 @@
 		font-weight: 500;
 	}
 }
+
+.problemSummaryContainer {
+	list-style: none;
+
+	margin: 22px 0 0 0;
+	padding: 0;
+
+	li {
+		width: 100%;
+
+		display: flex;
+		justify-content: space-between;
+
+		padding: 7px 0;
+
+		font-size: 15px;
+		font-weight: 500;
+
+		span:first-child {
+			color: var(--color-gray-200);
+		}
+
+		span:last-child {
+			color: var(--color-gray-600);
+		}
+	}
+}
