@@ -54,11 +54,11 @@ const MonacoEditor = ({ code, setCode, language }: MonacoEditorProps) => {
             onChange={(value) => setCode(value || "")}
             className={style.editor}
             width={"100%"}
-            height={"calc(100% - 50px)"}
             options={{
                 fontSize: 15,
                 tabSize: 4,
                 insertSpaces: false,
+				minimap: {enabled: false},
             }}
         />
     );
