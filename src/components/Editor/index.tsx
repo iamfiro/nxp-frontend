@@ -40,10 +40,10 @@ const MonacoEditor = ({ code, setCode, language }: MonacoEditorProps) => {
         registerCompletionProviders(monaco);
 
         // Update model language when language prop changes
-        monaco.editor.setModelLanguage(
-            monaco.editor.getModels()[0],
-            language
-        );
+        const models = monaco.editor.getModels();
+        if (models.length > 0) {
+            monaco.editor.setModelLanguage(models[0], language);
+        }
     }, [language, monaco]);
 
     return (
@@ -53,12 +53,12 @@ const MonacoEditor = ({ code, setCode, language }: MonacoEditorProps) => {
             theme={"github-light"}
             onChange={(value) => setCode(value || "")}
             className={style.editor}
-            width={"100%"}
-            height={"calc(100% - 50px)"}
+			height={'calc(100% - 160px)'}
             options={{
-                fontSize: 15,
+                fontSize: 14,
                 tabSize: 4,
                 insertSpaces: false,
+				minimap: {enabled: false},
             }}
         />
     );

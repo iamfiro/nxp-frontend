@@ -1,0 +1,49 @@
+@keyframes showAnimation {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes showBackdropAnimation {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4));
+
+	animation: showBackdropAnimation 0.2s ease;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 101;
+
+    transform: translate(-50%, -50%);
+
+    background-color: var(--color-white);
+    border-radius: var(--radius-l);
+
+    padding: 15px;
+
+    animation: showAnimation 0.3s ease;
+}

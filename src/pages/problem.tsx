@@ -1,121 +1,204 @@
 import style from '../styles/pages/problem.module.scss';
-import React, {useState} from "react";
-import ServiceLogo from '../assets/logo.svg';
-import {Column, MonacoEditor, Row, setMetaTag} from "../components";
-import { SiDocsdotrs } from "react-icons/si";
-import { FaCirclePlay } from "react-icons/fa6";
-import { MdCloudUpload } from "react-icons/md";
+import {useEffect, useState} from "react";
+import {Column, Modal, MonacoEditor, Row, Selector, setMetaTag} from "../components";
+import {FaCode, FaMemory} from "react-icons/fa6";
+import TemplateHeader from "../template/header.tsx";
+import {MdOutlineTimelapse} from "react-icons/md";
+import useDebounce from "../hooks/useDebounce.ts";
+import {deleteCode, getCode, getMemo, UpSertCode, UpSertMemo} from "../lib/idb.ts";
+import useIsLoggined from "../hooks/useIsLoggined.ts";
 import {toast} from "react-toastify";
-import {LanguageToSvg} from "../lib/format.ts";
+import {createPortal} from "react-dom";
+import {IoCloseSharp} from "react-icons/io5";
 
-type TabState = 'problem' | 'submission';
-
-interface TabProps {
-	children: React.ReactNode;
-	tabState: string;
-	setTabState: (name: TabState) => void;
-	name: TabState;
+interface ProblemProps {
+    title: string;
+    value: string;
 }
 
-const Tab = ({ children, tabState, setTabState, name }: TabProps) => {
-	return (
-		<div className={style.tab} data-selected={tabState === name} onClick={() => setTabState(name)}>
-			{children}
-		</div>
-	)
-}
-
-interface TabContentProps {
-	children: React.ReactNode;
-	tabState: string;
-	name: string;
-}
-
-const TabContent = ({ children, tabState, name }: TabContentProps) => {
-	return (
-		<section style={{ display: tabState === name ? 'flex' : 'none', borderRadius: name !== 'problem' ? 'var(--radius-ss)' : '0 var(--radius-ss) var(--radius-ss) var(--radius-ss)' }} className={style.tabContent}>
-			{children}
-		</section>
-	)
+const ProblemSummary = ({ title, value }: ProblemProps) => {
+    return (
+        <li>
+            <span>{title}</span>
+            <span>{value}</span>
+        </li>
+    )
 }
 
 const PageProblem = () => {
-	const [code, setCode] = useState<string>(
+    const pathname = window.location.pathname.replace('/problem/', ''); // Get the current pathname as memo id
+    const [memoContent, setMemoContent] = useState<string>('');
+    const debouncedMemoContent = useDebounce(memoContent, 1000);
+	const { isUserLogin } = useIsLoggined();
+	const [isSubmitModalOpen, setIsSubmitModalOpen] = useState<boolean>(false);
+
+	// Editor 관련 상태 변수
+	const [editorCode, setEditorCode] = useState<string>(
 		'function add(a, b) {'
 	);
-	const [language, setLanguage] = useState<string>('java');
-	const [tab, setTab] = useState<TabState>('problem');
+	const [editorLanguage, setEditorLanguage] = useState<string>(localStorage.getItem('recentLanguage') || 'c');
 
-	setMetaTag({
-		title: "두 수 정하기 - NXP",
-		description: "두 수를 입력받아 더하는 문제",
-	});
+    useEffect(() => {
+        // Fetch the memo content when the component mounts
+        const fetchMemo = async () => {
+            const memo = await getMemo(pathname);
+            if (memo) {
+                setMemoContent(memo.value);
+            }
+        };
 
-	function handleSubmitCode() {
-		if(code === '') return toast.error('코드가 비어있습니다', {
-			position: 'bottom-right',
-			theme: 'colored',
+        fetchMemo();
+    }, [pathname]);
+
+	// 최근 Language를 LocalStorage에 저장
+	useEffect(() => {
+		localStorage.setItem('recentLanguage', editorLanguage);
+	}, [editorLanguage]);
+
+    useEffect(() => {
+        // UpSert memo when debouncedMemoContent changes
+        if (debouncedMemoContent) {
+            const upsertMemo = async () => {
+                await UpSertMemo({
+                    key: pathname,
+					value: debouncedMemoContent,
+                });
+            };
+
+            upsertMemo();
+        }
+    }, [debouncedMemoContent, pathname]);
+
+	// 임시로 코드를 indexDB에 저장
+	useEffect(() => {
+		if (editorCode) {
+			const upsertCode = async () => {
+				await UpSertCode({
+					key: pathname,
+					value: editorCode,
+				});
+			};
+			upsertCode();
+		}
+	}, [editorCode, pathname]);
+
+	// 모달 열릴 때 IndexedDB에 있는 임시 코드 불러오기
+	useEffect(() => {
+		const fetchCode = async () => {
+			const savedCode = await getCode(pathname);
+			if (savedCode) {
+				setEditorCode(savedCode.value);
+			}
+		};
+		fetchCode();
+	}, [isSubmitModalOpen, pathname]);
+
+    setMetaTag({
+        title: "두 수 정하기 - NXP",
+        description: "두 수를 입력받아 더하는 문제",
+    });
+
+	function handleMainSubmitButton() {
+		if(!isUserLogin) toast.error('로그인이 필요한 서비스입니다.', {
+			position: 'bottom-right'
 		});
 
-		toast.success('코드가 제출되었습니다', {
-			position: 'bottom-right',
-			theme: 'colored',
-		});
-
-		setTab('submission');
+		setIsSubmitModalOpen(true);
 	}
 
-	return (
-		<main className={style.container}>
-			<header className={style.header}>
-				<Row style={{ gap: '10px' }}>
-					<img src={ServiceLogo} alt={'NXP Logo'} className={style.logo}/>
-					<h1 className={style.title}>두 수 정하기</h1>
-					<span className={style.correctPercentage}>정답률 32%</span>
-				</Row>
-				<Row style={{ gap: '20px' }}>
-					<select className={style.selectLanguage} value={language}
-							onChange={(e) => setLanguage(e.target.value)}>
-						<option value={'c'}>C</option>
-						<option value={'cpp'}>C++</option>
-						<option value={'java'}>Java</option>
-						<option value={'go'}>GoLang</option>
-						<option value={'rust'}>Rust</option>
-					</select>
-					<button className={style.submit} onClick={() => handleSubmitCode()}><MdCloudUpload size={20}/> 코드 제출하기</button>
-				</Row>
-			</header>
-			<section className={style.main}>
-				<div className={style.info}>
-					<Row className={style.infoHeader}>
-						<Tab tabState={tab} setTabState={setTab} name={'problem'}>
-							<SiDocsdotrs />
-							문제
-						</Tab>
-						<Tab tabState={tab} setTabState={setTab} name={'submission'}>
-							<FaCirclePlay />
-							채점 내역
-						</Tab>
-					</Row>
-					<TabContent tabState={tab} name={'problem'}>
-						<h1>문제 제목</h1>
-						<p>문제 내용</p>
-					</TabContent>
-					<TabContent tabState={tab} name={'submission'}>
-						<h1>채점 내역</h1>
-						<p>문제 내용</p>
-					</TabContent>
-				</div>
-				<Column style={{ width: '50%' }}>
-					<div className={style.codeHeader}>
-						<Row style={{ gap: '10px' }} className={style.codeTab}>
-							<img src={LanguageToSvg(language)} height={20} width={20} alt={language}/>
-							<span>solution.{language}</span>
-						</Row>
-					</div>
-					<MonacoEditor code={code} setCode={setCode} language={language}/>
-				</Column>
-			</section>
+	async function handleModalSubmit() {
+		// 임시 코드 삭제
+		await deleteCode(pathname);
+
+		setIsSubmitModalOpen(false);
+	}
+
+    return (
+        <main className={style.container}>
+            <TemplateHeader />
+            <Row className={style.main}>
+                <section className={style.left}>
+                    <h1 className={style.title}>가장 많이 받은 선물</h1>
+                </section>
+                <Column className={style.right}>
+                    <button className={style.submit} onClick={() => handleMainSubmitButton()}>
+                        <FaCode size={18}/> 코드 제출하기
+                    </button>
+                    <Row style={{gap: '10px', marginTop: '15px'}}>
+                        <section className={style.problemLimit}>
+                            <Row className={style.limitTitle}>
+                                <MdOutlineTimelapse/>
+                                <span>시간 제한</span>
+                            </Row>
+                            <span className={style.limitValue}>1초</span>
+                        </section>
+                        <section className={style.problemLimit}>
+                            <Row className={style.limitTitle}>
+                                <FaMemory/>
+                                <span>메모리 제한</span>
+                            </Row>
+                            <span className={style.limitValue}>128 MB</span>
+                        </section>
+                    </Row>
+                    <ul className={style.problemSummaryContainer}>
+                        <ProblemSummary title={'제출 수'} value={'1,000명'} />
+                        <ProblemSummary title={'정답 수'} value={'1,000명'} />
+                        <ProblemSummary title={'실패 수'} value={'22,293명'} />
+                    </ul>
+
+                    <span className={style.memoTitle}>메모</span>
+                    <textarea
+                        className={style.memo}
+                        placeholder={'여기를 눌러 메모를 입력하세요'}
+                        value={memoContent}
+						defaultValue={memoContent}
+                        onChange={(e) => setMemoContent(e.target.value)}
+                    />
+                </Column>
+            </Row>
+			{isSubmitModalOpen && (
+				createPortal(
+					<>
+						<Modal.Backdrop isVisible={isSubmitModalOpen} handleClose={() => setIsSubmitModalOpen(false)}>
+							<Modal className={style.submitModal}>
+								<Row className={style.submitModalHeader}>
+									<h2>코드 제출하기</h2>
+									<button className={style.modalClose} onClick={() => setIsSubmitModalOpen(false)}>
+										<IoCloseSharp size={20} />
+									</button>
+								</Row>
+								<MonacoEditor code={editorCode} setCode={setEditorCode} language={editorLanguage}/>
+								<Selector initialValue={editorLanguage} styles={{ margin: 'auto 0 10px 0', height: '45px'}} className={style.select} options={[
+									{
+										label: 'C',
+										value: 'c'
+									},
+									{
+										label: 'C++',
+										value: 'cpp'
+									},
+									{
+										label: 'Java',
+										value: 'java'
+									},
+									{
+										label: 'GoLang',
+										value: 'go'
+									},
+									{
+										label: 'Rust',
+										value: 'rust'
+									}
+								]} onChange={(e) => setEditorLanguage(e)} />
+								<button className={style.submit} style={{width: '100%'}} onClick={() => handleModalSubmit()}>
+									<FaCode size={18} /> 제출하기
+								</button>
+							</Modal>
+						</Modal.Backdrop>
+					</>,
+					document.body
+				)
+			)}
 		</main>
 	)
 }
