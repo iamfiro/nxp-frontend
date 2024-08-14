@@ -1,6 +1,6 @@
 import { openDB, IDBPDatabase } from 'idb';
 
-const DB_NAME = 'auth-db';
+const DB_NAME = 'nxp-db';
 const TOKEN_STORE_NAME = 'tokens';
 const IS_LOGGED_IN_STORE_NAME = 'isLoggedIn';
 const MEMO_STORE_NAME = 'problem_memo';
@@ -16,6 +16,12 @@ async function createStore(): Promise<IDBPDatabase<unknown>> {
 			if (!db.objectStoreNames.contains(IS_LOGGED_IN_STORE_NAME)) {
 				db.createObjectStore(IS_LOGGED_IN_STORE_NAME, {
 					keyPath: 'key',
+				});
+			}
+			if(!db.objectStoreNames.contains(MEMO_STORE_NAME)) {
+				db.createObjectStore(MEMO_STORE_NAME, {
+					keyPath: 'key',
+					autoIncrement: false,
 				});
 			}
 		},
@@ -59,27 +65,24 @@ export async function deleteIsLoggedIn(): Promise<void> {
 }
 
 interface Memo {
-	id: string;
-	content: string;
+	key: string;
+	value: string;
 }
 
 export async function UpSertMemo(memo: Memo): Promise<void> {
 	const db = await createStore();
-	const existingMemo = await db.get(MEMO_STORE_NAME, memo.id);
+	const existingMemo = await db.get(MEMO_STORE_NAME, memo.key);
 
 	if (existingMemo) {
 		// Update existing memo
 		await db.put(MEMO_STORE_NAME, {
 			...existingMemo,
-			...memo,
-			updatedAt: new Date(),
+			...memo
 		});
 	} else {
 		// Insert new memo
 		await db.add(MEMO_STORE_NAME, {
 			...memo,
-			createdAt: new Date(),
-			updatedAt: new Date(),
 		});
 	}
 }
