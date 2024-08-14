@@ -1,5 +1,5 @@
 import ServiceLogo from '../../public/logo.svg';
-import {AuthForm, Row} from "../components";
+import {AuthForm, LoadingSpinner, Row} from "../components";
 import {useState} from "react";
 import {requestNoAuth} from "../lib/axios.ts";
 import {useNavigate} from "react-router-dom";
@@ -11,12 +11,15 @@ import {toast} from "react-toastify";
 const PageLogin = () => {
 	const [id, setId] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
+	const [isPending, setIsPending] = useState<boolean>(true);
 
 	const navigate = useNavigate();
 	const { storeUserLogin } = useIsLoggined();
 	const { storeToken } = useAccessToken();
 
 	function handleLogin() {
+		setIsPending(true);
+
 		requestNoAuth.post('/auth/login', {
 			id: id,
 			password: password
@@ -30,6 +33,8 @@ const PageLogin = () => {
 			navigate('/');
 		}).catch((err) => {
 			toast.error(`서버 요청증 오류가 발생했습니다 : ${err.response.status}`);
+		}).finally(() => {
+			setIsPending(false);
 		});
 	}
 
@@ -60,7 +65,13 @@ const PageLogin = () => {
 				onChange={(e) => setPassword(e.target.value)}
 			/>
 			<AuthForm.Submit onClick={() => handleLogin()}>
-				로그인
+				{
+					isPending ? (
+						<LoadingSpinner visible={isPending} />
+					) : (
+						'로그인'
+					)
+				}
 			</AuthForm.Submit>
 			<Row style={{width: '100%', justifyContent: 'space-between', marginTop: '15px'}}>
 				<a href={'/register'} style={{ fontSize: '14px', color: 'var(--color-gray-500)'}}>
