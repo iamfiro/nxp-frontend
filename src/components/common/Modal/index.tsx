@@ -7,7 +7,7 @@ interface IModalBackdrop {
 
 const Backdrop = ({isVisible, children}: IModalBackdrop) => {
 	return isVisible ? (
-		<div className="modal-backdrop">
+		<div className={style.backdrop}>
 			{children}
 		</div>
 	) : null;
