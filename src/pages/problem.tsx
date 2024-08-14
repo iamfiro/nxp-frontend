@@ -30,7 +30,7 @@ const PageProblem = () => {
     const [memoContent, setMemoContent] = useState<string>('');
     const debouncedMemoContent = useDebounce(memoContent, 1000);
 	const { isUserLogin } = useIsLoggined();
-	const [isSubmitModalOpen, setIsSubmitModalOpen] = useState<boolean>(true);
+	const [isSubmitModalOpen, setIsSubmitModalOpen] = useState<boolean>(false);
 
 	// Editor 관련 상태 변수
 	const [editorCode, setEditorCode] = useState<string>(
