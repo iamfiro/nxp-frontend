@@ -16,6 +16,7 @@ const Selector = ({ options, initialValue, onChange, styles, className }: Select
             onChange={e => onChange(e.target.value)}
             className={`${style.select} ${className}`}
             style={styles}
+			defaultValue={initialValue}
         >
             {
                 options.map(option => (
