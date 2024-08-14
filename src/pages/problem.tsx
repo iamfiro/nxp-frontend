@@ -19,10 +19,14 @@ const PageProblem = () => {
 	return (
 		<main className={style.container}>
 			<TemplateHeader />
-
 			<Row className={style.main}>
 				<section className={style.left}>
 					<h1 className={style.title}>가장 많이 받은 선물</h1>
+				</section>
+				<section className={style.right}>
+					<button className={style.submit}>
+						<FaCode/> 코드 제출하기
+					</button>
 				</section>
 			</Row>
 		</main>
