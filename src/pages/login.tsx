@@ -29,7 +29,7 @@ const PageLogin = () => {
 			// 메인 페이지로 이동
 			navigate('/');
 		}).catch((err) => {
-			toast.error(err.response.data);
+			toast.error(`서버 요청증 오류가 발생했습니다 : ${err.response.status}`);
 		});
 	}
 
