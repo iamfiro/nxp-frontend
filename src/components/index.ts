@@ -16,3 +16,4 @@ export { default as Avatar } from './common/Avatar';
 export { default as setMetaTag } from './common/MetaTag';
 export { default as InfiniteScroll } from './common/InfiniteScroll';
 export { default as Skeleton } from './common/Skeleton';
+export { default as LoadingSpinner } from './common/LoadingSpinner';
