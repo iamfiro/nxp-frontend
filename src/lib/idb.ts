@@ -4,6 +4,7 @@ const DB_NAME = 'nxp-db';
 const TOKEN_STORE_NAME = 'tokens';
 const IS_LOGGED_IN_STORE_NAME = 'isLoggedIn';
 const MEMO_STORE_NAME = 'problem_memo';
+const PROBLEM_CODE_STORE_NAME = 'problem_code';
 
 async function createStore(): Promise<IDBPDatabase<unknown>> {
 	return await openDB(DB_NAME, 1, {
@@ -20,6 +21,12 @@ async function createStore(): Promise<IDBPDatabase<unknown>> {
 			}
 			if(!db.objectStoreNames.contains(MEMO_STORE_NAME)) {
 				db.createObjectStore(MEMO_STORE_NAME, {
+					keyPath: 'key',
+					autoIncrement: false,
+				});
+			}
+			if(!db.objectStoreNames.contains(PROBLEM_CODE_STORE_NAME)) {
+				db.createObjectStore(PROBLEM_CODE_STORE_NAME, {
 					keyPath: 'key',
 					autoIncrement: false,
 				});
@@ -64,12 +71,12 @@ export async function deleteIsLoggedIn(): Promise<void> {
 	await db.delete(IS_LOGGED_IN_STORE_NAME, 'isLoggedIn');
 }
 
-interface Memo {
+interface DBData {
 	key: string;
 	value: string;
 }
 
-export async function UpSertMemo(memo: Memo): Promise<void> {
+export async function UpSertMemo(memo: DBData): Promise<void> {
 	const db = await createStore();
 	const existingMemo = await db.get(MEMO_STORE_NAME, memo.key);
 
@@ -87,7 +94,35 @@ export async function UpSertMemo(memo: Memo): Promise<void> {
 	}
 }
 
-export async function getMemo(id: string): Promise<Memo | undefined> {
+export async function getMemo(id: string): Promise<DBData | undefined> {
 	const db = await createStore();
 	return await db.get(MEMO_STORE_NAME, id);
+}
+
+export async function UpSertCode(code: DBData): Promise<void> {
+	const db = await createStore();
+	const existingCode = await db.get(PROBLEM_CODE_STORE_NAME, code.key);
+
+	if (existingCode) {
+		// Update existing code
+		await db.put(PROBLEM_CODE_STORE_NAME, {
+			...existingCode,
+			...code
+		});
+	} else {
+		// Insert new code
+		await db.add(PROBLEM_CODE_STORE_NAME, {
+			...code,
+		});
+	}
+}
+
+export async function getCode(id: string): Promise<DBData | undefined> {
+	const db = await createStore();
+	return await db.get(PROBLEM_CODE_STORE_NAME, id);
+}
+
+export async function deleteCode(id: string): Promise<void> {
+	const db = await createStore();
+	await db.delete(PROBLEM_CODE_STORE_NAME, id);
 }
