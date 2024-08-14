@@ -1,6 +1,6 @@
 import style from '../styles/pages/problem.module.scss';
 import { useState, useEffect } from "react";
-import { Column, Row, setMetaTag } from "../components";
+import {Column, Modal, MonacoEditor, Row, setMetaTag} from "../components";
 import { FaCode } from "react-icons/fa6";
 import TemplateHeader from "../template/header.tsx";
 import { MdOutlineTimelapse } from "react-icons/md";
@@ -9,6 +9,7 @@ import useDebounce from "../hooks/useDebounce.ts";
 import {getMemo, UpSertMemo} from "../lib/idb.ts";
 import useIsLoggined from "../hooks/useIsLoggined.ts";
 import {toast} from "react-toastify";
+import {createPortal} from "react-dom";
 
 interface ProblemProps {
     title: string;
@@ -29,6 +30,13 @@ const PageProblem = () => {
     const [memoContent, setMemoContent] = useState<string>('');
     const debouncedMemoContent = useDebounce(memoContent, 1000);
 	const { isUserLogin } = useIsLoggined();
+	const [isSubmitModalOpen, setIsSubmitModalOpen] = useState<boolean>(true);
+
+	// Editor 관련 상태 변수
+	const [editorCode, setEditorCode] = useState<string>(
+		'function add(a, b) {'
+	);
+	const [editorLanguage, setEditorLanguage] = useState<string>('java');
 
     useEffect(() => {
         // Fetch the memo content when the component mounts
@@ -65,6 +73,8 @@ const PageProblem = () => {
 		if(!isUserLogin) toast.error('로그인이 필요한 서비스입니다.', {
 			position: 'bottom-right'
 		});
+
+		setIsSubmitModalOpen(true);
 	}
 
     return (
@@ -110,8 +120,28 @@ const PageProblem = () => {
                     />
                 </Column>
             </Row>
-        </main>
-    )
+			{isSubmitModalOpen && (
+				createPortal(
+					<>
+						<Modal.Backdrop isVisible={isSubmitModalOpen} handleClose={() => setIsSubmitModalOpen(false)}>
+							<Modal className={style.submitModal}>
+								<MonacoEditor code={editorCode} setCode={setEditorCode} language={editorLanguage}/>
+								<select className={style.selectLanguage} value={editorLanguage}
+										onChange={(e) => setEditorLanguage(e.target.value)}>
+									<option value={'c'}>C</option>
+									<option value={'cpp'}>C++</option>
+									<option value={'java'}>Java</option>
+									<option value={'go'}>GoLang</option>
+									<option value={'rust'}>Rust</option>
+								</select>
+							</Modal>
+						</Modal.Backdrop>
+					</>,
+					document.body
+				)
+			)}
+		</main>
+	)
 }
 
 export default PageProblem;
