@@ -134,11 +134,41 @@
 	}
 }
 
+.modalClose {
+	color: var(--color-gray-400);
+	background-color: var(--color-white);
+
+	width: 30px;
+	height: 30px;
+
+	border: 0;
+	border-radius: var(--radius-ss);
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	cursor: pointer;
+
+	&:hover {
+		background-color: var(--color-gray-030);
+	}
+
+	&:active {
+		background-color: var(--color-gray-050);
+	}
+}
+
 .submitModal {
 	width: 100%;
-	max-width: 750px;
+	max-width: 600px;
 	height: 100%;
 	max-height: 90%;
+
+	margin: 0 20px;
+
+	display: flex;
+	flex-direction: column;
 }
 
 .editor {
@@ -148,5 +178,19 @@
 
 	span {
 		font-family: "JetBrains Mono", monospace !important;
+	}
+}
+
+.submitModalHeader {
+	justify-content: space-between;
+
+	padding: 5px 0;
+	margin-bottom: 10px;
+
+	h2 {
+		font-size: 18px;
+		font-weight: 500;
+
+		margin: 0;
 	}
 }
