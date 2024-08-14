@@ -13,8 +13,16 @@ const Backdrop = ({isVisible, children}: IModalBackdrop) => {
 	) : null;
 }
 
-const Modal = () => {
-	return <h1>모달 컴포넌트</h1>
+interface IModal {
+	children: React.ReactNode;
+}
+
+const Modal = ({children}: IModal) => {
+	return (
+		<div className={style.modal}>
+			{children}
+		</div>
+	)
 }
 
 Modal.Backdrop = Backdrop;
