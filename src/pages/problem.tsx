@@ -63,6 +63,9 @@ const PageProblem = () => {
 						<ProblemSummary title={'정답 수'} value={'1,000명'} />
 						<ProblemSummary title={'실패 수'} value={'22,293명'} />
 					</ul>
+
+					<span className={style.memoTitle}>메모</span>
+					<textarea className={style.memo} placeholder={'여기를 눌러 메모를 입력하세요'} />
 				</Column>
 			</Row>
 		</main>
