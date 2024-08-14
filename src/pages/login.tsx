@@ -19,6 +19,9 @@ const PageLogin = () => {
 
 	function handleLogin() {
 		setIsPending(true);
+		if(isPending) return;
+
+		if(id === '' || password === '') toast.error('아이디와 비밀번호를 입력해주세요.');
 
 		requestNoAuth.post('/auth/login', {
 			id: id,
