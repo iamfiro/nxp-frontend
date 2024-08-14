@@ -11,7 +11,7 @@ import {toast} from "react-toastify";
 const PageLogin = () => {
 	const [id, setId] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
-	const [isPending, setIsPending] = useState<boolean>(true);
+	const [isPending, setIsPending] = useState<boolean>(false);
 
 	const navigate = useNavigate();
 	const { storeUserLogin } = useIsLoggined();
