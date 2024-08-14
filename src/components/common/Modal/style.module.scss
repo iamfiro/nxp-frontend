@@ -27,7 +27,9 @@
     width: 100%;
     height: 100%;
 
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 3%, rgba(0, 0, 0, 0.5) 80%);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4));
+
+	animation: showBackdropAnimation 0.3s ease;
 }
 
 .modal {
