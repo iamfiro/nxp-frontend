@@ -21,7 +21,7 @@ interface IModal {
 
 const Modal = ({children, className}: IModal) => {
 	return (
-		<div className={`${style.modal} ${className}`}>
+		<div className={`${style.modal} ${className}`} onClick={(e) => e.stopPropagation()}>
 			{children}
 		</div>
 	)
