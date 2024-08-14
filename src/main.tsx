@@ -16,6 +16,7 @@ import PageNoMatch from "./pages/noMatch.tsx";
 import PagePasswordRecovery from "./pages/passwordRecovery.tsx";
 import Setting from "./pages/setting.tsx";
 import PageUserProfile from "./pages/userProfile.tsx";
+import Logout from "./pages/Logout.tsx";
 
 const router = createBrowserRouter([
     {
@@ -61,6 +62,11 @@ const router = createBrowserRouter([
 	{
 		path: '/setting',
 		element: <Setting />
+	},
+	// Logout
+	{
+		path: '/logout',
+		element: <Logout />,
 	},
 	// 404
 	{
