@@ -40,10 +40,10 @@ const MonacoEditor = ({ code, setCode, language }: MonacoEditorProps) => {
         registerCompletionProviders(monaco);
 
         // Update model language when language prop changes
-        monaco.editor.setModelLanguage(
-            monaco.editor.getModels()[0],
-            language
-        );
+        const models = monaco.editor.getModels();
+        if (models.length > 0) {
+            monaco.editor.setModelLanguage(models[0], language);
+        }
     }, [language, monaco]);
 
     return (
