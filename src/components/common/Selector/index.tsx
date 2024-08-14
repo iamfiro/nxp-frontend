@@ -6,14 +6,15 @@ interface SelectorProps {
     initialValue?: string;
     onChange: (value: string) => void;
     styles?: React.CSSProperties;
+	className?: string;
 }
 
-const Selector = ({ options, initialValue, onChange, styles }: SelectorProps) => {
+const Selector = ({ options, initialValue, onChange, styles, className }: SelectorProps) => {
     return (
         <select
             value={initialValue}
             onChange={e => onChange(e.target.value)}
-            className={style.select}
+            className={`${style.select} ${className}`}
             style={styles}
         >
             {
