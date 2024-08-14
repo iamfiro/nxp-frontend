@@ -29,3 +29,21 @@
 
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 3%, rgba(0, 0, 0, 0.5) 80%);
 }
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 101;
+
+    transform: translate(-50%, -50%);
+
+    background-color: var(--color-white);
+    border-radius: var(--radius-m);
+
+    padding: 15px;
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    animation: showAnimation 0.3s ease;
+}
