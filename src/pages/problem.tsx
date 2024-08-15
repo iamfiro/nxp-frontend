@@ -27,8 +27,30 @@ const ProblemSummary = ({ title, value }: ProblemProps) => {
     )
 }
 
+interface SubmitProps {
+	status?: boolean;
+}
+
+const Submit = () => {
+	return (
+		<section className={style.submitItem}>
+			<Row style={{justifyContent: 'space-between', alignItems: 'flex-start'}}>
+				<Column>
+					<span className={style.submitLanguage}>C99</span>
+					<span className={style.submitStatus}>정답입니다!</span>
+				</Column>
+				<a className={style.submitDate}>2024-8-15 3:33:42 제출</a>
+			</Row>
+			<Row style={{justifyContent: 'space-between'}}>
+				<span className={style.submitData}>메모리 <b>5592KB</b> · 시간 <b>192ms</b></span>
+				<button className={style.submitViewCode}>코드 보기</button>
+			</Row>
+		</section>
+	)
+}
+
 const PageProblem = () => {
-    const pathname = window.location.pathname.replace('/problem/', ''); // Get the current pathname as memo id
+	const pathname = window.location.pathname.replace('/problem/', ''); // Get the current pathname as memo id
     const [memoContent, setMemoContent] = useState<string>('');
     const debouncedMemoContent = useDebounce(memoContent, 1000);
 	const { isUserLogin } = useIsLoggined();
@@ -207,6 +229,9 @@ const PageProblem = () => {
 							}
 						</button>
 					</Row>
+					<Column className={style.submitContainer}>
+						<Submit  />
+					</Column>
 				</Column>
 			</Row>
 			{isSubmitModalOpen && (
