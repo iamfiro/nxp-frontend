@@ -293,29 +293,30 @@ const PageProblem = () => {
 									</Row>
 									<MonacoEditor code={editorCode} setCode={setEditorCode} language={editorLanguage}/>
 									<Selector initialValue={editorLanguage}
-											  styles={{margin: 'auto 0 10px 0', height: '45px'}}
-											  className={style.select} options={[
-										{
-											label: 'C',
-											value: 'c'
-										},
-										{
-											label: 'C++',
-											value: 'cpp'
-										},
-										{
-											label: 'Java',
-											value: 'java'
-										},
-										{
-											label: 'GoLang',
-											value: 'go'
-										},
-										{
-											label: 'Rust',
-											value: 'rust'
-										}
-									]} onChange={(e) => setEditorLanguage(e)}/>
+										styles={{margin: 'auto 0 10px 0', height: '45px'}}
+										className={style.select} options={[
+											{
+												label: 'C',
+												value: 'c'
+											},
+											{
+												label: 'C++',
+												value: 'cpp'
+											},
+											{
+												label: 'Java',
+												value: 'java'
+											},
+											{
+												label: 'GoLang',
+												value: 'go'
+											},
+											{
+												label: 'Rust',
+												value: 'rust'
+											}
+										]} onChange={(e) => setEditorLanguage(e)}
+									/>
 									<button className={style.submit} style={{width: '100%'}}
 											onClick={() => handleModalSubmit()}>
 										<FaCode size={18}/> 제출하기
