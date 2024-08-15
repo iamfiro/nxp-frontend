@@ -11,6 +11,7 @@ import {toast} from "react-toastify";
 import {createPortal} from "react-dom";
 import {IoCloseSharp} from "react-icons/io5";
 import {request} from "../lib/axios.ts";
+import { MdOutlineRefresh } from "react-icons/md";
 
 interface ProblemProps {
     title: string;
@@ -32,6 +33,9 @@ const PageProblem = () => {
     const debouncedMemoContent = useDebounce(memoContent, 1000);
 	const { isUserLogin } = useIsLoggined();
 	const [isSubmitModalOpen, setIsSubmitModalOpen] = useState<boolean>(false);
+
+	// 제출 현황
+	const [isSubmitStatusPending, setIsSubmitStatusPending] = useState<boolean>(false);
 
 	// Editor 관련 상태 변수
 	const [editorCode, setEditorCode] = useState<string>(
@@ -128,6 +132,24 @@ const PageProblem = () => {
 		});
 	}
 
+	function handleUpdateSubmitStatus() {
+		console.log('update submit status');
+
+		setIsSubmitStatusPending(true);
+
+		request.get('/submit/status').then(() => {
+			toast.info('제출 현황이 업데이트 되었습니다.', {
+				position: 'bottom-right'
+			});
+		}).catch(() => {
+			toast.error('제출 현황 업데이트 중 오류가 발생했습니다.', {
+				position: 'bottom-right'
+			})
+		}).finally(() => {
+			setIsSubmitStatusPending(false);
+		});
+	}
+
     return (
         <main className={style.container}>
             <TemplateHeader />
@@ -165,12 +187,28 @@ const PageProblem = () => {
                     <textarea
                         className={style.memo}
                         placeholder={'여기를 눌러 메모를 입력하세요'}
-                        value={memoContent}
 						defaultValue={memoContent}
                         onChange={(e) => setMemoContent(e.target.value)}
                     />
-                </Column>
-            </Row>
+
+					<Row style={{justifyContent: 'space-between', alignItems: 'center', marginTop: '40px'}}>
+						<span className={style.submitTitle}>제출 현황</span>
+						<button className={style.submitUpdate} onClick={() => handleUpdateSubmitStatus()}>
+							{
+								isSubmitStatusPending ? (
+									<>
+										<MdOutlineRefresh size={16} className={'spinning'} />
+									</>
+								) : (
+									<>
+										<MdOutlineRefresh size={16} /> 눌러서 업데이트
+									</>
+								)
+							}
+						</button>
+					</Row>
+				</Column>
+			</Row>
 			{isSubmitModalOpen && (
 				createPortal(
 					<>

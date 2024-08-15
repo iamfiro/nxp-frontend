@@ -194,3 +194,31 @@
 		margin: 0;
 	}
 }
+
+// 제출 현황
+
+.submitTitle {
+	font-weight: 500;
+}
+
+.submitUpdate {
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--color-gray-400);
+
+	background-color: transparent;
+
+	border: 0;
+	border-radius: var(--radius-ss);
+
+	padding: 5px 8px;
+	margin: 0 -8px -5px 0;
+
+	display: flex;
+	align-items: center;
+	gap: 5px;
+
+	&:hover {
+		background-color: var(--color-gray-030);
+	}
+}
