@@ -9,12 +9,12 @@ interface CustomFileButtonProps {
 
 // Create a new functional component for file upload
 const CustomFileButton = ({ onChange }: CustomFileButtonProps) => {
-	  return (
-			<label className={style.customFileButton}>
-			  사진 업로드
-			  <input type="file" onChange={onChange} className={style.fileInput} accept={'image/*'} />
-			</label>
-	  );
+	return (
+		<label className={style.customFileButton}>
+			사진 업로드
+			<input type="file" onChange={onChange} className={style.fileInput} accept={'image/*'} />
+		</label>
+	);
 };
 
 // TODO: 시간나면 디자인 다시 하도록
@@ -26,12 +26,12 @@ const Setting = () => {
 
 	const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
 		// TODO: 파일 업로드 API 호출
-    	const file = event.target.files?.[0];
+		const file = event.target.files?.[0];
 		if (file) {
-		    // Implement logic to handle file upload, e.g., updating profile picture
-		    console.log('Selected file:', file);
+			// Implement logic to handle file upload, e.g., updating profile picture
+			console.log('Selected file:', file);
 		}
-  	};
+	};
 
 	const handleDeletePhoto = () => {
 		// TODO: 사진 삭제 API 호출
@@ -48,15 +48,15 @@ const Setting = () => {
 						<img src="https://avatars.githubusercontent.com/u/72495729?v=4" alt="프로필 사진" className={style.profileImage} />
 						<Row style={{gap: '10px'}}>
 							<CustomFileButton onChange={handleFileChange} />
-						    <button onClick={handleDeletePhoto} className={style.deleteButton}>
-							  사진 삭제
-						    </button>
+							<button onClick={handleDeletePhoto} className={style.deleteButton}>
+								사진 삭제
+							</button>
 						</Row>
 					</div>
 				</section>
 				<section>
 					<h2 className={style.sectionTitle}>내 설명</h2>
-					<textarea className={style.textarea} onChange={(e) => setDescription(e.target.value)} placeholder="내 설명을 입력하세요." />
+					<textarea className={style.textarea} defaultValue={description} onChange={(e) => setDescription(e.target.value)} placeholder="내 설명을 입력하세요." />
 				</section>
 			</main>
 		</>
