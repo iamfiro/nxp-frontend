@@ -10,6 +10,7 @@ import useIsLoggined from "../hooks/useIsLoggined.ts";
 import {toast} from "react-toastify";
 import {createPortal} from "react-dom";
 import {IoCloseSharp} from "react-icons/io5";
+import {request} from "../lib/axios.ts";
 
 interface ProblemProps {
     title: string;
@@ -110,7 +111,21 @@ const PageProblem = () => {
 		// 임시 코드 삭제
 		await deleteCode(pathname);
 
-		setIsSubmitModalOpen(false);
+		// 코드 제출
+		request.post('/submit', {
+			problemId: pathname,
+			code: editorCode,
+		}).then(() => {
+			toast.info('코드가 제출 되었습니다', {
+				position: 'bottom-right'
+			});
+		}).catch(() => {
+			toast.error('코드 제출 중 오류가 발생했습니다.', {
+				position: 'bottom-right'
+			});
+		}).finally(() => {
+			setIsSubmitModalOpen(false);
+		});
 	}
 
     return (
