@@ -12,6 +12,7 @@ import {createPortal} from "react-dom";
 import {IoCloseSharp} from "react-icons/io5";
 import {request} from "../lib/axios.ts";
 import { MdOutlineRefresh } from "react-icons/md";
+import {elapsedTime} from "../lib/time.ts";
 
 interface ProblemProps {
     title: string;
@@ -36,6 +37,7 @@ interface SubmitProps {
 }
 
 const Submit = ({ status = 'pending', language, date, memory, time }: SubmitProps) => {
+	const timestamp = new Date(date).getTime();
 	return (
 		<section className={style.submitItem}>
 			<Row style={{justifyContent: 'space-between', alignItems: 'flex-start'}}>
@@ -43,18 +45,17 @@ const Submit = ({ status = 'pending', language, date, memory, time }: SubmitProp
 					<span className={style.submitLanguage}>{language}</span>
 					<span
 						className={style.submitStatus}
-						style={{color: status === 'pending' ? '#FFA500' : status === 'success' ? '#00FF00' : '#FF0000'}}
+						style={{color: status === 'pending' ? 'var(--color-gray-400)' : status === 'success' ? 'var(--color-green)' : 'var(--color-red)'}}
 					>
 						{status === 'pending' ? '채점 중' : status === 'success' ? '맞았습니다' : '틀렸습니다'}
 					</span>
 				</Column>
-				<a className={style.submitDate}>{date} 제출</a>
+				<span className={style.submitDate}>{elapsedTime(timestamp)}</span>
 			</Row>
 			{
 				status !== 'pending' && (
 					<Row style={{justifyContent: 'space-between'}}>
 						<span className={style.submitData}>메모리 <b>{memory}KB</b> · 시간 <b>{time}ms</b></span>
-						<button className={style.submitViewCode}>코드 보기</button>
 					</Row>
 				)
 			}
@@ -244,7 +245,28 @@ const PageProblem = () => {
 					</Row>
 					<Column className={style.submitContainer}>
 						<Submit
+							status={'pending'}
+							language={'C99'}
+							date={'2024-8-15 3:33:42'}
+							memory={5592}
+							time={192}
+						/>
+						<Submit
 							status={'success'}
+							language={'C99'}
+							date={'2024-8-15 3:33:42'}
+							memory={5592}
+							time={192}
+						/>
+						<Submit
+							status={'fail'}
+							language={'C99'}
+							date={'2024-8-15 3:33:42'}
+							memory={5592}
+							time={192}
+						/>
+						<Submit
+							status={'fail'}
 							language={'C99'}
 							date={'2024-8-15 3:33:42'}
 							memory={5592}

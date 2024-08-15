@@ -226,6 +226,8 @@
 .submitContainer {
 	width: 100%;
 
+	gap: 10px;
+
 	margin-top: 15px;
 }
 
@@ -237,13 +239,15 @@
 
 	border-radius: var(--radius-s);
 	border: 1px solid var(--color-border);
+
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
 }
 
 .submitDate {
 	color: var(--color-gray-400);
 
 	font-weight: 500;
-	font-size: 14px;
+	font-size: 13px;
 
 	cursor: pointer;
 }
@@ -259,7 +263,7 @@
 
 .submitStatus {
 	font-weight: 600;
-	font-size: 18px;
+	font-size: 16px;
 }
 
 .submitData {
@@ -271,8 +275,6 @@
 	font-weight: 500;
 
 	b {
-		color: var(--color-primary);
-
 		font-weight: 500;
 	}
 }
