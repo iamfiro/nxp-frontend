@@ -17,6 +17,7 @@ import PagePasswordRecovery from "./pages/passwordRecovery.tsx";
 import Setting from "./pages/setting.tsx";
 import PageUserProfile from "./pages/userProfile.tsx";
 import Logout from "./pages/Logout.tsx";
+import PrivacyPolicy from "./pages/Privacy.tsx";
 
 const router = createBrowserRouter([
     {
@@ -68,11 +69,16 @@ const router = createBrowserRouter([
 		path: '/logout',
 		element: <Logout />,
 	},
+	// Docs
+	{
+		path: '/privacy',
+		element: <PrivacyPolicy />
+	},
 	// 404
 	{
 		path: '*',
 		element: <PageNoMatch />
-	}
+	},
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
