@@ -56,6 +56,10 @@ const router = createBrowserRouter([
 		path: '/problem/:id',
 		element: <PageProblem />
 	},
+	{
+		path: '/problem/create',
+		element: <CreateProblem />,
+	},
 	// User
 	{
 		path: '/user/:id',
@@ -69,11 +73,6 @@ const router = createBrowserRouter([
 	{
 		path: '/logout',
 		element: <Logout />,
-	},
-	// Create
-	{
-		path: '/create',
-		element: <CreateProblem />,
 	},
 	// Docs
 	{
