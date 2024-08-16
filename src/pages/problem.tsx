@@ -14,6 +14,13 @@ import {request} from "../lib/axios.ts";
 import { MdOutlineRefresh } from "react-icons/md";
 import {elapsedTime} from "../lib/time.ts";
 
+// Markdown 관련 import
+import 'katex/dist/katex.min.css';
+import ReactMarkdown from 'react-markdown';
+import rehypeKatex from 'rehype-katex';
+import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
+
 interface ProblemProps {
     title: string;
     value: string;
