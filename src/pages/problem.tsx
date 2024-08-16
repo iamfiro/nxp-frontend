@@ -30,6 +30,14 @@ const SampleMarkdown = `
 성주는 이 공식이 틀렸고, 1 + 1 = 5라고 한다.
 둘은 서로가 틀렸다고 싸웠고, 컴퓨터에게 채점을 맡기기로 했다.
 
+\`\`\`
+<Kalii Index=N>
+    <startdate><start date)</startdate>
+    <rate>(tax rate)</rate>
+    <enddate>(end date)</enddate>
+</Kalii>
+\`\`\`
+
 아래와 같은 테스트케이스가 주어진다.
 \`\`\`
 input : 1 2
