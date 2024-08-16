@@ -1,3 +1,5 @@
+import style from '../styles/pages/createProblem.module.scss';
+
 const CreateProblem = () => {
 	return (
 		<>
