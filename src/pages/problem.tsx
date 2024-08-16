@@ -21,6 +21,26 @@ import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 
+const SampleMarkdown = `
+### 케이크 덧셈
+주안이는 성주의 생일을 축하하기 위해 케이크를 사들고 4반으로 갔다.
+그런데 주안이는 케이크 서로 각각 케이크를 먹으면 좋겠다고 생각하고, 아래와 같은 덧셈 공식을 세웠다.
+1 + 1 = 3
+그리하여 주안이는 케이크 3개를 사들고 4반으로 갔다.
+성주는 이 공식이 틀렸고, 1 + 1 = 5라고 한다.
+둘은 서로가 틀렸다고 싸웠고, 컴퓨터에게 채점을 맡기기로 했다.
+
+아래와 같은 테스트케이스가 주어진다.
+\`\`\`
+input : 1 2
+output : 3
+\`\`\`
+\`\`\`
+input : 4 6
+output : 10
+\`\`\`
+`
+
 interface ProblemProps {
     title: string;
     value: string;
