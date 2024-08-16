@@ -239,6 +239,7 @@ const PageProblem = () => {
 							children={SampleMarkdown}
 							remarkPlugins={[remarkGfm, remarkMath]}
 							rehypePlugins={[rehypeKatex, rehypeRaw]}
+							className={style.markdown}
 						/>
 					</section>
 					<Column className={style.right}>
