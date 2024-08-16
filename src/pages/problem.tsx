@@ -14,6 +14,55 @@ import {request} from "../lib/axios.ts";
 import { MdOutlineRefresh } from "react-icons/md";
 import {elapsedTime} from "../lib/time.ts";
 
+// Markdown 관련 import
+import 'katex/dist/katex.min.css';
+import ReactMarkdown from 'react-markdown';
+import rehypeKatex from 'rehype-katex';
+import rehypeRaw from 'rehype-raw';
+import remarkMath from 'remark-math';
+import remarkGfm from 'remark-gfm';
+
+const SampleMarkdown = `
+주안이는 성주의 생일을 축하하기 위해 케이크를 사들고 4반으로 갔다.
+그런데 주안이는 케이크 서로 각각 케이크를 먹으면 좋겠다고 생각하고, 아래와 같은 덧셈 공식을 세웠다.
+1 + 1 = 3
+그리하여 주안이는 https://www.acmicpc.net/problem/1 케이크 3개를 사들고 4반으로 갔다.
+성주는 이 공식이 틀렸고, 1 + 1 = 5라고 한다.
+둘은 서로가 틀렸다고 싸웠고, 컴퓨터에게 채점을 맡기기로 했다.
+
+\`\`\`
+<Kalii Index=N>
+    <startdate><start date)</startdate>
+    <rate>(tax rate)</rate>
+    <enddate>(end date)</enddate>
+</Kalii>
+\`\`\`
+
+https://www.acmicpc.net/problem/1
+
+아래와 같은 테스트케이스가 주어진다.
+\`\`\`
+input : 1 2
+output : 3
+\`\`\`
+\`\`\`
+input : 4 6
+output : 10
+\`\`\`
+
+# 제목
+
+**굵게** 또는 *기울임*으로 텍스트를 작성할 수 있습니다.
+
+수식 예시:
+
+Inline 수식: $E = mc^2$
+
+Block 수식:
+
+$$\\int_0^\\infty e^{-x} dx = 1$$
+`
+
 interface ProblemProps {
     title: string;
     value: string;
@@ -194,7 +243,13 @@ const PageProblem = () => {
 			<main className={style.container}>
 				<Row className={style.main}>
 					<section className={style.left}>
-						<h1 className={style.title}>가장 많이 받은 선물</h1>
+						<h1 className={style.title}>케이크 선물</h1>
+						<ReactMarkdown
+							children={SampleMarkdown}
+							remarkPlugins={[remarkGfm, remarkMath]}
+							rehypePlugins={[rehypeKatex, rehypeRaw]}
+							className={style.markdown}
+						/>
 					</section>
 					<Column className={style.right}>
 						<button className={style.submit} onClick={() => handleMainSubmitButton()}>
@@ -213,7 +268,7 @@ const PageProblem = () => {
 									<FaMemory/>
 									<span>메모리 제한</span>
 								</Row>
-								<span className={style.limitValue}>128 MB</span>
+								<span className={style.limitValue}>256 MB</span>
 							</section>
 						</Row>
 						<ul className={style.problemSummaryContainer}>
