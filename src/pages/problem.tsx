@@ -258,7 +258,7 @@ const PageProblem = () => {
 									<FaMemory/>
 									<span>메모리 제한</span>
 								</Row>
-								<span className={style.limitValue}>128 MB</span>
+								<span className={style.limitValue}>256 MB</span>
 							</section>
 						</Row>
 						<ul className={style.problemSummaryContainer}>
