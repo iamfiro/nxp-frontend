@@ -1,9 +1,13 @@
 import style from '../styles/pages/createProblem.module.scss';
+import TemplateHeader from "../template/header.tsx";
 
 const CreateProblem = () => {
 	return (
 		<>
-			<h1>Create Problem</h1>
+			<TemplateHeader />
+			<main className={style.container}>
+
+			</main>
 		</>
 	)
 }
