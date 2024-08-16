@@ -19,6 +19,7 @@ import 'katex/dist/katex.min.css';
 import ReactMarkdown from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
+import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
 
 const SampleMarkdown = `
@@ -39,6 +40,18 @@ output : 3
 input : 4 6
 output : 10
 \`\`\`
+
+# 제목
+
+**굵게** 또는 *기울임*으로 텍스트를 작성할 수 있습니다.
+
+수식 예시:
+
+Inline 수식: $E = mc^2$
+
+Block 수식:
+
+$$\\int_0^\\infty e^{-x} dx = 1$$
 `
 
 interface ProblemProps {
@@ -224,7 +237,7 @@ const PageProblem = () => {
 						<h1 className={style.title}>가장 많이 받은 선물</h1>
 						<ReactMarkdown
 							children={SampleMarkdown}
-							remarkPlugins={[remarkGfm]}
+							remarkPlugins={[remarkGfm, remarkMath]}
 							rehypePlugins={[rehypeKatex, rehypeRaw]}
 						/>
 					</section>
