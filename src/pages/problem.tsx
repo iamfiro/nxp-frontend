@@ -38,6 +38,8 @@ const SampleMarkdown = `
 </Kalii>
 \`\`\`
 
+https://www.acmicpc.net/problem/1
+
 아래와 같은 테스트케이스가 주어진다.
 \`\`\`
 input : 1 2
