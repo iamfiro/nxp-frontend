@@ -17,6 +17,7 @@ import Setting from "./pages/setting.tsx";
 import PageUserProfile from "./pages/userProfile.tsx";
 import Logout from "./pages/Logout.tsx";
 import PrivacyPolicy from "./pages/Privacy.tsx";
+import Terms from "./pages/terms.tsx";
 
 const router = createBrowserRouter([
     {
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
 	{
 		path: '/privacy',
 		element: <PrivacyPolicy />
+	},
+	{
+		path: '/terms',
+		element: <Terms />
 	},
 	// 404
 	{
