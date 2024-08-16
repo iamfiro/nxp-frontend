@@ -18,6 +18,7 @@ import PageUserProfile from "./pages/userProfile.tsx";
 import Logout from "./pages/Logout.tsx";
 import PrivacyPolicy from "./pages/Privacy.tsx";
 import Terms from "./pages/terms.tsx";
+import CreateProblem from "./pages/createProblem.tsx";
 
 const router = createBrowserRouter([
     {
@@ -68,6 +69,11 @@ const router = createBrowserRouter([
 	{
 		path: '/logout',
 		element: <Logout />,
+	},
+	// Create
+	{
+		path: '/create',
+		element: <CreateProblem />,
 	},
 	// Docs
 	{
