@@ -23,7 +23,6 @@ import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
 
 const SampleMarkdown = `
-### 케이크 덧셈
 주안이는 성주의 생일을 축하하기 위해 케이크를 사들고 4반으로 갔다.
 그런데 주안이는 케이크 서로 각각 케이크를 먹으면 좋겠다고 생각하고, 아래와 같은 덧셈 공식을 세웠다.
 1 + 1 = 3
@@ -234,7 +233,7 @@ const PageProblem = () => {
 			<main className={style.container}>
 				<Row className={style.main}>
 					<section className={style.left}>
-						<h1 className={style.title}>가장 많이 받은 선물</h1>
+						<h1 className={style.title}>케이크 선물</h1>
 						<ReactMarkdown
 							children={SampleMarkdown}
 							remarkPlugins={[remarkGfm, remarkMath]}
