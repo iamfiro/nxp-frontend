@@ -324,9 +324,26 @@
 		opacity: 0.7;
 	}
 
+	// 이미지는 미리보기를 위해 투명도를 제거
+	p:has(img) {
+		opacity: 1;
+
+		// 이미지를 가운데 정렬
+		display: flex;
+		justify-content: center;
+
+	}
+
 	a {
 		color: var(--color-primary-dark);
 
 		text-decoration: underline;
+	}
+
+	img {
+		max-width: 400px;
+		max-height: 350px;
+
+		margin: 0 auto;
 	}
 }
