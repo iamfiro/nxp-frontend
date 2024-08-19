@@ -19,3 +19,24 @@ export function levelToTextColor(level: number): string {
             return '#000000';
     }
 }
+
+
+export function TierToTextColor(tier: string): string {
+	if(tier.includes('Bronze')) {
+		return '#cd7f32';
+	} else if(tier.includes('Silver')) {
+		return '#c0c0c0';
+	} else if(tier.includes('Gold')) {
+		return '#ffd700';
+	} else if(tier.includes('Platinum')) {
+		return '#27c4fd';
+	} else if(tier.includes('Diamond')) {
+		return '#7f32ff';
+	} else if(tier.includes('Ace')) {
+		return '#1aa433';
+	} else if(tier.includes('Master')) {
+		return '#00ff94';
+	} else {
+		return '#000000';
+	}
+}
