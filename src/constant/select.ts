@@ -68,3 +68,45 @@ export const OptionsSort: OptionType[] = [
         value: 'easy',
     },
 ]
+
+export const ProblemTimeOptions: OptionType[] = [
+	{
+		label: '1초',
+		value: 1,
+	},
+	{
+		label: '2초',
+		value: 2,
+	},
+	{
+		label: '3초',
+		value: 3,
+	},
+	{
+		label: '4초',
+		value: 4,
+	},
+	{
+		label: '5초',
+		value: 5,
+	},
+]
+
+export const ProblemRamOptions: OptionType[] = [
+	{
+		label: '32MB',
+		value: 32,
+	},
+	{
+		label: '64MB',
+		value: 64,
+	},
+	{
+		label: '128MB',
+		value: 128,
+	},
+	{
+		label: '256MB',
+		value: 256,
+	},
+]
