@@ -25,7 +25,7 @@ const PageLogin = () => {
 
 		requestNoAuth.post('/auth/login', {
 			id: id,
-			password: password
+			pw: password
 		}).then((res) => {
 			// 로그인 상태 저장
 			storeUserLogin(true);
