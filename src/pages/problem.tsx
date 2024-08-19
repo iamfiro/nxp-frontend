@@ -119,6 +119,8 @@ const PageProblem = () => {
 	const { isUserLogin } = useIsLoggined();
 	const [isSubmitModalOpen, setIsSubmitModalOpen] = useState<boolean>(false);
 
+	// TODO: API 연결
+
 	// 제출 현황
 	const [isSubmitStatusPending, setIsSubmitStatusPending] = useState<boolean>(false);
 
