@@ -8,11 +8,13 @@ import {useEffect, useState} from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import useIsLoggined from "../hooks/useIsLoggined.ts";
+import {request} from "../lib/axios.ts";
 
 const TemplateHeader = () => {
     const navigate = useNavigate();
 	const { isUserLogin } = useIsLoggined();
     const [dropdownVisible, setDropdownVisible] = useState(false);
+	const [profileImage, setProfileImage] = useState<string>(sampleAvatar);
 
     const handleAvatarClick = () => {
         setDropdownVisible(!dropdownVisible);
@@ -32,6 +34,16 @@ const TemplateHeader = () => {
         };
     }, [dropdownVisible]);
 
+	useEffect(() => {
+		if (isUserLogin) {
+			const nickname = 'ninejuan'; // TODO: Get the user ID from the context
+			request.post(`/auth/profile/${nickname}`).then((res) => {
+				console.log(res.data.profilePhoto)
+				setProfileImage(`https://nxp.octive.net/api/upload/${res.data.profilePhoto}`);
+			});
+		}
+	}, [isUserLogin]);
+
     return (
         <Header>
             <Row style={{ gap: '5px' }}>
@@ -44,7 +56,7 @@ const TemplateHeader = () => {
 						</Button>
 						<div className={style.avatarContainer}>
 							<Avatar
-								src={sampleAvatar}
+								src={profileImage}
 								className={style.avatar}
 								alt={'사용자 프로필 이미지'}
 								size={35}
