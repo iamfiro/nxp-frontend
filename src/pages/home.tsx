@@ -15,7 +15,7 @@ import { OptionsLanguage, OptionsLevel, OptionsSort } from "../constant/select";
 import TemplateHeader from "../template/header";
 import useDebounce from "../hooks/useDebounce";
 import {request, requestNoAuth} from "../lib/axios";
-import useIsLoggined from "../hooks/useIsLoggined.ts";
+import {getIsLoggedIn} from "../lib/idb.ts";
 
 interface Problem {
     level: number;
@@ -33,7 +33,6 @@ const PageHome = () => {
     const [language, setLanguage] = useState("");
     const [sort, setSort] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
-	const { isUserLogin } = useIsLoggined()
 
 	// 일일 퀘스트
 	const [dailyQuest, setDailyQuest] = useState([]);
@@ -73,13 +72,21 @@ const PageHome = () => {
 
 	// 일일 퀘스트 불러오기
 	useEffect(() => {
-		if(isUserLogin) {
-			request('/main/authed').then((response) => {
-				if(response.data.dailyQuest === null) return;
-				setDailyQuest(response.data.dailyQuest);
-			});
+		const fetchDailyQuest = async () => {
+			const isLoggined = await getIsLoggedIn();
+			if (isLoggined) {
+				try {
+					const response = await request('/main/authed');
+					if(response.data.dailyQuest === null) return;
+					setDailyQuest(response.data.dailyQuest);
+				} catch (error) {
+					console.error('Error fetching daily quest data:', error);
+				}
+			}
 		}
-	}, [isUserLogin])
+
+		fetchDailyQuest();
+	}, [])
 
     return (
         <>
