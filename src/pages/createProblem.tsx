@@ -3,7 +3,7 @@ import TemplateHeader from "../template/header.tsx";
 import MDEditor from '@uiw/react-md-editor';
 import {useState} from "react";
 import {OptionType} from "../types/component.ts";
-import {ProblemRamOptions, ProblemTimeOptions} from "../constant/select.ts";
+import {ProblemRamOptions, ProblemTierOptions, ProblemTimeOptions} from "../constant/select.ts";
 import {toast} from "react-toastify";
 import {request} from "../lib/axios.ts";
 import {MonacoEditor} from "../components";
@@ -44,6 +44,7 @@ const CreateProblem = () => {
 	const [ram, setRam] = useState(128);
 	const [time, setTime] = useState(1);
 	const [editorCode, setEditorCode] = useState<string>('');
+	const [tier, setTier] = useState<string>('Bronze 5');
 	const language = 'all';
 
 	const handleMarkdownChange = (value?: string) => {
@@ -61,6 +62,7 @@ const CreateProblem = () => {
 			content: markdown,
 			ram: ram,
 			time: time,
+			rank: tier,
 			answer: editorCode
 		}).then(() => {
 			toast.success('문제가 생성되었습니다.');
@@ -79,6 +81,13 @@ const CreateProblem = () => {
 						onChange={(e) => setName(e.target.value)}
 						title={'제목'}
 						placeholder={'문제 제목을 입력해주세요'}
+					/>
+				</section>
+				<section className={style.inputContainer}>
+					<Select
+						onChange={(e) => setTime(Number(e.target.value))}
+						list={ProblemTierOptions}
+						title={'티어'}
 					/>
 				</section>
 				<section className={style.inputContainer}>
