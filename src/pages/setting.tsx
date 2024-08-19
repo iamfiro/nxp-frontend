@@ -2,6 +2,7 @@ import TemplateHeader from "../template/header.tsx";
 import style from '../styles/pages/setting.module.scss';
 import {Row} from "../components";
 import {ChangeEvent, useState} from "react";
+import {request} from "../lib/axios.ts";
 
 interface CustomFileButtonProps {
 	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -17,26 +18,34 @@ const CustomFileButton = ({ onChange }: CustomFileButtonProps) => {
 	);
 };
 
-// TODO: 시간나면 디자인 다시 하도록
-
 const Setting = () => {
 	// TODO: 로그인 여부 체크
-
+	const [profileImage, setProfileImage] = useState<string>('https://avatars.githubusercontent.com/u/72495729?v=4');
 	const [description, setDescription] = useState<string>('');
 
-	const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-		// TODO: 파일 업로드 API 호출
-		const file = event.target.files?.[0];
-		if (file) {
-			// Implement logic to handle file upload, e.g., updating profile picture
-			console.log('Selected file:', file);
-		}
-	};
+	const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append('profilePhoto', file);
 
-	const handleDeletePhoto = () => {
-		// TODO: 사진 삭제 API 호출
-		console.log('Photo deleted');
-	};
+			const userId = 'ninejuan'; // TODO: Get the user ID from the context
+
+            try {
+                const response = await request.post(`/auth/profilePhoto/${userId}`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+
+                // Assuming the response contains the new image URL
+                setProfileImage(response.data.imageUrl);
+            } catch (error) {
+                console.error('Failed to upload the profile photo', error);
+            }
+        }
+    };
+
 	return (
 		<>
 			<TemplateHeader />
@@ -45,12 +54,9 @@ const Setting = () => {
 				<section>
 					<h2 className={style.sectionTitle}>프로필 사진</h2>
 					<div className={style.profile}>
-						<img src="https://avatars.githubusercontent.com/u/72495729?v=4" alt="프로필 사진" className={style.profileImage} />
+						<img src={profileImage} alt="프로필 사진" className={style.profileImage} />
 						<Row style={{gap: '10px'}}>
 							<CustomFileButton onChange={handleFileChange} />
-							<button onClick={handleDeletePhoto} className={style.deleteButton}>
-								사진 삭제
-							</button>
 						</Row>
 					</div>
 				</section>
