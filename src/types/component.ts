@@ -11,7 +11,7 @@ export enum ButtonType {
 }
 
 export interface OptionType {
-    value: string;
+    value: string | number;
     label: string;
 }
 
