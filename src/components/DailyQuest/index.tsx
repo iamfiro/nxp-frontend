@@ -3,7 +3,7 @@ import {Column, Row} from "../index.ts";
 import DailyIcon from '../../assets/icons/daily.png';
 import 'react-circular-progressbar/dist/styles.css';
 import {CircularProgressbar} from "react-circular-progressbar";
-import {levelToTextColor} from "../../lib/color.ts";
+import {TierToTextColor} from "../../lib/color.ts";
 import {FaCheckCircle} from "react-icons/fa";
 
 const progressStyles = {
@@ -47,19 +47,37 @@ const DailyQuest = ({ children, progress = 0 }: { children: React.ReactNode, pro
 	)
 }
 
+function TierToSummary(tier: string) {
+	if(tier.includes('Bronze')) {
+		return `B${tier.split('Bronze')[1]}`;
+	} else if(tier.includes('Silver')) {
+		return `S${tier.split('Silver')[1]}`;
+	} else if(tier.includes('Gold')) {
+		return `G${tier.split('Gold')[1]}`;
+	} else if(tier.includes('Platinum')) {
+		return `P${tier.split('Platinum')[1]}`;
+	} else if(tier.includes('Diamond')) {
+		return `D${tier.split('Diamond')[1]}`;
+	} else if(tier.includes('Ace')) {
+		return `A${tier.split('Ace')[1]}`;
+	} else if(tier.includes('Master')) {
+		return `M${tier.split('Master')[1]}`;
+	}
+}
+
 interface QuestProblemProps {
-	level: number;
+	tier: string;
 	title: string;
 	ratio: number;
 	solved?: boolean;
 }
 
-const QuestProblem = ({ level, title, ratio, solved }: QuestProblemProps) => {
+const QuestProblem = ({ tier, title, ratio, solved }: QuestProblemProps) => {
 	return (
 		<Row style={{ opacity: solved ? 0.5: 1, justifyContent: 'space-between' }} className={style.problem}>
 			<Column style={{ gap: '10px' }}>
-				<Row style={{ gap: '10px' }}>
-					<span className={style.level} style={{ color: levelToTextColor(level)}}>Lv. {level}</span>
+				<Row style={{ gap: '7px' }}>
+					<span className={style.level} style={{ color: TierToTextColor(tier)}}>{TierToSummary(tier)}</span>
 					<span>{title}</span>
 				</Row>
 				<Row style={{ gap: '10px' }}>
