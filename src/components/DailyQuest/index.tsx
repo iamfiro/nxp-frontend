@@ -18,7 +18,7 @@ const progressStyles = {
 	}
 }
 
-const DailyQuest = ({ children }: { children: React.ReactNode }) => {
+const DailyQuest = ({ children, progress = 0 }: { children: React.ReactNode, progress: number }) => {
 	return (
 		<Column className={style.container}>
 			<Row style={{ justifyContent: 'space-between' }}>
@@ -28,14 +28,19 @@ const DailyQuest = ({ children }: { children: React.ReactNode }) => {
 				</Row>
 				<Row style={{gap: '10px'}}>
 					<Row style={{gap: '3px'}} className={style.progressData}>
-						<span>2</span>
+						<span>{progress}</span>
 						<span>/</span>
 						<span>3</span>
 					</Row>
-					<CircularProgressbar value={2} maxValue={3} strokeWidth={15} styles={progressStyles}/>
+					<CircularProgressbar value={progress} maxValue={3} strokeWidth={15} styles={progressStyles}/>
 				</Row>
 			</Row>
 			<Column className={style.problemContainer} style={{ gap: '8px' }}>
+				{
+					progress === 0 && (
+						<span className={style.empty}>퀘스트를 불러오는데 실패했습니다</span>
+					)
+				}
 				{children}
 			</Column>
 		</Column>

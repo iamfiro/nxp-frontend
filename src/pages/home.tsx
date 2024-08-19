@@ -14,7 +14,8 @@ import style from '../styles/pages/home.module.scss';
 import { OptionsLanguage, OptionsLevel, OptionsSort } from "../constant/select";
 import TemplateHeader from "../template/header";
 import useDebounce from "../hooks/useDebounce";
-import { requestNoAuth } from "../lib/axios";
+import {request, requestNoAuth} from "../lib/axios";
+import useIsLoggined from "../hooks/useIsLoggined.ts";
 
 interface Problem {
     level: number;
@@ -32,6 +33,10 @@ const PageHome = () => {
     const [language, setLanguage] = useState("");
     const [sort, setSort] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
+	const { isUserLogin } = useIsLoggined()
+
+	// 일일 퀘스트
+	const [dailyQuest, setDailyQuest] = useState([]);
 
     const debouncedSearchQuery = useDebounce(searchQuery, 1000);
 
@@ -54,17 +59,27 @@ const PageHome = () => {
         }
     }, []);
 
-    useEffect(() => {
-        setProblems([]); // Clear problems when filters change
-        setPage(1);
-        fetchProblems(1, level, language, sort, debouncedSearchQuery);
-    }, [level, language, sort, debouncedSearchQuery, fetchProblems]);
+    // useEffect(() => {
+    //     setProblems([]); // Clear problems when filters change
+    //     setPage(1);
+    //     fetchProblems(1, level, language, sort, debouncedSearchQuery);
+    // }, [level, language, sort, debouncedSearchQuery, fetchProblems]);
+	//
+    // useEffect(() => {
+    //     if (page > 1) {
+    //         fetchProblems(page, level, language, sort, debouncedSearchQuery);
+    //     }
+    // }, [page, level, language, sort, debouncedSearchQuery, fetchProblems]);
 
-    useEffect(() => {
-        if (page > 1) {
-            fetchProblems(page, level, language, sort, debouncedSearchQuery);
-        }
-    }, [page, level, language, sort, debouncedSearchQuery, fetchProblems]);
+	// 일일 퀘스트 불러오기
+	useEffect(() => {
+		if(isUserLogin) {
+			request('/main/authed').then((response) => {
+				if(response.data.dailyQuest === null) return;
+				setDailyQuest(response.data.dailyQuest);
+			});
+		}
+	}, [isUserLogin])
 
     return (
         <>
@@ -95,18 +110,17 @@ const PageHome = () => {
                 </Column>
                 <Column style={{ gap: '15px' }} className={style.problemRight}>
 					<Streak />
-                    <DailyQuest>
-                        <DailyQuest.Problem
-                            level={1}
-                            title="가장 많이 받은 선물"
-                            ratio={53}
-                        />
-                        <DailyQuest.Problem
-                            level={1}
-                            title="가장 많이 받은 선물"
-                            ratio={53}
-                            solved
-                        />
+                    <DailyQuest progress={dailyQuest.length}>
+						{
+							dailyQuest.map((quest: any) => (
+								<DailyQuest.Problem
+									level={quest.level}
+									title={quest.title}
+									ratio={quest.ratio}
+									solved={quest.solved}
+								/>
+							))
+						}
                     </DailyQuest>
                 </Column>
             </div>
