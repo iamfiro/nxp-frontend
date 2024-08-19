@@ -27,10 +27,11 @@ const PageLogin = () => {
 			id: id,
 			pw: password
 		}).then((res) => {
+			console.log(res.data);
 			try {
 				storeUserLogin(true);
 				// 토큰 저장 Access
-				storeToken(res.data.token);
+				storeToken(res.data.accessToken);
 
 				// Refresh 토큰 저장
 				request.post('/auth/refresh').then((res) => {
@@ -42,7 +43,7 @@ const PageLogin = () => {
 				toast.error('로그인 중 오류가 발생했습니다.');
 			}
 		}).catch((err) => {
-			toast.error(`서버 요청증 오류가 발생했습니다 : ${err.response.status}`);
+			toast.error(`서버 요청증 오류가 발생했습니다 : ${err}`);
 		}).finally(() => {
 			setIsPending(false);
 		});
