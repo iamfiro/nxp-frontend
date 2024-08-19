@@ -6,6 +6,7 @@ import {OptionType} from "../types/component.ts";
 import {ProblemRamOptions, ProblemTimeOptions} from "../constant/select.ts";
 import {toast} from "react-toastify";
 import {request} from "../lib/axios.ts";
+import {MonacoEditor} from "../components";
 
 interface SelectProps {
 	onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -42,6 +43,8 @@ const CreateProblem = () => {
 	const [name, setName] = useState('');
 	const [ram, setRam] = useState(128);
 	const [time, setTime] = useState(1);
+	const [editorCode, setEditorCode] = useState<string>('');
+	const language = 'all';
 
 	const handleMarkdownChange = (value?: string) => {
 		if (value !== undefined) {
@@ -52,14 +55,13 @@ const CreateProblem = () => {
 	function handleSubmit() {
 		if(name === '') return toast.error('문제 제목이 비어있습니다.');
 		if(markdown === '') return toast.error('Markdown 내용이 비어있습니다.');
-
-
-
-		request.post('/problem', {
-			name: name,
-			description: markdown,
+		// TODO: 테스트 케이스
+		request.post('/problem/register', {
+			subject: name,
+			content: markdown,
 			ram: ram,
-			time: time
+			time: time,
+			answer: editorCode
 		}).then(() => {
 			toast.success('문제가 생성되었습니다.');
 		}).catch(() => {
@@ -99,6 +101,10 @@ const CreateProblem = () => {
 					onChange={handleMarkdownChange}
 					className={style.markdown}
 				/>
+				<section className={style.inputContainer} style={{height: '400px'}}>
+					<label>예시 코드</label>
+					<MonacoEditor code={editorCode} setCode={setEditorCode} language={language}/>
+				</section>
 				<section className={style.inputContainer}>
 					<button className={style.submit} onClick={() => handleSubmit()}>생성</button>
 				</section>
