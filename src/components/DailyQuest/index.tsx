@@ -38,7 +38,7 @@ const DailyQuest = ({ children, progress = 0 }: { children: React.ReactNode, pro
 			<Column className={style.problemContainer} style={{ gap: '8px' }}>
 				{
 					progress === 0 && (
-						<span className={style.empty}>퀘스트를 불러오는데 실패했습니다</span>
+						<span className={style.empty}>로그인이 필요합니다</span>
 					)
 				}
 				{children}
