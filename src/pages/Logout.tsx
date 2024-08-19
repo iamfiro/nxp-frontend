@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useIsLoggined from '../hooks/useIsLoggined.ts';
+import {request} from "../lib/axios.ts";
 
 const Logout = () => {
     const navigate = useNavigate();
@@ -8,8 +9,10 @@ const Logout = () => {
 
     useEffect(() => {
         const logout = async () => {
-            await removeUserLogin();
-            navigate('/login');
+			await request.post('/auth/logout').then(async () => {
+				await removeUserLogin();
+				navigate('/login');
+			});
         };
 
         logout();
