@@ -50,7 +50,7 @@ const TemplateHeader = () => {
                 {isUserLogin ? (
 					<>
 						<Button onClick={() => {
-							navigate('/rank');
+							navigate('/problem/create');
 						}} size={ButtonSize.Medium} type={ButtonType.White} classname={style.addButton}>
 							<MdAdd size={16}/> 문제 만들기
 						</Button>
