@@ -85,7 +85,7 @@ const CreateProblem = () => {
 				</section>
 				<section className={style.inputContainer}>
 					<Select
-						onChange={(e) => setTime(Number(e.target.value))}
+						onChange={(e) => setTier(e.target.value)}
 						list={ProblemTierOptions}
 						title={'티어'}
 					/>
