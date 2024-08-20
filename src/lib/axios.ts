@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from "axios";
 import Cookie from "js-cookie";
 import {deleteAccessToken, deleteIsLoggedIn, getAccessToken, getIsLoggedIn, saveAccessToken} from "./idb.ts";
 
-const SERVER_ADDRESS = import.meta.env.VITE_API_URL as string;
+const SERVER_ADDRESS = 'https://nxp.octive.net/api/';
 
 export const request: AxiosInstance = axios.create({
 	baseURL: SERVER_ADDRESS,

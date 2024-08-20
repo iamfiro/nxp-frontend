@@ -49,12 +49,19 @@ const PageHome = () => {
     // Track login state
     const [isLoggined, setIsLoggined] = useState<boolean>(false);
 
+    // Track loading state to prevent duplicate requests
+    const [loading, setLoading] = useState(false);
+
     const debouncedSearchQuery = useDebounce(searchQuery, 1000);
 
     const fetchProblems = useCallback(
         async (page: number, level: string, language: string, sort: string, query: string) => {
+            if (loading || !hasMore) return;  // Prevent duplicate requests or unnecessary calls
+
+            setLoading(true);
+
             try {
-                const response = await requestNoAuth.get("/problems", {
+                const response = await requestNoAuth.post("/problem/search", {
                     params: {
                         page,
                         level,
@@ -63,18 +70,28 @@ const PageHome = () => {
                         query,
                     },
                 });
+
                 setProblems((prevProblems) => [
                     ...prevProblems,
-                    { level: 1, title: "가장 많이 받은 선물", solved: 53, ratio: 53 },
+                    ...response.data.problems,
                 ]);
                 setTotalProblems(response.data.total);
                 setHasMore(response.data.problems.length > 0);
             } catch (error) {
                 console.error("Failed to fetch problems", error);
+            } finally {
+                setLoading(false);
             }
         },
-        []
+        [loading, hasMore]
     );
+
+    const handleScroll = useCallback(() => {
+        if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || loading) {
+            return;
+        }
+        setPage((prevPage) => prevPage + 1);
+    }, [loading]);
 
     useEffect(() => {
         setProblems([]); // Clear problems when filters change
@@ -88,11 +105,16 @@ const PageHome = () => {
         }
     }, [page, level, language, sort, debouncedSearchQuery, fetchProblems]);
 
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [handleScroll]);
+
     // Fetch login status and daily quest
     useEffect(() => {
         const fetchDailyQuest = async () => {
             const loggedIn = await getIsLoggedIn();
-            setIsLoggined(loggedIn);  // Update login state
+            setIsLoggined(loggedIn);
 
             if (loggedIn) {
                 try {
