@@ -27,7 +27,8 @@ interface Problem {
 interface DailyQuestProblemAPI {
 	subject: string;
 	rankPoint: string;
-	solved: number;
+	solved: boolean;
+	problemNumber: number;
 }
 
 const PageHome = () => {
@@ -142,6 +143,7 @@ const PageHome = () => {
 									title={quest.subject}
 									ratio={0}
 									solved={quest.solved}
+									id={quest.problemNumber}
 								/>
 							))
 						}
