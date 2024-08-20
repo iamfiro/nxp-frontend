@@ -7,6 +7,7 @@ const PagePasswordRecoveryRequest = () => {
 	const [email, setEmail] = useState<string>('');
 
 	const handleRequest = () => {
+		if(!email.includes('@') || !email.includes('.')) return toast.error('이메일 형식이 올바르지 않습니다');
 		toast.success('안내 메일을 발송했습니다');
 
 		// TODO: 비밀번호 변경 요청 요청

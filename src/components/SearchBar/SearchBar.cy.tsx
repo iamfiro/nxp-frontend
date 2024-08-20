@@ -4,7 +4,7 @@ import {mount} from "cypress/react18";
 
 describe('<SearchBar /> 컴포넌트 테스트', () => {
     beforeEach(() => {
-        mount(<SearchBar placeholder={"문제의 제목이나 내용을 입력하세요"} />);
+        mount(<SearchBar onChange={() => {}} placeholder={"문제의 제목이나 내용을 입력하세요"} />);
     });
 
     it('SearchBar 컴포넌트가 렌더링되는지 확인', () => {
@@ -15,9 +15,8 @@ describe('<SearchBar /> 컴포넌트 테스트', () => {
     it('텍스트 입력 테스트', () => {
         const inputText = '테스트 입력';
 
-        cy.get(`.${style.searchBar}`)
-            .type(inputText)
-            .should('have.value', inputText);
+        cy.get(`.${style.searchBar}`).type(inputText);
+        cy.get(`.${style.searchBar}`).should('have.value', inputText);
     });
 
     it('아이콘 위치 및 색상 확인', () => {
