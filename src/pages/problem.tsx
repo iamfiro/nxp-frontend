@@ -1,9 +1,9 @@
 import style from '../styles/pages/problem.module.scss';
 import {useEffect, useState} from "react";
 import {Column, Modal, MonacoEditor, Row, Selector, setMetaTag} from "../components";
-import {FaCode, FaMemory} from "react-icons/fa6";
+import {FaCircleInfo, FaCode, FaMemory} from "react-icons/fa6";
 import TemplateHeader from "../template/header.tsx";
-import {MdOutlineTimelapse} from "react-icons/md";
+import {MdOutlineRefresh, MdOutlineTimelapse} from "react-icons/md";
 import useDebounce from "../hooks/useDebounce.ts";
 import {deleteCode, getCode, getMemo, UpSertCode, UpSertMemo} from "../lib/idb.ts";
 import useIsLoggined from "../hooks/useIsLoggined.ts";
@@ -11,10 +11,8 @@ import {toast} from "react-toastify";
 import {createPortal} from "react-dom";
 import {IoCloseSharp} from "react-icons/io5";
 import {request} from "../lib/axios.ts";
-import { MdOutlineRefresh } from "react-icons/md";
 import {elapsedTime} from "../lib/time.ts";
-import { FaQuestionCircle } from "react-icons/fa";
-import { FaCircleInfo } from "react-icons/fa6";
+import {FaQuestionCircle} from "react-icons/fa";
 
 import Lottie from 'react-lottie';
 import LottieCorrect from '../assets/json/lottie_correct.json';
