@@ -5,6 +5,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import {CircularProgressbar} from "react-circular-progressbar";
 import {TierToTextColor} from "../../lib/color.ts";
 import {FaCheckCircle} from "react-icons/fa";
+import {TierToSummary} from "../../lib/string.ts";
 
 const progressStyles = {
 	root: {
@@ -18,7 +19,7 @@ const progressStyles = {
 	}
 }
 
-const DailyQuest = ({ children, progress = 0 }: { children: React.ReactNode, progress: number }) => {
+const DailyQuest = ({ children, progress = 0, isLoggined }: { children: React.ReactNode, progress: number, isLoggined: boolean }) => {
 	return (
 		<Column className={style.container}>
 			<Row style={{ justifyContent: 'space-between' }}>
@@ -37,7 +38,7 @@ const DailyQuest = ({ children, progress = 0 }: { children: React.ReactNode, pro
 			</Row>
 			<Column className={style.problemContainer} style={{ gap: '8px' }}>
 				{
-					progress === 0 && (
+					!isLoggined && (
 						<span className={style.empty}>로그인이 필요합니다</span>
 					)
 				}
@@ -45,24 +46,6 @@ const DailyQuest = ({ children, progress = 0 }: { children: React.ReactNode, pro
 			</Column>
 		</Column>
 	)
-}
-
-function TierToSummary(tier: string) {
-	if(tier.includes('Bronze')) {
-		return `B${tier.split('Bronze')[1]}`;
-	} else if(tier.includes('Silver')) {
-		return `S${tier.split('Silver')[1]}`;
-	} else if(tier.includes('Gold')) {
-		return `G${tier.split('Gold')[1]}`;
-	} else if(tier.includes('Platinum')) {
-		return `P${tier.split('Platinum')[1]}`;
-	} else if(tier.includes('Diamond')) {
-		return `D${tier.split('Diamond')[1]}`;
-	} else if(tier.includes('Ace')) {
-		return `A${tier.split('Ace')[1]}`;
-	} else if(tier.includes('Master')) {
-		return `M${tier.split('Master')[1]}`;
-	}
 }
 
 interface QuestProblemProps {
