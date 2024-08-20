@@ -4,6 +4,7 @@ import {Avatar, Column, Row} from "../components";
 import SampleAvatar from '../assets/sample_avatar.png';
 
 const PageRank = () => {
+	// TODO: API 요청
 	return (
 		<>
 			<TemplateHeader />
