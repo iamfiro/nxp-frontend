@@ -1,18 +1,18 @@
 import style from '../styles/pages/createProblem.module.scss';
 import TemplateHeader from "../template/header.tsx";
 import MDEditor from '@uiw/react-md-editor';
-import {useState} from "react";
+import {ChangeEvent, useState} from "react";
 import {OptionType} from "../types/component.ts";
 import {ProblemRamOptions, ProblemTierOptions, ProblemTimeOptions} from "../constant/select.ts";
 import {toast} from "react-toastify";
 import {request} from "../lib/axios.ts";
 import {Column, Modal, MonacoEditor, Row} from "../components";
-import { IoMdAdd } from "react-icons/io";
-import { FaTrashAlt } from "react-icons/fa";
+import {IoMdAdd} from "react-icons/io";
+import {FaTrashAlt} from "react-icons/fa";
 import {createPortal} from "react-dom";
 
 interface SelectProps {
-	onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+	onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
 	list: OptionType[];
 	title: string;
 }
@@ -32,7 +32,7 @@ const Select = ({onChange, list, title}: SelectProps) => {
 	)
 }
 
-const Input = ({onChange, title, placeholder}: {onChange: (e: React.ChangeEvent<HTMLInputElement>) => void, title: string, placeholder: string}) => {
+const Input = ({onChange, title, placeholder}: {onChange: (e: ChangeEvent<HTMLInputElement>) => void, title: string, placeholder: string}) => {
 	return (
 		<div className={style.input}>
 			<label>{title}</label>
