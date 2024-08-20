@@ -36,7 +36,7 @@ const TemplateHeader = () => {
 
 	useEffect(() => {
 		if (isUserLogin) {
-			const nickname = 'ninejuan'; // TODO: Get the user ID from the context
+			const nickname = 'ninejuan';
 			request.post(`/auth/profile/${nickname}`).then((res) => {
 				console.log(res.data.profilePhoto)
 				setProfileImage(`https://nxp.octive.net/api/upload/${res.data.profilePhoto}`);

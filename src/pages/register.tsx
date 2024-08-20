@@ -7,8 +7,6 @@ import {toast} from "react-toastify";
 import {requestNoAuth} from "../lib/axios.ts";
 import {useNavigate} from "react-router-dom";
 
-// TODO: 로고 클릭 구현
-
 const PageRegister = () => {
 	const [data, setData] = useState<IRegister>({
 		id: '',
