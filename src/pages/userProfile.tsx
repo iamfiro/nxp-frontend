@@ -3,6 +3,7 @@ import TemplateHeader from "../template/header.tsx";
 import {Column} from "../components";
 
 const PageUserProfile = () => {
+	// TODO : API 요청
 	return (
 		<>
 			<TemplateHeader />

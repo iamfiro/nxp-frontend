@@ -110,3 +110,98 @@ export const ProblemRamOptions: OptionType[] = [
 		value: 256,
 	},
 ]
+
+export const ProblemTierOptions: OptionType[] = [
+    {
+        label: 'Bronze 5',
+        value: 'Bronze 5',
+    },
+    {
+        label: 'Bronze 4',
+        value: 'Bronze 4',
+    },
+    {
+        label: 'Bronze 3',
+        value: 'Bronze 3',
+    },
+    {
+        label: 'Bronze 2',
+        value: 'Bronze 2',
+    },
+    {
+        label: 'Bronze 1',
+        value: 'Bronze 1',
+    },
+    {
+        label: 'Silver 5',
+        value: 'Silver 5',
+    },
+    {
+        label: 'Silver 4',
+        value: 'Silver 4',
+    },
+    {
+        label: 'Silver 3',
+        value: 'Silver 3',
+    },
+    {
+        label: 'Silver 2',
+        value: 'Silver 2',
+    },
+    {
+        label: 'Silver 1',
+        value: 'Silver 1',
+    },
+    {
+        label: 'Gold 5',
+        value: 'Gold 5',
+    },
+    {
+        label: 'Gold 4',
+        value: 'Gold 4',
+    },
+    {
+        label: 'Gold 3',
+        value: 'Gold 3',
+    },
+    {
+        label: 'Gold 2',
+        value: 'Gold 2',
+    },
+    {
+        label: 'Gold 1',
+        value: 'Gold 1',
+    },
+    {
+        label: 'Platinum 3',
+        value: 'Platinum 3',
+    },
+    {
+        label: 'Platinum 2',
+        value: 'Platinum 2',
+    },
+    {
+        label: 'Platinum 1',
+        value: 'Platinum 1',
+    },
+    {
+        label: 'Diamond 3',
+        value: 'Diamond 3',
+    },
+    {
+        label: 'Diamond 2',
+        value: 'Diamond 2',
+    },
+    {
+        label: 'Diamond 1',
+        value: 'Diamond 1',
+    },
+    {
+        label: 'Ace',
+        value: 'Ace',
+    },
+    {
+        label: 'Master',
+        value: 'Master',
+    }
+];

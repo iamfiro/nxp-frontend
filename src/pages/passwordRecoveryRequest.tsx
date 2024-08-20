@@ -19,10 +19,10 @@ const PagePasswordRecoveryRequest = () => {
 			}
 			footerComponent={
 				<Row style={{gap: '25px'}}>
-					<a href={'/'}> {/* TODO: 라우트 변경 */}
+					<a href={'/terms'}>
 						이용약관
 					</a>
-					<a href={'/'}> {/* TODO: 라우트 변경 */}
+					<a href={'/privacy'}>
 						개인정보처리방침
 					</a>
 				</Row>

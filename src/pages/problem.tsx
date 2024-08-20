@@ -1,9 +1,9 @@
 import style from '../styles/pages/problem.module.scss';
 import {useEffect, useState} from "react";
 import {Column, Modal, MonacoEditor, Row, Selector, setMetaTag} from "../components";
-import {FaCode, FaMemory} from "react-icons/fa6";
+import {FaCircleInfo, FaCode, FaMemory} from "react-icons/fa6";
 import TemplateHeader from "../template/header.tsx";
-import {MdOutlineTimelapse} from "react-icons/md";
+import {MdOutlineRefresh, MdOutlineTimelapse} from "react-icons/md";
 import useDebounce from "../hooks/useDebounce.ts";
 import {deleteCode, getCode, getMemo, UpSertCode, UpSertMemo} from "../lib/idb.ts";
 import useIsLoggined from "../hooks/useIsLoggined.ts";
@@ -11,8 +11,11 @@ import {toast} from "react-toastify";
 import {createPortal} from "react-dom";
 import {IoCloseSharp} from "react-icons/io5";
 import {request} from "../lib/axios.ts";
-import { MdOutlineRefresh } from "react-icons/md";
 import {elapsedTime} from "../lib/time.ts";
+import {FaQuestionCircle} from "react-icons/fa";
+
+import Lottie from 'react-lottie';
+import LottieCorrect from '../assets/json/lottie_correct.json';
 
 // Markdown 관련 import
 import 'katex/dist/katex.min.css';
@@ -21,47 +24,9 @@ import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
-
-const SampleMarkdown = `
-주안이는 성주의 생일을 축하하기 위해 케이크를 사들고 4반으로 갔다.
-그런데 주안이는 케이크 서로 각각 케이크를 먹으면 좋겠다고 생각하고, 아래와 같은 덧셈 공식을 세웠다.
-1 + 1 = 3
-그리하여 주안이는 https://www.acmicpc.net/problem/1 케이크 3개를 사들고 4반으로 갔다.
-성주는 이 공식이 틀렸고, 1 + 1 = 5라고 한다.
-둘은 서로가 틀렸다고 싸웠고, 컴퓨터에게 채점을 맡기기로 했다.
-
-\`\`\`
-<Kalii Index=N>
-    <startdate><start date)</startdate>
-    <rate>(tax rate)</rate>
-    <enddate>(end date)</enddate>
-</Kalii>
-\`\`\`
-
-https://www.acmicpc.net/problem/1
-
-아래와 같은 테스트케이스가 주어진다.
-\`\`\`
-input : 1 2
-output : 3
-\`\`\`
-\`\`\`
-input : 4 6
-output : 10
-\`\`\`
-
-# 제목
-
-**굵게** 또는 *기울임*으로 텍스트를 작성할 수 있습니다.
-
-수식 예시:
-
-Inline 수식: $E = mc^2$
-
-Block 수식:
-
-$$\\int_0^\\infty e^{-x} dx = 1$$
-`
+import {TierToTextColor} from "../lib/color.ts";
+import {TierToSummary} from "../lib/string.ts";
+import {ProblemTierOptions} from "../constant/select.ts";
 
 interface ProblemProps {
     title: string;
@@ -112,19 +77,37 @@ const Submit = ({ status = 'pending', language, date, memory, time }: SubmitProp
 	)
 }
 
+interface TestCase {
+	input: string;
+	output: string;
+}
+
 const PageProblem = () => {
 	const pathname = window.location.pathname.replace('/problem/', ''); // Get the current pathname as memo id
     const [memoContent, setMemoContent] = useState<string>('');
     const debouncedMemoContent = useDebounce(memoContent, 1000);
 	const { isUserLogin } = useIsLoggined();
 	const [isSubmitModalOpen, setIsSubmitModalOpen] = useState<boolean>(false);
+	const [isCorrectModalOpen, setIsCorrectModalOpen] = useState<boolean>(false);
+	const [isRateModalOpen, setIsRateModalOpen] = useState<boolean>(false);
+	// API
+	const [tier, setTier] = useState<string>('');
+	const [subject, setSubject] = useState<string>('');
+	const [markdown, setMarkdown] = useState<string>('');
+	const [solvedCount, setSolvedCount] = useState<number>(0);
+	const [submitCount, setSubmitCount] = useState<number>(0);
+	const [testCases, setTestCases] = useState<TestCase[] | null>(null);
+
+	// 기여 모달
+	const [rateTier, setRateTier] = useState<string>('');
+	const [rateReason, setRateReason] = useState<string>('');
 
 	// 제출 현황
 	const [isSubmitStatusPending, setIsSubmitStatusPending] = useState<boolean>(false);
 
 	// Editor 관련 상태 변수
 	const [editorCode, setEditorCode] = useState<string>(
-		'function add(a, b) {'
+		'int main() {\n\tprintf("Hello, World!");\n\treturn 0;\n}'
 	);
 	const [editorLanguage, setEditorLanguage] = useState<string>(localStorage.getItem('recentLanguage') || 'c');
 
@@ -146,6 +129,7 @@ const PageProblem = () => {
 		localStorage.setItem('recentLanguage', editorLanguage);
 	}, [editorLanguage]);
 
+	// 메모 업데이트
     useEffect(() => {
         // UpSert memo when debouncedMemoContent changes
         if (debouncedMemoContent) {
@@ -190,6 +174,18 @@ const PageProblem = () => {
         description: "두 수를 입력받아 더하는 문제",
     });
 
+	// 문제 정보 불러오기
+	useEffect(() => {
+		request.get(`/problem/${pathname}`).then((response) => {
+			setMarkdown(response.data.content);
+			setSolvedCount(response.data.solved_count);
+			setSubmitCount(response.data.submit_count);
+			setTier(response.data.rankPoint);
+			setSubject(response.data.subject);
+			setTestCases(response.data.testcases);
+		})
+	}, []);
+
 	function handleMainSubmitButton() {
 		if(!isUserLogin) toast.error('로그인이 필요한 서비스입니다.', {
 			position: 'bottom-right'
@@ -203,13 +199,17 @@ const PageProblem = () => {
 		await deleteCode(pathname);
 
 		// 코드 제출
-		request.post('/submit', {
-			problemId: pathname,
+		request.post(`/problem/${pathname}/solution`, {
 			code: editorCode,
-		}).then(() => {
-			toast.info('코드가 제출 되었습니다', {
-				position: 'bottom-right'
-			});
+			language: editorLanguage
+		}).then((res) => {
+			if(res.data.ok) {
+				setIsCorrectModalOpen(true);
+			} else {
+				toast.error('제출한 코드가 정답이 아닙니다.', {
+					position: 'bottom-right'
+				});
+			}
 		}).catch(() => {
 			toast.error('코드 제출 중 오류가 발생했습니다.', {
 				position: 'bottom-right'
@@ -237,19 +237,61 @@ const PageProblem = () => {
 		});
 	}
 
+	function handleRateSubmit() {
+		request.post(`/problem/${pathname}/rate`, {
+			votedRank: rateTier.replace(' ', ''),
+			comment: rateReason
+		}).then((res) => {
+			setIsRateModalOpen(false);
+
+			if(res.data.ok) {
+				toast.info('성공적으로 문제 티어를 평가하였습니다.', {
+					position: 'bottom-right'
+				});
+			} else {
+				toast.error('문제 티어를 평가하는 중 오류가 발생했습니다.', {
+					position: 'bottom-right'
+				});
+			}
+		}).catch(() => {
+			toast.error('문제 티어를 평가하는 중 오류가 발생했습니다.', {
+				position: 'bottom-right'
+			})
+		})
+	}
+
     return (
 		<>
 			<TemplateHeader/>
 			<main className={style.container}>
 				<Row className={style.main}>
 					<section className={style.left}>
-						<h1 className={style.title}>케이크 선물</h1>
+						<h1 className={style.title}><span style={{color: TierToTextColor(tier), marginRight: '10px'}}>{TierToSummary(tier)}</span>{subject}</h1>
 						<ReactMarkdown
-							children={SampleMarkdown}
+							children={markdown}
 							remarkPlugins={[remarkGfm, remarkMath]}
 							rehypePlugins={[rehypeKatex, rehypeRaw]}
 							className={style.markdown}
 						/>
+						<Column style={{marginTop: '30px'}}>
+							<span>테스트케이스</span>
+							<Row style={{marginTop: '15px', gap: '10px'}}>
+								{
+									testCases?.map((testCase, index) => (
+										<article className={style.testcase} key={index}>
+											<div>
+												<span>입력</span>
+												<pre>{testCase.input}</pre>
+											</div>
+											<div>
+												<span>출력</span>
+												<pre>{testCase.output}</pre>
+											</div>
+										</article>
+									))
+								}
+							</Row>
+						</Column>
 					</section>
 					<Column className={style.right}>
 						<button className={style.submit} onClick={() => handleMainSubmitButton()}>
@@ -272,8 +314,8 @@ const PageProblem = () => {
 							</section>
 						</Row>
 						<ul className={style.problemSummaryContainer}>
-							<ProblemSummary title={'제출 수'} value={'1,000명'}/>
-							<ProblemSummary title={'정답 수'} value={'1,000명'}/>
+							<ProblemSummary title={'제출 수'} value={`${solvedCount}명`}/>
+							<ProblemSummary title={'정답 수'} value={`${submitCount}명`}/>
 							<ProblemSummary title={'실패 수'} value={'22,293명'}/>
 						</ul>
 
@@ -285,7 +327,10 @@ const PageProblem = () => {
 							onChange={(e) => setMemoContent(e.target.value)}
 						/>
 
-						<Row style={{justifyContent: 'space-between', alignItems: 'center', marginTop: '40px'}}>
+						<Row className={style.doesntWork}>
+							<FaCircleInfo /> 작동하지 않는 컴포넌트
+						</Row>
+						<Row style={{justifyContent: 'space-between', alignItems: 'center', marginTop: '10px'}}>
 							<span className={style.submitTitle}>제출 현황</span>
 							<button className={style.submitUpdate} onClick={() => handleUpdateSubmitStatus()}>
 								{
@@ -382,6 +427,67 @@ const PageProblem = () => {
 						document.body
 					)
 				)}
+				{
+					isCorrectModalOpen && (
+						createPortal(
+							<>
+								<Modal.Backdrop isVisible={isCorrectModalOpen} handleClose={() => setIsCorrectModalOpen(false)}>
+									<Modal className={style.successModal}>
+										<h2 className={style.modalTitle}>정답입니다!</h2>
+										<Lottie
+											options={{
+												animationData: LottieCorrect,
+												loop: false,
+												autoplay: true
+											}}
+											width={100}
+											height={100}
+											style={{
+												marginBottom: '20px'
+											}}
+										/>
+										<Column style={{gap: '8px', width: '100%'}}>
+											<button className={style.successModalRate}><FaQuestionCircle /> 문제 티어가 난이도에 맞지 않나요?</button>
+											<button className={style.successModalClose} onClick={() => setIsCorrectModalOpen(false)}>닫기</button>
+										</Column>
+									</Modal>
+								</Modal.Backdrop>
+							</>,
+							document.body
+						)
+					)
+				}
+				{
+					isRateModalOpen && (
+						createPortal(
+							<>
+								<Modal.Backdrop isVisible={isRateModalOpen} handleClose={() => setIsRateModalOpen(false)}>
+									<Modal className={style.rateModal}>
+										<h2 className={style.modalTitle}><b>{subject}</b> 문제 기여</h2>
+										<Column style={{
+											marginTop: '20px',
+											gap: '10px',
+											width: '100%'
+										}}>
+											<label className={style.rateModalLabel}>적합하다고 생각하는 티어</label>
+											<select className={style.rateModalSelect}
+													onChange={(e) => setRateTier(e.target.value)}>
+												{ProblemTierOptions.map((option) => (
+													<option value={option.value}>{option.label}</option>
+												))}
+											</select>
+											<div />
+											<label className={style.rateModalLabel}>기여 사유</label>
+											<textarea className={style.rateModalTextarea} onChange={(e) => setRateReason(e.target.value)} />
+											<button className={style.rateModalSubmit} onClick={() => handleRateSubmit()}>제출하기</button>
+										</Column>
+									</Modal>
+								</Modal.Backdrop>
+							</>,
+							document.body
+						)
+					)
+				}
 			</main>
 		</>
 	)

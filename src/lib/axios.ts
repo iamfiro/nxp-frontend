@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import Cookie from "js-cookie";
-import { getAccessToken, saveAccessToken } from "./idb.ts";
+import {deleteAccessToken, deleteIsLoggedIn, getAccessToken, getIsLoggedIn, saveAccessToken} from "./idb.ts";
 
 const SERVER_ADDRESS = import.meta.env.VITE_API_URL as string;
 
@@ -41,15 +41,10 @@ request.interceptors.response.use(async function (response) {
 	}
 
 	const { config, response } = error;
-	const { status, data } = response;
+	const { status } = response;
+	const isLoggedIn = await getIsLoggedIn()
 
-	if (status === 401 && data?.message === 'InvalidTokenException') {
-		// 토큰이 유효하지 않을 때 로그인 페이지로 이동
-		window.location.hash = '/login';
-		return Promise.reject(error);
-	}
-
-	if (status === 401 && data?.message === 'TokenExpired') {
+	if (status === 401 && isLoggedIn) {
 		// 토큰 갱신 요청
 		try {
 			const tokenRefreshResponse = await requestNoAuth.post('/auth/refresh');
@@ -68,6 +63,11 @@ request.interceptors.response.use(async function (response) {
 		} catch (refreshError) {
 			return Promise.reject(refreshError);
 		}
+	} else if(status === 401 && !isLoggedIn) {
+		await deleteAccessToken();
+		await deleteIsLoggedIn();
+
+		Cookie.remove('rfToken');
 	}
 
 	return Promise.reject(error);

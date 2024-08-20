@@ -3,8 +3,10 @@ import {Column, Row} from "../index.ts";
 import DailyIcon from '../../assets/icons/daily.png';
 import 'react-circular-progressbar/dist/styles.css';
 import {CircularProgressbar} from "react-circular-progressbar";
-import {levelToTextColor} from "../../lib/color.ts";
+import {TierToTextColor} from "../../lib/color.ts";
 import {FaCheckCircle} from "react-icons/fa";
+import {TierToSummary} from "../../lib/string.ts";
+import {useNavigate} from "react-router-dom";
 
 const progressStyles = {
 	root: {
@@ -18,7 +20,7 @@ const progressStyles = {
 	}
 }
 
-const DailyQuest = ({ children }: { children: React.ReactNode }) => {
+const DailyQuest = ({ children, progress = 0, isLoggined }: { children: React.ReactNode, progress: number, isLoggined: boolean }) => {
 	return (
 		<Column className={style.container}>
 			<Row style={{ justifyContent: 'space-between' }}>
@@ -28,14 +30,19 @@ const DailyQuest = ({ children }: { children: React.ReactNode }) => {
 				</Row>
 				<Row style={{gap: '10px'}}>
 					<Row style={{gap: '3px'}} className={style.progressData}>
-						<span>2</span>
+						<span>{progress}</span>
 						<span>/</span>
 						<span>3</span>
 					</Row>
-					<CircularProgressbar value={2} maxValue={3} strokeWidth={15} styles={progressStyles}/>
+					<CircularProgressbar value={progress} maxValue={3} strokeWidth={15} styles={progressStyles}/>
 				</Row>
 			</Row>
 			<Column className={style.problemContainer} style={{ gap: '8px' }}>
+				{
+					!isLoggined && (
+						<span className={style.empty}>로그인이 필요합니다</span>
+					)
+				}
 				{children}
 			</Column>
 		</Column>
@@ -43,18 +50,23 @@ const DailyQuest = ({ children }: { children: React.ReactNode }) => {
 }
 
 interface QuestProblemProps {
-	level: number;
+	tier: string;
 	title: string;
 	ratio: number;
 	solved?: boolean;
+	id: number;
 }
 
-const QuestProblem = ({ level, title, ratio, solved }: QuestProblemProps) => {
+const QuestProblem = ({ tier, title, ratio, solved, id }: QuestProblemProps) => {
+	const navigate = useNavigate();
+
 	return (
-		<Row style={{ opacity: solved ? 0.5: 1, justifyContent: 'space-between' }} className={style.problem}>
+		<Row style={{ opacity: solved ? 0.5: 1, justifyContent: 'space-between' }} className={style.problem} onClick={() => {
+			navigate(`/problem/${id}`);
+		}}>
 			<Column style={{ gap: '10px' }}>
-				<Row style={{ gap: '10px' }}>
-					<span className={style.level} style={{ color: levelToTextColor(level)}}>Lv. {level}</span>
+				<Row style={{ gap: '7px' }}>
+					<span className={style.level} style={{ color: TierToTextColor(tier)}}>{TierToSummary(tier)}</span>
 					<span>{title}</span>
 				</Row>
 				<Row style={{ gap: '10px' }}>

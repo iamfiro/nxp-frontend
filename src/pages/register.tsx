@@ -7,13 +7,13 @@ import {toast} from "react-toastify";
 import {requestNoAuth} from "../lib/axios.ts";
 import {useNavigate} from "react-router-dom";
 
-// TODO: 로고 클릭 구현
-
 const PageRegister = () => {
 	const [data, setData] = useState<IRegister>({
 		id: '',
 		password: '',
 		passwordConfirm: '',
+		email: '',
+		nickname: '',
 		turnstile: {
 			state: 'idle',
 			token: undefined
@@ -44,6 +44,8 @@ const PageRegister = () => {
 		requestNoAuth.post('/auth/register', {
 			id: data.id,
 			password: data.password,
+			email: data.email,
+			nickname: data.nickname,
 			// Cloudflare Turnstile 캡챠 추가로, token도 서버에 보내야 함
 			token: data.turnstile.token
 		}).then(() => {
@@ -62,16 +64,24 @@ const PageRegister = () => {
 			}
 			footerComponent={
 				<Row style={{gap: '25px'}}>
-					<a href={'/'}> {/* TODO: 라우트 변경 */}
+					<a href={'/terms'}>
 						이용약관
 					</a>
-					<a href={'/'}> {/* TODO: 라우트 변경 */}
+					<a href={'/privacy'}>
 						개인정보처리방침
 					</a>
 				</Row>
 			}
 		>
 			<AuthForm.Title>NXP 가입하기</AuthForm.Title>
+			<AuthForm.Input
+				placeholder={'이메일'}
+				onChange={(e) => setData({...data, email: e.target.value})}
+			/>
+			<AuthForm.Input
+				placeholder={'닉네임'}
+				onChange={(e) => setData({...data, nickname: e.target.value})}
+			/>
 			<AuthForm.Input
 				placeholder={'아이디'}
 				onChange={(e) => setData({...data, id: e.target.value})}

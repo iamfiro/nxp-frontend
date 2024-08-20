@@ -15,6 +15,7 @@
 	max-width: 500px;
 
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	gap: 15px;
 
@@ -64,6 +65,71 @@
 	width: 100%;
 }
 
+.addTestCase {
+	width: 100%;
+	height: 45px;
+
+	background-color: var(--color-white);
+
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-s);
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	gap: 10px;
+
+	font-size: 14px;
+}
+
+.testCase {
+	width: 100%;
+
+	padding: 15px;
+
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-s);
+}
+
+.testCaseTitle {
+	opacity: 0.5;
+}
+
+.testCaseDelete {
+	opacity: 0.4;
+
+	cursor: pointer;
+
+	&:active {
+		opacity: 0.3;
+	}
+}
+
+.testCaseItem {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	gap: 10px;
+
+	margin-top: 10px;
+
+	div {
+		width: 100%;
+
+		gap: 5px;
+
+		label {
+			color: var(--color-primary);
+		}
+
+		span {
+			white-space: pre-line;
+		}
+	}
+}
+
 .submit {
 	height: 45px;
 	width: 100%;
@@ -75,6 +141,61 @@
 	color: var(--color-white);
 
 	font-size: 15px;
+
+	cursor: pointer;
+}
+
+.modalTestCase {
+	width: 100%;
+	max-width: 400px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 15px;
+
+	margin: 20px 0;
+}
+
+.modalTestCase h2 {
+	font-size: 18px;
+	font-weight: 500;
+
+	margin: 10px 0;
+}
+
+.modalTestCase section {
+	width: 100%;
+
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.modalTestCase textarea {
+	width: 100%;
+	height: 100px;
+
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-ss);
+
+	font-size: 15px;
+
+	padding: 10px;
+}
+
+.modalTestCase button {
+	height: 45px;
+	width: 100%;
+
+	border: none;
+	border-radius: var(--radius-s);
+
+	background-color: var(--color-primary);
+	color: var(--color-white);
+
+	font-size: 14px;
+	font-weight: 500;
 
 	cursor: pointer;
 }

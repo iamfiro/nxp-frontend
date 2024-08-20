@@ -48,6 +48,12 @@
 	padding: 7px;
 
 	border-radius: var(--radius-m);
+
+	cursor: pointer;
+
+	&:hover {
+		opacity: 0.5;
+	}
 }
 
 .problem {
@@ -71,4 +77,12 @@
 	&[data-solved='true'] {
 		background-color: var(--color-gray-030);
 	}
+}
+
+.empty {
+	color: var(--color-gray-500);
+
+	font-size: 16px;
+
+	margin: 20px auto;
 }
