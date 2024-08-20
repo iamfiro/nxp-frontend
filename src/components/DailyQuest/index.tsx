@@ -6,6 +6,7 @@ import {CircularProgressbar} from "react-circular-progressbar";
 import {TierToTextColor} from "../../lib/color.ts";
 import {FaCheckCircle} from "react-icons/fa";
 import {TierToSummary} from "../../lib/string.ts";
+import {useNavigate} from "react-router-dom";
 
 const progressStyles = {
 	root: {
@@ -53,11 +54,16 @@ interface QuestProblemProps {
 	title: string;
 	ratio: number;
 	solved?: boolean;
+	id: number;
 }
 
-const QuestProblem = ({ tier, title, ratio, solved }: QuestProblemProps) => {
+const QuestProblem = ({ tier, title, ratio, solved, id }: QuestProblemProps) => {
+	const navigate = useNavigate();
+
 	return (
-		<Row style={{ opacity: solved ? 0.5: 1, justifyContent: 'space-between' }} className={style.problem}>
+		<Row style={{ opacity: solved ? 0.5: 1, justifyContent: 'space-between' }} className={style.problem} onClick={() => {
+			navigate(`/problem/${id}`);
+		}}>
 			<Column style={{ gap: '10px' }}>
 				<Row style={{ gap: '7px' }}>
 					<span className={style.level} style={{ color: TierToTextColor(tier)}}>{TierToSummary(tier)}</span>

@@ -48,6 +48,12 @@
 	padding: 7px;
 
 	border-radius: var(--radius-m);
+
+	cursor: pointer;
+
+	&:hover {
+		opacity: 0.5;
+	}
 }
 
 .problem {
