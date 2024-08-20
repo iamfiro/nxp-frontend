@@ -510,3 +510,23 @@
 
 	cursor: pointer;
 }
+
+.doesntWork {
+	width: 100%;
+
+	background-color: var(--color-gray-030);
+
+	margin-top: 30px;
+	padding: 13px 17px;
+
+	border-radius: var(--radius-ss);
+
+	color: var(--color-gray-400);
+
+	font-size: 14px;
+	font-weight: 500;
+
+	display: flex;
+	justify-content: flex-start;
+	gap: 7px;
+}

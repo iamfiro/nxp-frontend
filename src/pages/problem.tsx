@@ -14,6 +14,7 @@ import {request} from "../lib/axios.ts";
 import { MdOutlineRefresh } from "react-icons/md";
 import {elapsedTime} from "../lib/time.ts";
 import { FaQuestionCircle } from "react-icons/fa";
+import { FaCircleInfo } from "react-icons/fa6";
 
 import Lottie from 'react-lottie';
 import LottieCorrect from '../assets/json/lottie_correct.json';
@@ -90,7 +91,7 @@ const PageProblem = () => {
 	const { isUserLogin } = useIsLoggined();
 	const [isSubmitModalOpen, setIsSubmitModalOpen] = useState<boolean>(false);
 	const [isCorrectModalOpen, setIsCorrectModalOpen] = useState<boolean>(false);
-	const [isRateModalOpen, setIsRateModalOpen] = useState<boolean>(true);
+	const [isRateModalOpen, setIsRateModalOpen] = useState<boolean>(false);
 	// API
 	const [tier, setTier] = useState<string>('');
 	const [subject, setSubject] = useState<string>('');
@@ -108,7 +109,7 @@ const PageProblem = () => {
 
 	// Editor 관련 상태 변수
 	const [editorCode, setEditorCode] = useState<string>(
-		'function add(a, b) {'
+		'int main() {\n\tprintf("Hello, World!");\n\treturn 0;\n}'
 	);
 	const [editorLanguage, setEditorLanguage] = useState<string>(localStorage.getItem('recentLanguage') || 'c');
 
@@ -328,7 +329,10 @@ const PageProblem = () => {
 							onChange={(e) => setMemoContent(e.target.value)}
 						/>
 
-						<Row style={{justifyContent: 'space-between', alignItems: 'center', marginTop: '40px'}}>
+						<Row className={style.doesntWork}>
+							<FaCircleInfo /> 작동하지 않는 컴포넌트
+						</Row>
+						<Row style={{justifyContent: 'space-between', alignItems: 'center', marginTop: '10px'}}>
 							<span className={style.submitTitle}>제출 현황</span>
 							<button className={style.submitUpdate} onClick={() => handleUpdateSubmitStatus()}>
 								{
