@@ -2,10 +2,11 @@ interface ColumnProps {
     children: React.ReactNode;
     className?: string;
     style?: React.CSSProperties;
+	onClick?: () => void;
 }
 
-const Column = ({ children, className, style }: ColumnProps) => {
-    return <div className={className} style={
+const Column = ({ children, className, style, onClick }: ColumnProps) => {
+    return <div className={className} onClick={onClick} style={
         {
             display: 'flex',
             flexDirection: 'column',
