@@ -53,7 +53,7 @@ const CreateProblem = () => {
 	const [isTestCaseModalOpen, setIsTestCaseModalOpen] = useState(false);
 	const [testCaseInput, setTestCaseInput] = useState('');
 	const [testCaseOutput, setTestCaseOutput] = useState('');
-	const [testCase, setTestCase] = useState<{input: string, output: string}[]>([{input: '1', output: '1'}]);
+	const [testCase, setTestCase] = useState<{input: string, output: string}[]>([]);
 
 	const handleMarkdownChange = (value?: string) => {
 		if (value !== undefined) {
