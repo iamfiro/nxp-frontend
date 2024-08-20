@@ -24,6 +24,12 @@ interface Problem {
     ratio: number;
 }
 
+interface DailyQuestProblemAPI {
+	subject: string;
+	rankPoint: string;
+	solved: number;
+}
+
 const PageHome = () => {
     const [problems, setProblems] = useState<Problem[]>([]);
     const [totalProblems, setTotalProblems] = useState(0);
@@ -36,6 +42,9 @@ const PageHome = () => {
 
 	// 일일 퀘스트
 	const [dailyQuest, setDailyQuest] = useState([]);
+	const [dailyQuestProgress, setDailyQuestProgress] = useState(0);
+
+	const isLoggined = getIsLoggedIn();
 
     const debouncedSearchQuery = useDebounce(searchQuery, 1000);
 
@@ -79,11 +88,19 @@ const PageHome = () => {
 					const response = await request('/main/authed');
 					if(response.data.dailyQuest === null) return;
 					setDailyQuest(response.data.dailyQuest);
+
+					response.data.dailyQuest.forEach((quest: DailyQuestProblemAPI) => {
+						setDailyQuestProgress(prev => prev + quest.solved);
+					})
 				} catch (error) {
 					console.error('Error fetching daily quest data:', error);
 				}
 			}
 		}
+
+		request.get('/problem/search').then((res) => {
+			console.log(res.data);
+		});
 
 		fetchDailyQuest();
 	}, [])
@@ -117,13 +134,13 @@ const PageHome = () => {
                 </Column>
                 <Column style={{ gap: '15px' }} className={style.problemRight}>
 					<Streak />
-                    <DailyQuest progress={dailyQuest.length}>
+                    <DailyQuest progress={dailyQuestProgress} isLoggined={isLoggined}>
 						{
-							dailyQuest.map((quest: any) => (
+							dailyQuest.map((quest: DailyQuestProblemAPI) => (
 								<DailyQuest.Problem
-									level={quest.level}
-									title={quest.title}
-									ratio={quest.ratio}
+									tier={quest.rankPoint}
+									title={quest.subject}
+									ratio={0}
 									solved={quest.solved}
 								/>
 							))
