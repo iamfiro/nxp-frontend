@@ -92,7 +92,7 @@ const PageProblem = () => {
 	const [isRateModalOpen, setIsRateModalOpen] = useState<boolean>(false);
 	// API
 	const [tier, setTier] = useState<string>('');
-	const [subject, setSubject] = useState<string>('');
+	const [subject, setSubject] = useState<string>('두 수 정하기');
 	const [markdown, setMarkdown] = useState<string>('');
 	const [solvedCount, setSolvedCount] = useState<number>(0);
 	const [submitCount, setSubmitCount] = useState<number>(0);
@@ -169,11 +169,12 @@ const PageProblem = () => {
 	}, [isSubmitModalOpen, pathname]);
 
 	// 커스텀 메타 태그 설정
-    setMetaTag({
-        title: "두 수 정하기 - NXP",
-        description: "두 수를 입력받아 더하는 문제",
-    });
-
+	useEffect(() => {
+		setMetaTag({
+			title: subject,
+			description: "두 수를 입력받아 더하는 문제",
+		});
+	}, []);
 	// 문제 정보 불러오기
 	useEffect(() => {
 		request.get(`/problem/${pathname}`).then((response) => {
