@@ -316,7 +316,7 @@ const PageProblem = () => {
 						<ul className={style.problemSummaryContainer}>
 							<ProblemSummary title={'제출 수'} value={`${solvedCount}명`}/>
 							<ProblemSummary title={'정답 수'} value={`${submitCount}명`}/>
-							<ProblemSummary title={'실패 수'} value={'22,293명'}/>
+							<ProblemSummary title={'실패 수'} value={'3명'}/>
 						</ul>
 
 						<span className={style.memoTitle}>메모</span>
