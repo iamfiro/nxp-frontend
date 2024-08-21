@@ -400,6 +400,10 @@ const PageProblem = () => {
 												value: 'c'
 											},
 											{
+												label: 'py',
+												value: 'python'
+											},
+											{
 												label: 'C++',
 												value: 'cpp'
 											},
